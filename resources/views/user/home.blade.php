@@ -13,7 +13,7 @@
                         Sekolah Nusantara 1 Kota Tangerang
                     </p>
 
-                    <a href="#" class="btn btn-md btn-outline-primary">Lihat Cara
+                    <a href="#" class="btn btn-md btn-outline-primary" data-bs-target="#alur" data-bs-toggle="modal">Lihat Cara
                         Mendaftar</a>
                 </div>
             </div>
@@ -97,6 +97,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="alur">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-0" style="border:none; background: transparent">
+                <div class="modal-body p-0">
+                    <img src="/assets/img/poster/alur.jpg" class="img-fluid rounded" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="jurusan" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content p-0" style="border:none; background: transparent">
+                <div class="modal-body p-0">
+                    <img src="/assets/img/poster/jurusan.jpg" class="img-fluid rounded" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var popup = new bootstrap.Modal(document.getElementById('jurusan'), {
+                keyboard: true
+            });
+            popup.show();
+        })
+    </script>
 
 
 @endsection
