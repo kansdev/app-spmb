@@ -7,9 +7,10 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Without navbar - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>SPMB - SMK Nusantara 1 Kota Tangerang</title>
 
-    <meta name="description" content="" />
+    <meta name="description" content="Seleksi Penerimaan Murid Baru SMK Nusantara 1 Kota Tangerang" />
+    <meta name="keyword" content="spmb, smk nusantara 1 kota tangerang">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
@@ -245,6 +246,7 @@
             const printWindow = window.open(url, '_blank');
         }
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
