@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\DataSiswa;
 use App\Models\User;
+use App\Models\Registrasi;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -31,36 +32,59 @@ class AdminController extends Controller
         $data_user = User::get();
         $data_siswa = DataSiswa::with('user')->get();
 
-        $cek_user = User::with(['siswa', 'orang_tua', 'periodik', 'nilai_raport', 'upload'])
-        ->get()
-        ->map(function ($user) {
+        // $cek_user = User::whereHas('siswa')
+        // ->with(['siswa', 'orang_tua', 'periodik', 'nilai_raport', 'upload'])
+        // ->get()
+        // ->map(function ($user) {
+        //     return [
+        //         'id' => $user->id,
+        //         'nama' => optional($user->siswa)->nama_siswa ?? '-',
+        //         'email' => $user->email,
+        //         'phone' => $user->phone,
 
-            return [
-                'id' => $user->id,
-                'nama' => $user->siswa->nama_siswa,
-                'email' => $user->email,
-                'phone' => $user->phone,
+        //         // Status per formulir
+        //         'form_siswa' => $user->siswa ? true : false,
+        //         'form_orang_tua' => $user->orang_tua ? true : false,
+        //         'form_periodik' => $user->periodik ? true : false,
+        //         'nilai_raport' => $user->nilai_raport ? true : false,
+        //         'upload_berkas' => $user->upload ? true : false,
 
-                // Status per formulir
-                'form_siswa' => $user->siswa ? true : false,
-                'form_orang_tua' => $user->orang_tua ? true : false,
-                'form_periodik' => $user->periodik ? true : false,
-                'nilai_raport' => $user->nilai_raport ? true : false,
-                'upload_berkas' => $user->upload ? true : false,
+        //         // Status keseluruhan
+        //         'status_lengkap' =>
+        //             $user->siswa &&
+        //             $user->orang_tua &&
+        //             $user->periodik &&
+        //             $user->nilai_raport &&
+        //             $user->upload
+        //     ];
+        // });
 
-                // Status keseluruhan
-                'status_lengkap' =>
-                    $user->siswa &&
-                    $user->orang_tua &&
-                    $user->periodik &&
-                    $user->nilai_raport &&
-                    $user->upload
-            ];
-        });
+        $cek_user = User::whereHas('siswa')
+        ->with([
+            'siswa',
+            'orang_tua',
+            'periodik',
+            'nilai_raport',
+            'upload',
+            'registrasi'
+        ])
+        ->where(function ($q) {
+            $q->whereDoesntHave('siswa')
+              ->orWhereDoesntHave('orang_tua')
+              ->orWhereDoesntHave('periodik')
+              ->orWhereDoesntHave('nilai_raport')
+              ->orWhereDoesntHave('upload');
+        })
+        ->whereDoesntHave('registrasi') // ❌ belum final registrasi
+        ->get();
+
+        $pendaftar_teregistrasi = Registrasi::get();
+
+
         $admin = session()->only(['id', 'name', 'level']);
         // dd($cek_user);
 
-        return view('admin.dashboard', compact('admin', 'calon_pendaftar', 'teregistrasi', 'users', 'data_user', 'data_siswa', 'cek_user'));
+        return view('admin.dashboard', compact('admin', 'calon_pendaftar', 'teregistrasi', 'users', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'));
     }
 
     public function grafik(): View {
@@ -77,6 +101,17 @@ class AdminController extends Controller
         ->groupBy('kecamatan');
 
         return view('admin.grafik', compact('admin', 'statistik'));
+    }
+
+    public function pendaftar() {
+        // Skrip lama
+        $admin = session()->only(['id', 'name', 'level']);
+        // $calon_pendaftar = Registrasi::with('user.nilai_raport')->first();
+        $calon_pendaftar = Registrasi::with('user.nilai_raport')->get();
+        // $nilaiRaport = $calon_pendaftar->user->nilai_raport;
+        // dd($calon_pendaftar);
+        // dd($calon_pendaftar->user, $calon_pendaftar->user->nilai_raport);
+        return view('admin.pendaftar', compact('admin', 'calon_pendaftar'));
     }
 
 }

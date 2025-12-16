@@ -23,5 +23,9 @@ class Registrasi extends Model
         'jurusan_kedua'
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
 }

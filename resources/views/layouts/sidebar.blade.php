@@ -121,7 +121,7 @@
             </li>
 
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('admin.pendaftar') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-user"></i>
                     <div data-i18n="Account Settings">Calon Pendaftar</div>
                 </a>

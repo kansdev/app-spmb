@@ -32,6 +32,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard')
 Route::post('/admin/login', [AuthController::class, 'login_admin'])->name('admin_login');
 
 Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
+Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
 
 // Middleware untuk akun
 Route::middleware(['auth', 'preventBackHistory'])->group(function () {

@@ -183,6 +183,12 @@
     @livewireScripts
 
     <script>
+        new DataTable('#pendaftar', {
+            "pageLength" : 10
+        });
+    </script>
+
+    <script>
         window.Livewire.on('bukaKamera', () => {
             // console.log("Event bekerja");
 

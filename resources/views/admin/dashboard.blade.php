@@ -41,7 +41,7 @@
                     </div>
                     <p class="mb-1">Data Teregistrasi</p>
                     <h4 class="card-title mb-3">{{ $teregistrasi }}</h4>
-                    <a href="#"><small>Lihat Data</small></a>
+                    <a href="#" data-bs-target="#data_siswa_teregistrasi" data-bs-toggle="modal"><small>Lihat Data</small></a>
                 </div>
             </div>
         </div>
@@ -109,6 +109,47 @@
                                     <td><span class="badge bg-label-{{ $ds['form_periodik'] ? 'success' : 'warning' }} me-1">{{ $ds['form_periodik'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
                                     <td><span class="badge bg-label-{{ $ds['nilai_raport'] ? 'success' : 'warning' }} me-1">{{ $ds['nilai_raport'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
                                     <td><span class="badge bg-label-{{ $ds['upload_berkas'] ? 'success' : 'warning' }} me-1">{{ $ds['upload_berkas'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="data_siswa_teregistrasi" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Data Akun</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No Pendaftar</th>
+                                <th>Nama</th>
+                                <th>Asal Sekolah</th>
+                                <th>Jurusan 1</th>
+                                <th>Jurusan 2</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @foreach ($pendaftar_teregistrasi as $pt)
+                                <tr>
+                                    <td>{{ $pt->nomor_pendaftaran}}</td>
+                                    <td>{{ $pt->nama_siswa}}</td>
+                                    <td>{{ $pt->asal_sekolah}}</td>
+                                    <td>{{ $pt->jurusan_pertama}}</td>
+                                    <td>{{ $pt->jurusan_kedua}}</td>
+                                    @if ($pt->status == 'Belum Terverifikasi')
+                                        <td><span class="badge bg-label-danger">{{ $pt->status }}</span></td>
+                                    @elseif($cp->status == 'Terverifikasi')
+                                        <td><span class="badge bg-label-success">{{ $pt->status }}</span></td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

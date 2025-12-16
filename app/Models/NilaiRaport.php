@@ -21,4 +21,19 @@ class NilaiRaport extends Model
         'nilai_raport_semester_4',
         'nilai_raport_semester_5',
     ];
+
+    public function getRataRataAttribute() {
+        return round((
+            $this->nilai_raport_semester_1 +
+            $this->nilai_raport_semester_2 +
+            $this->nilai_raport_semester_3 +
+            $this->nilai_raport_semester_4 +
+            $this->nilai_raport_semester_5
+        ) / 5, 2);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
