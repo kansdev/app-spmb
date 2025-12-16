@@ -3,47 +3,64 @@
 @section('content')
 
     <div class="row">
-        @foreach ($statistik as $kecamatan => $items )
-            <div class="col-lg-4 col-md-12 col-4 mb-6">
-                <div class="card h-100">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">
-                            <h5 class="mb-2">Statistik Daerah</h5>
-                            <h4 class="card-subtitle fw-bold kecamatan-name" data-id="{{ $kecamatan }}">Kecamatan {{ $kecamatan }} </h4>
-                        </div>
+        @forelse ($statistik as $kecamatan => $items)
+        <div class="col-lg-4 col-md-12 col-4 mb-6">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="card-title">
+                        <h5 class="mb-2">Statistik Daerah</h5>
+                        <h4 class="card-subtitle fw-bold kecamatan-name" data-id="{{ $kecamatan }}">Kecamatan {{ $kecamatan }} </h4>
                     </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="d-flex flex-column gap-1">
-                                <h3 class="mb-1"> {{ $items->count() }} </h3>
-                                <small>Total Kelurahan</small>
-                            </div>
-                            <div id="orderStatisticsChart"></div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="d-flex flex-column gap-1">
+                            <h3 class="mb-1"> {{ $items->count() }} </h3>
+                            <small>Total Kelurahan</small>
                         </div>
-                        <ul class="p-0 m-0">
-                        @foreach ($items as $kel )
-                            <li class="d-flex align-items-center mb-5">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-primary">
-                                        <i class="icon-base bx bx-mobile-alt"></i>
-                                    </span>
+                        <div id="orderStatisticsChart"></div>
+                    </div>
+                    <ul class="p-0 m-0">
+                    @forelse ($items as $kel )
+                        <li class="d-flex align-items-center mb-5">
+                            <div class="avatar flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded bg-label-primary">
+                                    <i class="icon-base bx bx-mobile-alt"></i>
+                                </span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                <div class="me-2">
+                                    <h6 class="mb-0 kelurahan-name" data-id="{{ $kel->kelurahan }}">{{ $kel->kelurahan }}</h6>
+                                    <small>Total Pendaftar</small>
                                 </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0 kelurahan-name" data-id="{{ $kel->kelurahan }}">{{ $kel->kelurahan }}</h6>
-                                        <small>Total Pendaftar</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <h6 class="mb-0">{{ $kel->total }} Siswa</h6>
-                                    </div>
+                                <div class="user-progress">
+                                    <h6 class="mb-0">{{ $kel->total }} Siswa</h6>
                                 </div>
-                            </li>
-                        @endforeach
-                        </ul>
+                            </div>
+                        </li>
+                    @empty
+                        {{-- JIKA KELURAHAN KOSONG --}}
+                        <li class="text-center text-muted py-4">
+                            <i class="bx bx-info-circle fs-3 mb-2"></i>
+                            <div>Belum ada data kelurahan</div>
+                        </li>
+                    @endforelse
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @empty
+            {{-- JIKA STATISTIK KOSONG TOTAL --}}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <i class="bx bx-bar-chart-alt-2 fs-1 text-muted mb-3"></i>
+                        <h5 class="text-muted">Belum ada data statistik</h5>
+                        <p class="mb-0 text-muted">Data pendaftar belum tersedia.</p>
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforelse
     </div>
 
 
