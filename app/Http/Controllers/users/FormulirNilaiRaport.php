@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Models\NilaiRaport;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\NilaiRaport;
+use Illuminate\Validation\ValidationException;
 
 class FormulirNilaiRaport extends Controller
 {
@@ -23,12 +24,17 @@ class FormulirNilaiRaport extends Controller
                 'nilai_raport_semester_3' => 'required|numeric',
                 'nilai_raport_semester_4' => 'required|numeric',
                 'nilai_raport_semester_5' => 'required|numeric',
+            ], [
+                'required' => ':attribute wajib diisi',
+                'numeric' => ':attribute harus berupa angka'
             ]);
             NilaiRaport::create(array_merge($validated, [
                 'user_id' => Auth::id()
             ]));
 
             return redirect()->route('upload_berkas')->with('success', 'Nilai raport berhasil disimpan.');
+        } catch(ValidationException $e) {
+            throw $e;
         } catch (\Exception $e) {
             // return redirect()->back()->with('failed', 'Nilai raport Gagal disimpan, ' . $e->getMessage());
             return redirect()->back()->with('failed', 'Nilai raport Gagal disimpan ');

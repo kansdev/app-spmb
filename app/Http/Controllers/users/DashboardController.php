@@ -38,6 +38,10 @@ class DashboardController extends Controller
         try {
             $request->validate([
                 'phone' => 'required|numeric'
+            ],
+            [
+                'phone' => 'Nomor wajib di isi !!!',
+                'phone' => 'Nomor wajib angka !!!',
             ]);
 
             Auth::user()->update([
@@ -47,7 +51,7 @@ class DashboardController extends Controller
             return redirect()->route('home')->with('success', 'Nomor telepon berhasil di perbarui.');
         } catch (\Exception $e) {
             // return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon' . $e->getMessage());
-            return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon');
+            return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon, '. $e->getMessage());
         }
     }
 }

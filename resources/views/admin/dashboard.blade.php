@@ -102,13 +102,13 @@
                         <tbody class="table-border-bottom-0">
                             @foreach ($cek_user as $ds)
                                 <tr>
-                                    <td>{{ $ds['nama']}}</td>
+                                    <td>{{ optional($ds->siswa)->nama_siswa ?? '-'}}</td>
                                     <td>{{ $ds['phone']}}</td>
-                                    <td><span class="badge bg-label-{{ $ds['form_siswa'] ? 'success' : 'warning' }} me-1">{{ $ds['form_orang_tua'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
-                                    <td><span class="badge bg-label-{{ $ds['form_orang_tua'] ? 'success' : 'warning' }} me-1">{{ $ds['form_orang_tua'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
-                                    <td><span class="badge bg-label-{{ $ds['form_periodik'] ? 'success' : 'warning' }} me-1">{{ $ds['form_periodik'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
-                                    <td><span class="badge bg-label-{{ $ds['nilai_raport'] ? 'success' : 'warning' }} me-1">{{ $ds['nilai_raport'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
-                                    <td><span class="badge bg-label-{{ $ds['upload_berkas'] ? 'success' : 'warning' }} me-1">{{ $ds['upload_berkas'] ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                    <td><span class="badge bg-label-{{ $ds->siswa ? 'success' : 'warning' }} me-1">{{ $ds->siswa ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                    <td><span class="badge bg-label-{{ $ds->orang_tua ? 'success' : 'warning' }} me-1">{{ $ds->orang_tua ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                    <td><span class="badge bg-label-{{ $ds->periodik ? 'success' : 'warning' }} me-1">{{ $ds->periodik ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                    <td><span class="badge bg-label-{{ $ds->nilai_raport ? 'success' : 'warning' }} me-1">{{ $ds->nilai_raport ? 'Selesai' : 'Belum Selesai' }}</span></td>
+                                    <td><span class="badge bg-label-{{ $ds->upload_berkas ? 'success' : 'warning' }} me-1">{{ $ds->upload_berkas ? 'Selesai' : 'Belum Selesai' }}</span></td>
                                 </tr>
                             @endforeach
                         </tbody>

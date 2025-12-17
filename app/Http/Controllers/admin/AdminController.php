@@ -59,8 +59,7 @@ class AdminController extends Controller
         //     ];
         // });
 
-        $cek_user = User::whereHas('siswa')
-        ->with([
+        $cek_user = User::with([
             'siswa',
             'orang_tua',
             'periodik',

@@ -7,6 +7,7 @@ use App\Models\DataOrangTua;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class FormulirOrangTuaController extends Controller
 {
@@ -20,6 +21,7 @@ class FormulirOrangTuaController extends Controller
             $validated = $request->validate([
                 'nama_ayah' => 'required|string|max:255',
                 'status_ayah' => 'required|string|max:255',
+                'nomor_ktp_ayah' => 'required|digits:16',
                 'tahun_lahir_ayah' => 'required|integer|digits:4|min:1900|max:' . date("Y"),
                 'pendidikan_ayah' => 'required',
                 'pekerjaan_ayah' => 'required',
@@ -27,6 +29,7 @@ class FormulirOrangTuaController extends Controller
                 'disabilitas_ayah' => 'required',
                 'nama_ibu' => 'required|string|max:255',
                 'status_ibu' => 'required|string|max:255',
+                'nomor_ktp_ibu' => 'required|digits:16',
                 'tahun_lahir_ibu' => 'required|integer|digits:4|min:1900|max:' . date("Y"),
                 'pendidikan_ibu' => 'required',
                 'pekerjaan_ibu' => 'required',
@@ -38,12 +41,18 @@ class FormulirOrangTuaController extends Controller
                 'pekerjaan_wali'   => 'nullable|string',
                 'penghasilan_wali' => 'nullable|string',
                 'disabilitas_wali' => 'nullable|string',
+            ],
+            [
+                'required' => ':attribute wajib di isi',
+                'digits' => ':ttribute maksimal :digits digit'
             ]);
             DataOrangTua::create(array_merge($validated, [
                 'user_id' => Auth::id()
             ]));
 
             return redirect()->route('formulir_periodik')->with('success', 'Data Orang Tua berhasil disimpan.');
+        } catch(ValidationException $e) {
+            throw $e;
         } catch (\Exception $e) {
             return redirect()->back()->with('failed', 'Data orang tua gagal disimpan');
             // return redirect()->back()->with('failed', 'Data Gagal disimpan' . $e->getMessage());

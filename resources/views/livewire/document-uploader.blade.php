@@ -14,7 +14,7 @@
                         </a>
                     </div>
                 @else
-                    <input type="file" wire:model='fileInputs.{{ $key }}' class="form-control">
+                    <input type="file" wire:model='fileInputs.{{ $key }}' class="form-control @error("fileInputs.$key") is-invalid @enderror">
                     <div wire:loading wire:target="fileInputs.{{ $key }}">
                         <small class="text-muted">Mengunggah...</small>
                     </div>
@@ -22,8 +22,6 @@
                     @error("fileInputs.$key")
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
-
-                    {{-- <pre>{{ var_dump($documents) }}</pre> --}}
                 @endif
 
             </div>
@@ -46,12 +44,6 @@
             </div>
         </div>
     @endforeach
-
-    {{-- @if (session()->has('message'))
-        <div class="alert alert-success mt-2">
-            {{ session('message') }}
-        </div>
-    @endif --}}
 
     <div x-data="{ msg: null }"
         @success.window="msg = $event.detail.message">

@@ -49,8 +49,11 @@
                         @csrf
                         <div class="form-group mb-3">
                             <label for="phone" class="form-label">Nomor WA Aktif</label>
-                            <input type="number" class="form-control" name="phone" id="phone"
+                            <input type="number" class="form-control" name="phone" id="phone" value="{{ old('phone') }}"
                                 placeholder="Masukan nomor WA yang aktif" />
+                                @error('phone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-md w-100">Submit</button>
