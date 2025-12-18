@@ -32,33 +32,6 @@ class AdminController extends Controller
         $data_user = User::get();
         $data_siswa = DataSiswa::with('user')->get();
 
-        // $cek_user = User::whereHas('siswa')
-        // ->with(['siswa', 'orang_tua', 'periodik', 'nilai_raport', 'upload'])
-        // ->get()
-        // ->map(function ($user) {
-        //     return [
-        //         'id' => $user->id,
-        //         'nama' => optional($user->siswa)->nama_siswa ?? '-',
-        //         'email' => $user->email,
-        //         'phone' => $user->phone,
-
-        //         // Status per formulir
-        //         'form_siswa' => $user->siswa ? true : false,
-        //         'form_orang_tua' => $user->orang_tua ? true : false,
-        //         'form_periodik' => $user->periodik ? true : false,
-        //         'nilai_raport' => $user->nilai_raport ? true : false,
-        //         'upload_berkas' => $user->upload ? true : false,
-
-        //         // Status keseluruhan
-        //         'status_lengkap' =>
-        //             $user->siswa &&
-        //             $user->orang_tua &&
-        //             $user->periodik &&
-        //             $user->nilai_raport &&
-        //             $user->upload
-        //     ];
-        // });
-
         $cek_user = User::with([
             'siswa',
             'orang_tua',
@@ -67,6 +40,7 @@ class AdminController extends Controller
             'upload',
             'registrasi'
         ])
+        ->whereHas('siswa')
         ->where(function ($q) {
             $q->whereDoesntHave('siswa')
               ->orWhereDoesntHave('orang_tua')
