@@ -11,7 +11,9 @@ use Illuminate\Validation\ValidationException;
 class FormulirPeriodik extends Controller
 {
     public function index() {
-        return view('user.formulir_periodik', ['user' => Auth::user()]);
+        $user = Auth::user();
+        $data_periodik = DataPeriodik::where('user_id', $user->id)->first();
+        return view('user.formulir_periodik', compact('user', 'data_periodik'));
     }
 
     public function save_periodik(Request $request) {

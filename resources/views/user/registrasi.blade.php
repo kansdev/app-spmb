@@ -16,83 +16,137 @@
         </div>
     @endif
 
-    <div class="card mb-4">
-        <h5 class="card-header fs-2 fw-bold">Registrasi</h5>
+    @if ($data_registrasi)
+    <div class="card">
+        <div class="alert alert-info mt-4 ms-4 me-4">
+            Data registrasi sudah tersimpan dan tidak dapat diubah. Tombol request reset registrasi akan muncul jika hasil seleksi registrasi anda di tolak
+        </div>
+        <div class="d-flex justify-content-start ms-4">
+            <a href="#" class="btn btn-danger btn-md">
+                <i class="fas fa-repeat"></i> Request Reset Registrasi
+            </a>
+        </div>
+        <h5 class="card-header">Data Periodik</h5>
         <div class="card-body">
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-danger btn-md mb-3">
-                    <i class="fas fa-repeat"></i> Request Reset Registrasi
-                </button>
+            <table class="table table-striped">
+                <tr>
+                    <th>Nomor Registrasi</th>
+                    <td>{{ $data_registrasi->nomor_pendaftaran }}</td>
+                </tr>
+                <tr>
+                    <th>Nama Siswa</th>
+                    <td>{{ $data_registrasi->nama_siswa }}</td>
+                </tr>
+                <tr>
+                    <th>Tempat Lahir</th>
+                    <td>{{ $data_registrasi->tempat_lahir }} Km</td>
+                </tr>
+                <tr>
+                    <th>Tanggal Lahir</th>
+                    <td>{{ $data_registrasi->tanggal_lahir }}</td>
+                </tr>
+                <tr>
+                    <th>NISN</th>
+                    <td>{{ $data_registrasi->nisn }}</td>
+                </tr>
+                <tr>
+                    <th>NIK</th>
+                    <td>{{ $data_registrasi->nik }}</td>
+                </tr>
+                <tr>
+                    <th>Asal Sekolah</th>
+                    <td>{{ $data_registrasi->asal_sekolah }}</td>
+                </tr>
+                <tr>
+                    <th>Pilihan Jurusan Utama</th>
+                    <td>{{ $data_registrasi->jurusan_pertama }}</td>
+                </tr>
+                <tr>
+                    <th>Pilihan Jurusan Cadangan</th>
+                    <td>{{ $data_registrasi->jurusan_kedua }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @else
+        <div class="card mb-4">
+            <h5 class="card-header fs-2 fw-bold">Registrasi</h5>
+            <div class="card-body">
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-danger btn-md mb-3">
+                        <i class="fas fa-repeat"></i> Request Reset Registrasi
+                    </button>
+                </div>
+                <form action="{{ route('save_formulir_registrasi') }}" method="post">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label for="nomor-pendaftaran" class="form-label">No. Pendaftaran</label>
+                        <input type="number" class="form-control" name="nomor_pendaftaran" id="nomor-pendaftaran" value="<?= rand(111111, 999999)?>" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="nama-siswa" class="form-label">Nama Siswa</label>
+                        <input type="text" class="form-control" name="nama_siswa" id="nama-siswa" value="{{ $data_siswa->nama_siswa }}" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="tempat-lahir" class="form-label">Tempat Lahir</label>
+                        <input type="text" class="form-control" name="tempat_lahir" id="tempat-lahir" value="{{ $data_siswa->tempat_lahir }}" readonly/>
+                    </div>
+
+                    {{-- Tanggal Lahir --}}
+                    <div class="form-group mb-3">
+                        <label for="tanggal-lahir" class="form-label">Tanggal lahir</label>
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal-lahir" value="{{ $data_siswa->tanggal_lahir }}" readonly/>
+                    </div>
+
+                    {{-- NISN --}}
+                    <div class="form-group mb-3">
+                        <label for="nisn" class="form-label">NISN</label>
+                        <input type="text" class="form-control" name="nisn" id="nisn" value="{{ $data_siswa->nisn }}" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="nik" class="form-label">NIK</label>
+                        <input type="num" class="form-control" name="nik" id="nik" value="{{ $data_siswa->nik }}" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="asal-sekolah" class="form-label">Asal Sekolah</label>
+                        <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="pilihan-jurusan-pertama" class="form-label">Pilihan Jurusan Pertama</label>
+                        <select class="form-control" name="jurusan_pertama" id="pilih-jurusan-pertama">
+                            <option value="MP">Manajemen Perkantoran</option>
+                            <option value="AK">Akuntansi</option>
+                            <option value="AN">Animasi</option>
+                            <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
+                            <option value="DKV">Desain Komunikasi Visual</option>
+                            <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
+                            <option value="BP">Broadcasting dan Perfilman</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="pilihan-jurusan-kedua" class="form-label">Pilihan Jurusan Kedua</label>
+                        <select class="form-control" name="jurusan_kedua" id="pilih-jurusan-kedua">
+                            <option value="MP">Manajemen Perkantoran</option>
+                            <option value="AK">Akuntansi</option>
+                            <option value="AN">Animasi</option>
+                            <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
+                            <option value="DKV">Desain Komunikasi Visual</option>
+                            <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
+                            <option value="BP">Broadcasting dan Perfilman</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-md w-100">Daftar Sekarang</button>
+                </form>
+
             </div>
-            <form action="{{ route('save_formulir_registrasi') }}" method="post">
-                @csrf
-                <div class="form-group mb-3">
-                    <label for="nomor-pendaftaran" class="form-label">No. Pendaftaran</label>
-                    <input type="number" class="form-control" name="nomor_pendaftaran" id="nomor-pendaftaran" value="<?= rand(111111, 999999)?>" readonly/>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="nama-siswa" class="form-label">Nama Siswa</label>
-                    <input type="text" class="form-control" name="nama_siswa" id="nama-siswa" value="{{ $data_siswa->nama_siswa }}" readonly/>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="tempat-lahir" class="form-label">Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tempat_lahir" id="tempat-lahir" value="{{ $data_siswa->tempat_lahir }}" readonly/>
-                </div>
-
-                {{-- Tanggal Lahir --}}
-                <div class="form-group mb-3">
-                    <label for="tanggal-lahir" class="form-label">Tanggal lahir</label>
-                    <input type="date" class="form-control" name="tanggal_lahir" id="tanggal-lahir" value="{{ $data_siswa->tanggal_lahir }}" readonly/>
-                </div>
-
-                {{-- NISN --}}
-                <div class="form-group mb-3">
-                    <label for="nisn" class="form-label">NISN</label>
-                    <input type="text" class="form-control" name="nisn" id="nisn" value="{{ $data_siswa->nisn }}" readonly/>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="nik" class="form-label">NIK</label>
-                    <input type="num" class="form-control" name="nik" id="nik" value="{{ $data_siswa->nik }}" readonly/>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="asal-sekolah" class="form-label">Asal Sekolah</label>
-                    <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="pilihan-jurusan-pertama" class="form-label">Pilihan Jurusan Pertama</label>
-                    <select class="form-control" name="jurusan_pertama" id="pilih-jurusan-pertama">
-                        <option value="MP">Manajemen Perkantoran</option>
-                        <option value="AK">Akuntansi</option>
-                        <option value="AN">Animasi</option>
-                        <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
-                        <option value="DKV">Desain Komunikasi Visual</option>
-                        <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
-                        <option value="BP">Broadcasting dan Perfilman</option>
-                    </select>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="pilihan-jurusan-kedua" class="form-label">Pilihan Jurusan Kedua</label>
-                    <select class="form-control" name="jurusan_kedua" id="pilih-jurusan-kedua">
-                        <option value="MP">Manajemen Perkantoran</option>
-                        <option value="AK">Akuntansi</option>
-                        <option value="AN">Animasi</option>
-                        <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
-                        <option value="DKV">Desain Komunikasi Visual</option>
-                        <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
-                        <option value="BP">Broadcasting dan Perfilman</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-md w-100">Daftar Sekarang</button>
-            </form>
 
         </div>
-
-    </div>
+    @endif
 @endsection

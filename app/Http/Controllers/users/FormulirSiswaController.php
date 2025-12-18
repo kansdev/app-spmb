@@ -13,11 +13,18 @@ class FormulirSiswaController extends Controller
 {
     public function index()
     {
-        return view('user.formulir_siswa', ['user' => Auth::user()]);
+        $user = Auth::user();
+        $siswa = DataSiswa::where('user_id', $user->id)->first();
+        return view('user.formulir_siswa', compact('user', 'siswa'));
     }
 
     public function save_siswa(Request $request)
     {
+        // Cek data sudah ada
+        if (DataSiswa::where('user_id', Auth::id())->exist()) {
+            return redirect()->back()->with('failed', 'Data siswa sudah disimpan');
+        }
+
         try {
             $validated = $request->validate([
                 'nama_siswa' => 'required|string|max:255',

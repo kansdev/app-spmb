@@ -19,7 +19,7 @@
 
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">
                 <a href="{{ route('home') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-gauge"></i>
                     <div data-i18n="Analytics">Dashboard</div>
@@ -27,57 +27,65 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item">
+            @php
+                $formulirActive = request()->routeIs(
+                    'formulir_siswa',
+                    'formulir_orang_tua',
+                    'formulir_periodik',
+                    'formulir_nilai_raport'
+                );
+            @endphp
+            <li class="menu-item {{ $formulirActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons fa-solid fa-table-columns"></i>
                     <div data-i18n="Layouts">Formulir</div>
                 </a>
 
                 <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->routeIs('formulir_siswa') ? 'active' : '' }}">
                         <a href="{{ route('formulir_siswa') }}" class="menu-link">
                             <div data-i18n="Without menu">Data Siswa</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->routeIs('formulir_orang_tua') ? 'active' : '' }}">
                         <a href="{{ route('formulir_orang_tua') }}" class="menu-link">
                             <div data-i18n="Without navbar">Data Orang Tua</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->routeIs('formulir_periodik') ? 'active' : '' }}">
                         <a href="{{ route('formulir_periodik') }}" class="menu-link">
                             <div data-i18n="Without navbar">Data Periodik</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->routeIs('formulir_nilai_raport') ? 'active' : '' }}">
                         <a href="{{ route('formulir_nilai_raport') }}" class="menu-link">
                             <div data-i18n="Without navbar">Data Raport</div>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('upload_berkas') ? 'active' : '' }}">
                 <a href="{{ route('upload_berkas') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-upload"></i>
                     <div data-i18n="Account Settings">Upload Berkas</div>
                 </a>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('formulir_registrasi') ? 'active' : '' }}">
                 <a href="{{ route('formulir_registrasi') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-file"></i>
                     <div data-i18n="Account Settings">Registrasi</div>
                 </a>
             </li>
 
-            <li class="menu-item">
+            {{-- <li class="menu-item">
                 <a href="{{ route('id_card') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-id-card"></i>
                     <div data-i18n="Account Settings">ID Card</div>
                 </a>
-            </li>
+            </li> --}}
 
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('akun') ? 'active' : '' }}">
                 <a href="{{ route('akun') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-user"></i>
                     <div data-i18n="Analytics">Profile</div>

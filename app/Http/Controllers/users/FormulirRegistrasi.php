@@ -11,15 +11,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Ramsey\Collection\Set;
 
 class FormulirRegistrasi extends Controller
 {
     public function index() {
         $user = Auth::user();
         $data_siswa = DataSiswa::where('user_id', Auth::id())->first();
+        $data_registrasi = Registrasi::where('user_id', $user->id)->first();
 
-        return view('user.registrasi', compact('data_siswa', 'user'));
+        return view('user.registrasi', compact('data_siswa', 'user', 'data_registrasi'));
     }
 
     public function generate_nis() {
