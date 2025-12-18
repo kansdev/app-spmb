@@ -102,7 +102,7 @@
                         <tbody class="table-border-bottom-0">
                             @foreach ($cek_user as $ds)
                                 <tr>
-                                    <td>{{ optional($ds->siswa)->nama_siswa ?? '-'}}</td>
+                                    <td>{{ $ds->siswa->nama_siswa ?? '-'}}</td>
                                     <td>{{ $ds['phone']}}</td>
                                     <td><span class="badge bg-label-{{ $ds->siswa ? 'success' : 'warning' }} me-1">{{ $ds->siswa ? 'Selesai' : 'Belum Selesai' }}</span></td>
                                     <td><span class="badge bg-label-{{ $ds->orang_tua ? 'success' : 'warning' }} me-1">{{ $ds->orang_tua ? 'Selesai' : 'Belum Selesai' }}</span></td>
