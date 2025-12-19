@@ -113,22 +113,45 @@
 
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-gauge"></i>
                     <div data-i18n="Analytics">Dashboard</div>
                 </a>
             </li>
 
+            @php
+                $grafikActive = request()->routeIs(
+                    'admin.grafik'
+                );
+            @endphp
             <!-- Layouts -->
-            <li class="menu-item">
-                <a href="{{ route('admin.grafik') }}" class="menu-link">
+            <li class="menu-item {{ $grafikActive ? 'active' : '' }}">
+                <a href="#" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons fa-solid fa-chart-area"></i>
                     <div data-i18n="Account Settings">Grafik</div>
                 </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('admin.grafik') ? 'active' : '' }}">
+                        <a href="{{ route('admin.grafik') }}" class="menu-link">
+                            <div data-i18n="Without menu">Wilayah</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <div data-i18n="Without menu">Minat Jurusan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <div data-i18n="Without menu">Agama</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('admin.pendaftar') ? 'active' : '' }}">
                 <a href="{{ route('admin.pendaftar') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-user"></i>
                     <div data-i18n="Account Settings">Calon Pendaftar</div>

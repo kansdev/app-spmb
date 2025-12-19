@@ -20,7 +20,8 @@ class Registrasi extends Model
         'nik',
         'asal_sekolah',
         'jurusan_pertama',
-        'jurusan_kedua'
+        'jurusan_kedua',
+        'status'
     ];
 
     public function user() {

@@ -65,6 +65,14 @@
                     <th>Pilihan Jurusan Cadangan</th>
                     <td>{{ $data_registrasi->jurusan_kedua }}</td>
                 </tr>
+                <tr>
+                    <th>Status Registrasi</th>
+                    @if ($data_registrasi->status == 'Belum Terverifikasi')
+                        <td style="color: red">{{ $data_registrasi->status }}</td>
+                    @else
+                        <td style="color: green">{{ $data_registrasi->status }}</td>
+                    @endif
+                </tr>
             </table>
         </div>
     </div>
@@ -149,4 +157,33 @@
 
         </div>
     @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const jurusan1 = document.getElementById('pilih-jurusan-pertama');
+            const jurusan2 = document.getElementById('pilih-jurusan-kedua');
+
+            function updateJurusanKedua() {
+                const selected = jurusan1.value;
+
+                Array.from(jurusan2.options).forEach(option => {
+                    option.hidden = false;
+                    option.disabled = false;
+
+                    if (option.value === selected) {
+                        option.hidden = true;
+                        option.disabled = true;
+                    }
+                });
+
+                // kalau jurusan kedua sama dengan jurusan pertama → reset
+                if (jurusan2.value === selected) {
+                    jurusan2.value = '';
+                }
+            }
+
+            jurusan1.addEventListener('change', updateJurusanKedua);
+        });
+    </script>
+
 @endsection
+

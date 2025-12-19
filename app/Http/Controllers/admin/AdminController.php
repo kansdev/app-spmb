@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Registrasi;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -40,14 +41,14 @@ class AdminController extends Controller
             'upload',
             'registrasi'
         ])
-        ->whereHas('siswa')
-        ->where(function ($q) {
-            $q->whereDoesntHave('siswa')
-              ->orWhereDoesntHave('orang_tua')
-              ->orWhereDoesntHave('periodik')
-              ->orWhereDoesntHave('nilai_raport')
-              ->orWhereDoesntHave('upload');
-        })
+        // ->whereHas('siswa')
+        // ->where(function ($q) {
+        //     $q->whereDoesntHave('siswa')
+        //       ->orWhereDoesntHave('orang_tua')
+        //       ->orWhereDoesntHave('periodik')
+        //       ->orWhereDoesntHave('nilai_raport')
+        //       ->orWhereDoesntHave('upload');
+        // })
         ->whereDoesntHave('registrasi') // ❌ belum final registrasi
         ->get();
 

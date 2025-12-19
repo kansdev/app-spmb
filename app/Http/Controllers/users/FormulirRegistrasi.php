@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class FormulirRegistrasi extends Controller
 {
@@ -49,12 +50,15 @@ class FormulirRegistrasi extends Controller
                 'asal_sekolah' => 'required',
                 'jurusan_pertama' => 'required',
                 'jurusan_kedua' => 'required',
+            ], [
+                'required' => ':attribute wajib di isi'
             ]);
 
             // var_dump($validated);
             Registrasi::create(array_merge($validated, [
                 'user_id' => Auth::id(),
-                'nis' => $nis
+                'nis' => $nis,
+                'status' => "Belum Terverifikasi"
             ]));
 
             $user = Auth::user();
@@ -63,6 +67,8 @@ class FormulirRegistrasi extends Controller
             Mail::to($user->email)->send(new SendMail($user, $nomor_pendaftaran));
 
             return redirect()->route('home')->with('success', 'Anda Berhasil Registrasi, silahkan cek beranda terkait status pendaftaran dan lihat menu test untuk jadwal tes');
+        } catch(ValidationException $e) {
+            throw $e;
         } catch (\Exception $e) {
             return redirect()->route('formulir_registrasi')->with('failed', 'Gagal menyimpan data ke database'. $e->getMessage());
             // return redirect()->route('formulir_registrasi')->with('failed', 'Gagal menyimpan data ke database');
