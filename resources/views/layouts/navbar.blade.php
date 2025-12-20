@@ -51,11 +51,11 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                                @if (isset($user))
+                                @isset ($user)
                                     <h6 class="mb-0">{{ $user->name }}</h6>
                                     <small>{{ $user->name }}</small>
-                                    @elseif (isset($admin))
-                                    <h6 class="mb-0">{{ $admin['name'] }}</h6>
+                                @elseif (session()->has('name'))
+                                    <h6 class="mb-0">{{ session('name') }}</h6>
                                     <small>admin</small>
                                 @endif
                           </div>

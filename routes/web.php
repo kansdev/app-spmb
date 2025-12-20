@@ -21,18 +21,19 @@ Route::get('/', function () {
 });
 
 // Halaman Login
-Route::get('/login', [AuthController::class, 'login_page'])->name('login');
 
 // Redirect ke google
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
 // Route credentials admin
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/login', [AuthController::class, 'login_page'])->name('login');
 Route::post('/admin/login', [AuthController::class, 'login_admin'])->name('admin_login');
-
-Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
-Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
+Route::middleware(['cekAdmin'])->group(function() {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
+    Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
+});
 
 // Middleware untuk akun
 Route::middleware(['auth', 'preventBackHistory'])->group(function () {
