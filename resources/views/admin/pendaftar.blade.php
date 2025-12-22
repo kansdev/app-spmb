@@ -51,24 +51,26 @@
         </table>
     </div>
 
-    <div class="modal fade" id="verifikasi_{{ $cp->id }}">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Konfirmasi verifikasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    Yakin ingin memverfikasi pendaftar ini ?
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Batal</a>
-                    <a href="{{ route('admin.ditolak', $cp->id) }}" class="btn btn-danger btn-md">Tolak Verifikasi</a>
-                    <a href="{{ route('admin.verifikasi', $cp->id) }}" class="btn btn-primary btn-md">Verifikasi</a>
+    @foreach ($calon_pendaftar as $cp)
+        <div class="modal fade" id="verifikasi_{{ $cp->id }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Konfirmasi verifikasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Yakin ingin memverfikasi pendaftar ini ?
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Batal</a>
+                        <a href="{{ route('admin.ditolak', $cp->id) }}" class="btn btn-danger btn-md">Tolak Verifikasi</a>
+                        <a href="{{ route('admin.verifikasi', $cp->id) }}" class="btn btn-primary btn-md">Verifikasi</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 </div>
 
 @endsection
