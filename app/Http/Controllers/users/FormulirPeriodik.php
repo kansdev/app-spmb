@@ -22,7 +22,7 @@ class FormulirPeriodik extends Controller
                 'tinggi_badan' => 'required|numeric',
                 'berat_badan' => 'required|numeric',
                 'jarak_tempuh' => 'required|numeric',
-                'waktu_tempuh' => 'required|date_format:H:i',
+                'waktu_tempuh' => 'required',
                 'jumlah_saudara_kandung' => 'required|numeric'
             ], [
                 'numeric' => ':attribute harus berupa angka',
