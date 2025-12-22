@@ -83,7 +83,7 @@
                     <div class="form-group mb-3">
                         <label for="waktu-tempuh" class="form-label">Waktu Tempuh (dalam menit)</label>
                         <input type="number" class="form-control @error('waktu_tempuh') is-invalid @enderror" name="waktu_tempuh" id="waktu-tempuh"
-                            placeholder="Satuan dalam kilometer, contoh: 20" {{ old('waktu_tempuh') }}/>
+                            placeholder="Satuan dalam menit, contoh: 20" {{ old('waktu_tempuh') }}/>
                         @error('waktu_tempuh')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
