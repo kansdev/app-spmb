@@ -122,7 +122,7 @@
                             <option value="protestan">Protestan</option>
                             <option value="hindu">Hindu</option>
                             <option value="budha">Budha</option>
-                            <option value="khonghucu">KhongHUcu</option>
+                            <option value="khonghucu">KhongHucu</option>
                         </select>
                         @error('agama')
                             <div class="invalid-feedback">{{ $message }}</div>
