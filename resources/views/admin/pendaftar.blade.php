@@ -2,6 +2,16 @@
 
 @section('content')
 
+    @if (session('failed'))
+        <div class="alert alert-danger">
+            {{ session('failed') }}
+        </div>
+    @elseif(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
 <div class="card">
     <div class="card-header">
         <h5>Data Calon Pendaftar</h5>
@@ -29,7 +39,7 @@
                         <td>{{ $cp->jurusan_pertama }}</td>
                         <td>{{ $cp->jurusan_kedua }}</td>
                         @if ($cp->status == 'Belum Terverifikasi')
-                            <td><button type="button" class="btn btn-sm btn-danger">{{ $cp->status }}</button></td>
+                            <td><a type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#verifikasi_{{ $cp->id }}">{{ $cp->status }}</button></td>
                         @elseif($cp->status == 'Terverifikasi')
                             <td><span class="badge bg-label-success">{{ $cp->status }}</span></td>
                         @else
@@ -39,6 +49,25 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="modal fade" id="verifikasi_{{ $cp->id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi verifikasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Yakin ingin memverfikasi pendaftar ini ?
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Batal</a>
+                    <a href="{{ route('admin.ditolak', $cp->id) }}" class="btn btn-danger btn-md">Tolak Verifikasi</a>
+                    <a href="{{ route('admin.verifikasi', $cp->id) }}" class="btn btn-primary btn-md">Verifikasi</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

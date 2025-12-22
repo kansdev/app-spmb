@@ -111,6 +111,24 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Disabilitas --}}
+                    <div class="form-group mb-3">
+                        <label for="agama" class="form-label">Agama</label>
+                        <select class="form-control @error('agama') is-invalid @enderror" name="agama" id="agama">
+                            <option value="">--- Pilih ---</option>
+                            <option value="islam">Islam</option>
+                            <option value="katolik">Katolik</option>
+                            <option value="protestan">Protestan</option>
+                            <option value="hindu">Hindu</option>
+                            <option value="budha">Budha</option>
+                            <option value="khonghucu">KhongHUcu</option>
+                        </select>
+                        @error('agama')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     {{-- Tempat Lahir --}}
                     <div class="form-group mb-3">
                         <label for="tempat-lahir" class="form-label">Tempat Lahir</label>

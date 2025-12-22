@@ -21,7 +21,6 @@ Route::get('/', function () {
 });
 
 // Halaman Login
-
 // Redirect ke google
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
@@ -32,7 +31,10 @@ Route::post('/admin/login', [AuthController::class, 'login_admin'])->name('admin
 Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
+    Route::get('/admin/grafik_agama', [AdminController::class, 'grafik_agama'])->name('admin.grafik_agama');
     Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
+    Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
+    Route::get('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
 });
 
 // Middleware untuk akun

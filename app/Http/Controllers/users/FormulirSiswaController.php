@@ -32,6 +32,7 @@ class FormulirSiswaController extends Controller
                 'nisn' => 'required',
                 'no_kk' => 'required|numeric|digits:16',
                 'nik' => 'required|numeric|digits:16|unique:data_siswa,nik',
+                'agama' => 'required',
                 'tempat_lahir' => 'required|string|max:255',
                 'tanggal_lahir' => 'required|date',
                 'akta_lahir' => 'required|string',

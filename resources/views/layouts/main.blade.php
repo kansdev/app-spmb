@@ -185,7 +185,13 @@
 
     <script>
         new DataTable('#pendaftar', {
-            "pageLength" : 10
+            fixedHeader: {
+                header: true,
+            },
+            paging: false,
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
         });
     </script>
 

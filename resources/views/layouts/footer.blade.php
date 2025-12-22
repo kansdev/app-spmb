@@ -6,7 +6,7 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            Dibuat dengan ❤️ untuk masyarakat Kota Tangerang
+            Develope by <a href="https://kansdev.my.id" target="_blank">Kansdev</a>
         </div>
         <div>
 

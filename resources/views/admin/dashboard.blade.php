@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-4 col-md-12 col-4 mb-6">
+        <div class="col-sm-4 mb-3">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="card-title d-flex align-items-start justify-content-between mb-4">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-4 mb-6">
+        <div class="col-sm-4 mb-3">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="card-title d-flex align-items-start justify-content-between mb-4">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-4 mb-6">
+        <div class="col-sm-4 mb-3">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="card-title d-flex align-items-start justify-content-between mb-4">

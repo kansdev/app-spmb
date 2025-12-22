@@ -74,7 +74,47 @@ class AdminController extends Controller
         ->get()
         ->groupBy('kecamatan');
 
-        return view('admin.grafik', compact('admin', 'statistik'));
+        $agama = DataSiswa::select('agama')
+        ->get()
+        ->groupBy('agama')
+        ->map(function ($item){
+            return $item->count();
+        });
+
+        $registrasi = Registrasi::select('jurusan_pertama', 'jurusan_kedua')->get();
+
+        $jurusan_pertama = collect();
+        $jurusan_kedua = collect();
+        foreach ($registrasi as $r) {
+            if ($r->jurusan_pertama) {
+                $jurusan_pertama->push($r->jurusan_pertama);
+            }
+            if ($r->jurusan_kedua) {
+                $jurusan_kedua->push($r->jurusan_kedua);
+            }
+        }
+
+        $statistik_jurusan_pertama = $jurusan_pertama
+        ->groupBy(fn($item) => $item)
+        ->map(fn ($items) => $items->count())
+        ->sortDesc();
+
+        $statistik_jurusan_kedua = $jurusan_kedua
+        ->groupBy(fn($item) => $item)
+        ->map(fn ($items) => $items->count())
+        ->sortDesc();
+
+        $map_jurusan = [
+            'MP' => 'Manajemen Perkantoran',
+            'AK' => 'Akuntansi',
+            'AN' => 'Animasi',
+            'TJKT' => 'Teknik Jaringan Komputer dan Telekomunikasi',
+            'DKV' => 'Desain Komunikasi Visual',
+            'PPLG' => 'Pengembangan Perangkat Lunak dan Gim',
+            'BP' => 'Broadcasting dan Perfilman',
+        ];
+
+        return view('admin.grafik', compact('admin', 'statistik', 'statistik_jurusan_pertama', 'statistik_jurusan_kedua', 'agama', 'map_jurusan'));
     }
 
     public function pendaftar() {
@@ -82,10 +122,33 @@ class AdminController extends Controller
         $admin = session()->only(['id', 'name', 'level']);
         // $calon_pendaftar = Registrasi::with('user.nilai_raport')->first();
         $calon_pendaftar = Registrasi::with('user.nilai_raport')->get();
+        // $registrasi = Registrasi::get();
         // $nilaiRaport = $calon_pendaftar->user->nilai_raport;
         // dd($calon_pendaftar);
         // dd($calon_pendaftar->user, $calon_pendaftar->user->nilai_raport);
         return view('admin.pendaftar', compact('admin', 'calon_pendaftar'));
+    }
+
+    public function verifikasi($id) {
+        $registrasi = Registrasi::findOrFail($id);
+
+        $registrasi->update([
+            'status' => 'Terverifikasi'
+        ]);
+
+        return back()->with('success', 'Pendaftar berhasil diverifikasi');
+    }
+
+    public function tolak_verifikasi($id) {
+        $registrasi = Registrasi::findOrFail($id);
+
+        $registrasi->update([
+            'status' => 'Ditolak'
+        ]);
+
+        return back()->with('success', 'Pendaftar berhasil ditolak');
+
+
     }
 
 }

@@ -21,6 +21,7 @@ class DataSiswa extends Model
         'nisn',
         'no_kk',
         'nik',
+        'agama',
         'tempat_lahir',
         'tanggal_lahir',
         'akta_lahir',
