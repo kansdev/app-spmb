@@ -27,6 +27,7 @@
                         <th>Nilai Raport</th>
                         <th>Jurusan 1</th>
                         <th>Jurusan 2</th>
+                        <th>Berkas</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                             <td>{{ optional($cp->user->nilai_raport)->rata_rata}}</td>
                             <td>{{ $cp->jurusan_pertama }}</td>
                             <td>{{ $cp->jurusan_kedua }}</td>
+                            <td></td>
                             @if ($cp->status == 'Belum Terverifikasi')
                                 <td><a type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#verifikasi_{{ $cp->id }}">{{ $cp->status }}</button></td>
                             @elseif($cp->status == 'Terverifikasi')

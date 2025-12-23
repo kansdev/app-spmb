@@ -147,7 +147,7 @@
                                     <td>{{ $pt->jurusan_kedua}}</td>
                                     @if ($pt->status == 'Belum Terverifikasi')
                                         <td><span class="badge bg-label-danger">{{ $pt->status }}</span></td>
-                                    @elseif($cp->status == 'Terverifikasi')
+                                    @elseif($pt->status == 'Terverifikasi')
                                         <td><span class="badge bg-label-success">{{ $pt->status }}</span></td>
                                     @endif
                                 </tr>

@@ -5,9 +5,11 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SendMail extends Mailable
 {
@@ -15,13 +17,15 @@ class SendMail extends Mailable
 
     public $user;
     public $nomor_pendaftaran;
+    protected $registrasi;
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $nomor_pendaftaran)
+    public function __construct($user, $registrasi)
     {
         $this->user = $user;
-        $this->nomor_pendaftaran = $nomor_pendaftaran;
+        $this->registrasi = $registrasi;
+        $this->nomor_pendaftaran = $registrasi->nomor_pendaftaran;
     }
 
     /**
@@ -41,6 +45,10 @@ class SendMail extends Mailable
     {
         return new Content(
             view: 'emails.mail',
+            with: [
+                'user' => $this->user,
+                'registrasi' => $this->registrasi
+            ]
         );
     }
 
@@ -51,6 +59,15 @@ class SendMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $pdf = Pdf::loadView('pdf.pendaftaran', [
+            'registrasi' => $this->registrasi
+        ]);
+
+        return [
+            Attachment::fromData(
+                fn () => $pdf->output(),
+                'Bukti Pendaftaran_' . $this->nomor_pendaftaran . '.pdf'
+            )->withMime('application/pdf')
+        ];
     }
 }

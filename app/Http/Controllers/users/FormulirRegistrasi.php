@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 
 class FormulirRegistrasi extends Controller
 {
@@ -55,18 +56,26 @@ class FormulirRegistrasi extends Controller
             ]);
 
             // var_dump($validated);
-            Registrasi::create(array_merge($validated, [
+            $registrasi = Registrasi::create(array_merge($validated, [
                 'user_id' => Auth::id(),
                 'nis' => $nis,
                 'status' => "Belum Terverifikasi"
             ]));
 
-            $user = Auth::user();
-            $nomor_pendaftaran = $validated['nomor_pendaftaran'];
+            try {
+                $user = Auth::user();
+                // $nomor_pendaftaran = $validated['nomor_pendaftaran'];
+                Mail::to($user->email)->send(new SendMail($user, $registrasi));
+            } catch (\Throwable $th) {
+                //throw $th;
+                Log::error('Email registrasi gagal dikirim', [
+                    'user_id' => $user->id,
+                    'error' => $th->getMessage()
+                ]);
+                return redirect()->route('home')->with('warning', 'Anda Berhasil Registrasi, email notifikasi gagal dikirim');
 
-            Mail::to($user->email)->send(new SendMail($user, $nomor_pendaftaran));
-
-            return redirect()->route('home')->with('success', 'Anda Berhasil Registrasi, silahkan cek beranda terkait status pendaftaran dan lihat menu test untuk jadwal tes');
+            }
+            return redirect()->route('home')->with('success', 'Anda Berhasil Registrasi, silahkan cek email dan beranda terkait status pendaftaran dan lihat menu test untuk jadwal tes');
         } catch(ValidationException $e) {
             throw $e;
         } catch (\Exception $e) {

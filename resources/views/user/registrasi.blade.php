@@ -16,6 +16,12 @@
         </div>
     @endif
 
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
     @if ($data_registrasi)
     <div class="card">
         <div class="alert alert-info mt-4 ms-4 me-4">
