@@ -133,6 +133,7 @@
                     <div class="form-group mb-3">
                         <label for="pilihan-jurusan-pertama" class="form-label">Pilihan Jurusan Pertama</label>
                         <select class="form-control" name="jurusan_pertama" id="pilih-jurusan-pertama">
+                            <option value="">--- Pilih ---</option>
                             <option value="MP">Manajemen Perkantoran</option>
                             <option value="AK">Akuntansi</option>
                             <option value="AN">Animasi</option>
@@ -146,6 +147,7 @@
                     <div class="form-group mb-3">
                         <label for="pilihan-jurusan-kedua" class="form-label">Pilihan Jurusan Kedua</label>
                         <select class="form-control" name="jurusan_kedua" id="pilih-jurusan-kedua">
+                            <option value="">--- Pilih ---</option>
                             <option value="MP">Manajemen Perkantoran</option>
                             <option value="AK">Akuntansi</option>
                             <option value="AN">Animasi</option>
