@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Root direct to login page
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('landing.index');
 });
 
 // Halaman Login
