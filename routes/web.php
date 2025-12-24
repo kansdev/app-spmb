@@ -28,6 +28,7 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 // Route credentials admin
 Route::get('/login', [AuthController::class, 'login_page'])->name('login');
 Route::post('/admin/login', [AuthController::class, 'login_admin'])->name('admin_login');
+
 Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
