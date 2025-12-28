@@ -193,6 +193,63 @@
             scrollX: true,
             scrollY: 300
         });
+
+        new DataTable('#ak', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#mp', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#an', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#tjkt', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#dkv', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#pplg', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+        new DataTable('#bp', {
+            fixedHeader: {
+                header: true,
+            },
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
     </script>
 
     <script>

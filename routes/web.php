@@ -34,6 +34,7 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/grafik', [AdminController::class, 'grafik'])->name('admin.grafik');
     Route::get('/admin/grafik_agama', [AdminController::class, 'grafik_agama'])->name('admin.grafik_agama');
     Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
+    Route::get('/admin/data_pendaftar', [AdminController::class, 'data_pendaftar'])->name('admin.data_pendaftar');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
     Route::get('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
 });

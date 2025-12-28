@@ -21,7 +21,7 @@ class FormulirSiswaController extends Controller
     public function save_siswa(Request $request)
     {
         // Cek data sudah ada
-        if (DataSiswa::where('user_id', Auth::id())->exist()) {
+        if (DataSiswa::where('user_id', Auth::id())->exists()) {
             return redirect()->back()->with('failed', 'Data siswa sudah disimpan');
         }
 

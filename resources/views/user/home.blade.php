@@ -54,7 +54,7 @@
         $requiredFiles = ['foto', 'kk', 'ktp_ayah', 'ktp_ibu', 'akte_lahir'];
         $allUploaded = true;
 
-        $uploads = $user->upload->pluck('file_path', 'type');
+        $uploads = $user->upload_berkas->pluck('file_path', 'type');
 
         foreach ($requiredFiles as $file) {
             if (!isset($uploads[$file])) {

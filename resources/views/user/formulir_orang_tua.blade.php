@@ -200,7 +200,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="divider text-start">
-                                <div class="divider-text fs-5 fw-bold">ibu Kandung</div>
+                                <div class="divider-text fs-5 fw-bold">Ayah Kandung</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="nama-ayah" class="form-label">Nama Ayah</label>

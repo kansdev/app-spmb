@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('data_periodik', function (Blueprint $table) {
-            $table->integer('waktu_tempuh')->comment('dalam menit');
+            $table->integer('waktu_tempuh')->comment('dalam menit')->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('data_periodik', function (Blueprint $table) {
-            $table->dropColumn('waktu_tempuh');
+            $table->dropColumn('waktu_tempuh')->change();
         });
     }
 };

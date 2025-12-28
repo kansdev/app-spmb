@@ -12,11 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('nilai_raport', function (Blueprint $table) {
-            $table->decimal('nilai_raport_semester_1', 5, 2)->change();
-            $table->decimal('nilai_raport_semester_2', 5, 2)->change();
-            $table->decimal('nilai_raport_semester_3', 5, 2)->change();
-            $table->decimal('nilai_raport_semester_4', 5, 2)->change();
-            $table->decimal('nilai_raport_semester_5', 5, 2)->change();
+            $table->decimal('nilai_bahasa_indonesia_1', 5, 2)->change();
+            $table->decimal('nilai_bahasa_indonesia_2', 5, 2)->change();
+            $table->decimal('nilai_bahasa_indonesia_3', 5, 2)->change();
+            $table->decimal('nilai_bahasa_indonesia_4', 5, 2)->change();
+            $table->decimal('nilai_bahasa_indonesia_5', 5, 2)->change();
+            $table->decimal('nilai_matematika_1', 5, 2)->change();
+            $table->decimal('nilai_matematika_2', 5, 2)->change();
+            $table->decimal('nilai_matematika_3', 5, 2)->change();
+            $table->decimal('nilai_matematika_4', 5, 2)->change();
+            $table->decimal('nilai_matematika_5', 5, 2)->change();
+            $table->decimal('nilai_bahasa_inggris_1', 5, 2)->change();
+            $table->decimal('nilai_bahasa_inggris_2', 5, 2)->change();
+            $table->decimal('nilai_bahasa_inggris_3', 5, 2)->change();
+            $table->decimal('nilai_bahasa_inggris_4', 5, 2)->change();
+            $table->decimal('nilai_bahasa_inggris_5', 5, 2)->change();
         });
     }
 

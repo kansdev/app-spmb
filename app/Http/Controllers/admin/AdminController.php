@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DataSiswa;
 use App\Models\User;
 use App\Models\Registrasi;
+use App\Models\DocumentUpload;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Database\Eloquent\Builder;
@@ -41,20 +42,10 @@ class AdminController extends Controller
             'upload',
             'registrasi'
         ])
-        // ->whereHas('siswa')
-        // ->where(function ($q) {
-        //     $q->whereDoesntHave('siswa')
-        //       ->orWhereDoesntHave('orang_tua')
-        //       ->orWhereDoesntHave('periodik')
-        //       ->orWhereDoesntHave('nilai_raport')
-        //       ->orWhereDoesntHave('upload');
-        // })
-        ->whereDoesntHave('registrasi') // ❌ belum final registrasi
+        ->whereDoesntHave('registrasi')
         ->get();
 
         $pendaftar_teregistrasi = Registrasi::get();
-
-
         $admin = session()->only(['id', 'name', 'level']);
         // dd($cek_user);
 
@@ -121,12 +112,62 @@ class AdminController extends Controller
         // Skrip lama
         $admin = session()->only(['id', 'name', 'level']);
         // $calon_pendaftar = Registrasi::with('user.nilai_raport')->first();
-        $calon_pendaftar = Registrasi::with('user.nilai_raport')->get();
-        // $registrasi = Registrasi::get();
-        // $nilaiRaport = $calon_pendaftar->user->nilai_raport;
-        // dd($calon_pendaftar);
-        // dd($calon_pendaftar->user, $calon_pendaftar->user->nilai_raport);
-        return view('admin.pendaftar', compact('admin', 'calon_pendaftar'));
+        $calon_pendaftar = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        // Berdasarkan Jurusan
+        $pendaftar_ak = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'AK')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_mp = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'MP')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_an = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'AN')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_tjkt = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'TJKT')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_dkv = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'DKV')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_pplg = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'PPLG')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $pendaftar_bp = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Belum Terverifikasi')
+        ->where('jurusan_pertama', 'BP')
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $berkas = DocumentUpload::get();
+        $jurusan = Registrasi::select('jurusan_pertama')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('jurusan_pertama')
+        ->get();
+        return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'berkas', 'jurusan', 'pendaftar_ak', 'pendaftar_mp', 'pendaftar_an', 'pendaftar_tjkt', 'pendaftar_dkv', 'pendaftar_pplg', 'pendaftar_bp'));
+    }
+
+    public function data_pendaftar() {
+        $admin = session()->only(['id', 'name', 'level']);
+        $pendaftar = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Terverifikasi')
+        ->orderBy('created_at', 'desc')
+        ->get();        
+        $berkas = DocumentUpload::get();
+        return view('admin.data_pendaftar', compact('admin', 'pendaftar', 'berkas'));
     }
 
     public function verifikasi($id) {

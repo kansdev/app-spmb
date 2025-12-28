@@ -15,17 +15,28 @@ class FormulirNilaiRaport extends Controller
     {
         $user = Auth::user();
         $nilai_raport = NilaiRaport::where('user_id', $user->id)->first();
+
         return view('user.formulir_nilai_raport', compact('user', 'nilai_raport'));
     }
     public function save_nilai_raport(Request $request)
     {
         try {
             $validated = $request->validate([
-                'nilai_raport_semester_1' => 'required|numeric',
-                'nilai_raport_semester_2' => 'required|numeric',
-                'nilai_raport_semester_3' => 'required|numeric',
-                'nilai_raport_semester_4' => 'required|numeric',
-                'nilai_raport_semester_5' => 'required|numeric',
+                'nilai_bahasa_indonesia_1' => 'required|numeric',
+                'nilai_bahasa_indonesia_2' => 'required|numeric',
+                'nilai_bahasa_indonesia_3' => 'required|numeric',
+                'nilai_bahasa_indonesia_4' => 'required|numeric',
+                'nilai_bahasa_indonesia_5' => 'required|numeric',
+                'nilai_matematika_1' => 'required|numeric',
+                'nilai_matematika_2' => 'required|numeric',
+                'nilai_matematika_3' => 'required|numeric',
+                'nilai_matematika_4' => 'required|numeric',
+                'nilai_matematika_5' => 'required|numeric',
+                'nilai_bahasa_inggris_1' => 'required|numeric',
+                'nilai_bahasa_inggris_2' => 'required|numeric',
+                'nilai_bahasa_inggris_3' => 'required|numeric',
+                'nilai_bahasa_inggris_4' => 'required|numeric',
+                'nilai_bahasa_inggris_5' => 'required|numeric'
             ], [
                 'required' => ':attribute wajib diisi',
                 'numeric' => ':attribute harus berupa angka'

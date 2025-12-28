@@ -65,8 +65,12 @@ class User extends Authenticatable
         return $this->hasOne(NilaiRaport::class, 'user_id');
     }
 
-    public function upload() {
+    public function upload_berkas() {
         return $this->hasMany(DocumentUpload::class, 'user_id');
+    }
+
+    public function upload() {
+        return $this->hasOne(DocumentUpload::class, 'user_id');
     }
 
     public function registrasi() {

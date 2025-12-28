@@ -139,6 +139,13 @@
                     <div data-i18n="Account Settings">Calon Pendaftar</div>
                 </a>
             </li>
+
+            <li class="menu-item {{ request()->routeIs('admin.data_pendaftar') ? 'active' : '' }}">
+                <a href="{{ route('admin.data_pendaftar') }}" class="menu-link">
+                    <i class="menu-icon tf-icons fa-solid fa-user"></i>
+                    <div data-i18n="Account Settings">Data Pendaftar</div>
+                </a>
+            </li>
         </ul>
     </aside>
     <!-- / Menu -->
