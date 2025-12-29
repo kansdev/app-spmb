@@ -11,7 +11,7 @@
             {{ session('success') }}
         </div>
     @endif
-    
+
     <div class="card mb-4">
         <div class="card-header pt-2 pb-2">
             <h5>Jumlah Jurusan Yang Sudah Terdaftar</h5>
@@ -21,9 +21,9 @@
                 <tr>
                     @foreach ($jurusan as $j)
                         @if ($j->total > 36)
-                            <th style="color: red">{{ $j->jurusan_pertama }} : {{ $j->total }}</th>   
+                            <th style="color: red">{{ $j->jurusan_pertama }} : {{ $j->total }}</th>
                         @else
-                            <th>{{ $j->jurusan_pertama }} : {{ $j->total }}</th>   
+                            <th>{{ $j->jurusan_pertama }} : {{ $j->total }}</th>
                         @endif
                     @endforeach
                 </tr>
@@ -78,7 +78,7 @@
                                                     <td><span class="badge bg-label-warning">{{ $cp->status }}</span></td>
                                                 @elseif($cp->status == 'Terverifikasi')
                                                     <td><span class="badge bg-label-success">{{ $cp->status }}</span></td>
-                                                @else
+                                                @elseif($cp->status == 'Ditolak')
                                                     <td><span class="badge bg-label-danger">{{ $cp->status }}</span></td>
                                                 @endif
                                             </tr>
@@ -403,9 +403,9 @@
                 </div>
             </div>
 
-            
-        </div>        
-        
+
+        </div>
+
     </div>
 
         @foreach ($calon_pendaftar as $cp)
@@ -450,18 +450,18 @@
                                                 </a>
                                             </div>
                                         </td>
-                                    </tr>              
+                                    </tr>
                                 @endforeach
                             </table>
-                        </div>  
+                        </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Batal</a>
                             <a href="{{ route('admin.ditolak', $cp->id) }}" class="btn btn-danger btn-md">Tolak Verifikasi</a>
                             <a href="{{ route('admin.verifikasi', $cp->id) }}" class="btn btn-primary btn-md">Verifikasi</a>
-                        </div>              
+                        </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         @endforeach
 
 @endsection

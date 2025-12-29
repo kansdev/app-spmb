@@ -87,6 +87,7 @@
         <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="#info">Info SPMB</a></li>
         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item"><a class="btn btn-light ms-lg-3" href="{{ route('login') }}">Login/Daftar</a></li>
       </ul>
     </div>
   </div>
@@ -99,7 +100,7 @@
     <h1 class="display-5 mb-3">SMK Nusantara 1 Kota Tangerang</h1>
     <p class="lead">Tahun Akademik 2026 / 2027</p>
     <p class="lead">Jalan Cisadane VII - VIII Perumnas 1, Jl. Cisadane V, RT.003/RW.002, Nusa Jaya, Kec. Karawaci, Kota Tangerang, Banten 15116</p>
-    <a href="#" class="btn btn-primary btn-lg shadow fw-bold text-white">
+    <a href="{{ route('login') }}" class="btn btn-primary btn-lg shadow fw-bold text-white">
       DAFTAR SEKARANG
     </a>
   </div>
