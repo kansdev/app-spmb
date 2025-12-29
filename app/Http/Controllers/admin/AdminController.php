@@ -117,47 +117,67 @@ class AdminController extends Controller
         ->orderBy('created_at', 'asc')
         ->get();
         // Berdasarkan Jurusan
-        $pendaftar_ak = Registrasi::with('user.nilai_raport')
+        $pendaftar_ak = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'AK')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_mp = Registrasi::with('user.nilai_raport')
+        $pendaftar_mp = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'MP')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_an = Registrasi::with('user.nilai_raport')
+        $pendaftar_an = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'AN')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_tjkt = Registrasi::with('user.nilai_raport')
+        $pendaftar_tjkt = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'TJKT')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_dkv = Registrasi::with('user.nilai_raport')
+        $pendaftar_dkv = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'DKV')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_pplg = Registrasi::with('user.nilai_raport')
+        $pendaftar_pplg = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'PPLG')
         ->orderBy('created_at', 'asc')
         ->get();
-        $pendaftar_bp = Registrasi::with('user.nilai_raport')
+        $pendaftar_bp = Registrasi::with([
+            'user.nilai_raport',
+            'user.upload_berkas'
+        ])
         ->where('status', 'Belum Terverifikasi')
         ->where('jurusan_pertama', 'BP')
         ->orderBy('created_at', 'asc')
         ->get();
-        $berkas = DocumentUpload::get();
         $jurusan = Registrasi::select('jurusan_pertama')
         ->selectRaw('COUNT(*) as total')
         ->groupBy('jurusan_pertama')
         ->get();
-        return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'berkas', 'jurusan', 'pendaftar_ak', 'pendaftar_mp', 'pendaftar_an', 'pendaftar_tjkt', 'pendaftar_dkv', 'pendaftar_pplg', 'pendaftar_bp'));
+        return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'jurusan', 'pendaftar_ak', 'pendaftar_mp', 'pendaftar_an', 'pendaftar_tjkt', 'pendaftar_dkv', 'pendaftar_pplg', 'pendaftar_bp'));
     }
 
     public function data_pendaftar() {
@@ -165,7 +185,7 @@ class AdminController extends Controller
         $pendaftar = Registrasi::with('user.nilai_raport')
         ->where('status', 'Terverifikasi')
         ->orderBy('created_at', 'desc')
-        ->get();        
+        ->get();
         $berkas = DocumentUpload::get();
         return view('admin.data_pendaftar', compact('admin', 'pendaftar', 'berkas'));
     }

@@ -165,7 +165,7 @@
                                       </tr>
                                   </thead>
                                   <tbody class="table-border-bottom-0">
-                                      @foreach ($calon_pendaftar as $cp)
+                                      @foreach ($pendaftar_an as $cp)
                                           <tr>
                                               <td>{{ $cp->nomor_pendaftaran}}</td>
                                               <td>{{ $cp->nama_siswa }}</td>
@@ -408,7 +408,7 @@
 
     </div>
 
-        @foreach ($calon_pendaftar as $cp)
+        {{-- @foreach ($calon_pendaftar as $cp)
             <div class="modal fade" id="verifikasi_{{ $cp->id }}">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -427,38 +427,346 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
 
-        @foreach ($calon_pendaftar as $cp)
+        @foreach ($pendaftar_ak as $cp)
             <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
+
                         <div class="modal-header">
-                            <h5 class="modal-title">Berkas</h5>
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
+
                         <div class="modal-body">
                             <table class="table table-striped">
-                                @foreach ($berkas as $b)
+                                @forelse ($cp->user->upload_berkas as $b)
                                     <tr>
                                         <th>{{ str_replace('_', ' ', $b->type) }}</th>
                                         <td>
-                                            <div class="d-grid gap-2">
-                                                <a href="{{ asset('storage/' . $b->file_path) }}" target="_blank"
-                                                class="btn btn-outline-primary btn-sm btn-block mt-1">
-                                                    Lihat
-                                                </a>
-                                            </div>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </table>
                         </div>
+
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Batal</a>
-                            <a href="{{ route('admin.ditolak', $cp->id) }}" class="btn btn-danger btn-md">Tolak Verifikasi</a>
-                            <a href="{{ route('admin.verifikasi', $cp->id) }}" class="btn btn-primary btn-md">Verifikasi</a>
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_mp as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_an as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_tjkt as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_dkv as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_pplg as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($pendaftar_bp as $cp)
+            <div class="modal fade" id="berkasModal_{{ $cp->user_id }}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Berkas Pendaftar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                @forelse ($cp->user->upload_berkas as $b)
+                                    <tr>
+                                        <th>{{ str_replace('_', ' ', $b->type) }}</th>
+                                        <td>
+                                            <a href="{{ asset('storage/'.$b->file_path) }}"
+                                            target="_blank"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Lihat
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="text-center text-danger">
+                                            Belum ada berkas
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{{ route('admin.ditolak', $cp->id) }}"
+                            class="btn btn-danger">
+                            Tolak Verifikasi
+                            </a>
+                            <a href="{{ route('admin.verifikasi', $cp->id) }}"
+                            class="btn btn-primary">
+                            Verifikasi
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
