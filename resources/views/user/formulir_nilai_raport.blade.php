@@ -315,186 +315,189 @@
 
     @endif
 
-    <div class="modal fade" id="editNilaiRaport{{ $nilai_raport->id }}">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Nilai Raport</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('edit_nilai_raport', $nilai_raport->id) }}" method="post">
-                        @csrf
-                        @method('put')
-                        {{-- Nilai Semester 1 --}}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="divider text-start">
-                                    <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 1</div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-indonesia-1" class="form-label">Nilai Bahasa Indonesia</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_indonesia_1') is-invalid @enderror" name="nilai_bahasa_indonesia_1" id="nilai-bahasa_indonesia-1"
-                                        placeholder="Isikan Nilai bahasa indonesia semester 1" value="{{ $nilai_raport->nilai_bahasa_indonesia_1 }}" />
-                                    @error('nilai_bahasa_indonesia_1')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-matematika-1" class="form-label">Nilai Matematika</label>
-                                    <input type="text" class="form-control @error('nilai_matematika_1') is-invalid @enderror" name="nilai_matematika_1" id="nilai-matematika-1"
-                                        placeholder="Isikan Nilai matematika semester 1" value="{{ $nilai_raport->nilai_matematika_1 }}"/>
-                                    @error('nilai_matematika_1')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-inggris-1" class="form-label">Nilai Bahasa Inggris</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_inggris_1') is-invalid @enderror" name="nilai_bahasa_inggris_1" id="nilai-bahasa_inggris-1"
-                                        placeholder="Isikan Nilai bahasa inggris semester 1" value="{{ $nilai_raport->nilai_bahasa_inggris_1 }}" />
-                                    @error('nilai_bahasa_inggris_1')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Nilai Semester 2 --}}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="divider text-start">
-                                    <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 2</div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-indonesia-2" class="form-label">Nilai Bahasa Indonesia</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_indonesia_2') is-invalid @enderror" name="nilai_bahasa_indonesia_2" id="nilai-bahasa_indonesia-2"
-                                        placeholder="Isikan Nilai bahasa indonesia semester 2" value="{{ $nilai_raport->nilai_bahasa_indonesia_2 }}" />
-                                    @error('nilai_bahasa_indonesia_2')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-matematika-2" class="form-label">Nilai Matematika</label>
-                                    <input type="text" class="form-control @error('nilai_matematika_2') is-invalid @enderror" name="nilai_matematika_2" id="nilai-matematika-2"
-                                        placeholder="Isikan Nilai matematika semester 2" value="{{ $nilai_raport->nilai_matematika_2 }}"/>
-                                    @error('nilai_matematika_2')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-inggris-2" class="form-label">Nilai Bahasa Inggris</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_inggris_2') is-invalid @enderror" name="nilai_bahasa_inggris_2" id="nilai-bahasa_inggris-2"
-                                        placeholder="Isikan Nilai bahasa inggris semester 2" value="{{ $nilai_raport->nilai_bahasa_inggris_2 }}" />
-                                    @error('nilai_bahasa_inggris_2')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+    @if ($nilai_raport)
+        <div class="modal fade" id="editNilaiRaport{{ $nilai_raport->id }}">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Nilai Raport</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('edit_nilai_raport', $nilai_raport->id) }}" method="post">
+                            @csrf
+                            @method('put')
+                            {{-- Nilai Semester 1 --}}
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="divider text-start">
+                                        <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 1</div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-indonesia-1" class="form-label">Nilai Bahasa Indonesia</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_indonesia_1') is-invalid @enderror" name="nilai_bahasa_indonesia_1" id="nilai-bahasa_indonesia-1"
+                                            placeholder="Isikan Nilai bahasa indonesia semester 1" value="{{ $nilai_raport->nilai_bahasa_indonesia_1 }}" />
+                                        @error('nilai_bahasa_indonesia_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-matematika-1" class="form-label">Nilai Matematika</label>
+                                        <input type="text" class="form-control @error('nilai_matematika_1') is-invalid @enderror" name="nilai_matematika_1" id="nilai-matematika-1"
+                                            placeholder="Isikan Nilai matematika semester 1" value="{{ $nilai_raport->nilai_matematika_1 }}"/>
+                                        @error('nilai_matematika_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-inggris-1" class="form-label">Nilai Bahasa Inggris</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_inggris_1') is-invalid @enderror" name="nilai_bahasa_inggris_1" id="nilai-bahasa_inggris-1"
+                                            placeholder="Isikan Nilai bahasa inggris semester 1" value="{{ $nilai_raport->nilai_bahasa_inggris_1 }}" />
+                                        @error('nilai_bahasa_inggris_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {{-- Nilai Semester 3 --}}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="divider text-start">
-                                    <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 3</div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-indonesia-3" class="form-label">Nilai Bahasa Indonesia</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_indonesia_3') is-invalid @enderror" name="nilai_bahasa_indonesia_3" id="nilai-bahasa_indonesia-3"
-                                        placeholder="Isikan Nilai bahasa indonesia semester 3" value="{{ $nilai_raport->nilai_bahasa_indonesia_3 }}" />
-                                    @error('nilai_bahasa_indonesia_3')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-matematika-3" class="form-label">Nilai Matematika</label>
-                                    <input type="text" class="form-control @error('nilai_matematika_3') is-invalid @enderror" name="nilai_matematika_3" id="nilai-matematika-3"
-                                        placeholder="Isikan Nilai matematika semester 3" value="{{ $nilai_raport->nilai_matematika_3 }}"/>
-                                    @error('nilai_matematika_3')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-inggris-3" class="form-label">Nilai Bahasa Inggris</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_inggris_3') is-invalid @enderror" name="nilai_bahasa_inggris_3" id="nilai-bahasa_inggris-3"
-                                        placeholder="Isikan Nilai bahasa inggris semester 3" value="{{ $nilai_raport->nilai_bahasa_inggris_3 }}" />
-                                    @error('nilai_bahasa_inggris_1')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                            {{-- Nilai Semester 2 --}}
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="divider text-start">
+                                        <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 2</div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-indonesia-2" class="form-label">Nilai Bahasa Indonesia</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_indonesia_2') is-invalid @enderror" name="nilai_bahasa_indonesia_2" id="nilai-bahasa_indonesia-2"
+                                            placeholder="Isikan Nilai bahasa indonesia semester 2" value="{{ $nilai_raport->nilai_bahasa_indonesia_2 }}" />
+                                        @error('nilai_bahasa_indonesia_2')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-matematika-2" class="form-label">Nilai Matematika</label>
+                                        <input type="text" class="form-control @error('nilai_matematika_2') is-invalid @enderror" name="nilai_matematika_2" id="nilai-matematika-2"
+                                            placeholder="Isikan Nilai matematika semester 2" value="{{ $nilai_raport->nilai_matematika_2 }}"/>
+                                        @error('nilai_matematika_2')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-inggris-2" class="form-label">Nilai Bahasa Inggris</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_inggris_2') is-invalid @enderror" name="nilai_bahasa_inggris_2" id="nilai-bahasa_inggris-2"
+                                            placeholder="Isikan Nilai bahasa inggris semester 2" value="{{ $nilai_raport->nilai_bahasa_inggris_2 }}" />
+                                        @error('nilai_bahasa_inggris_2')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {{-- Nilai Semester 4 --}}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="divider text-start">
-                                    <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 4</div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-indonesia-4" class="form-label">Nilai Bahasa Indonesia</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_indonesia_4') is-invalid @enderror" name="nilai_bahasa_indonesia_4" id="nilai-bahasa_indonesia-4"
-                                        placeholder="Isikan Nilai bahasa indonesia semester 4" value="{{ $nilai_raport->nilai_bahasa_indonesia_4 }}" />
-                                    @error('nilai_bahasa_indonesia_4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-matematika-4" class="form-label">Nilai Matematika</label>
-                                    <input type="text" class="form-control @error('nilai_matematika_4') is-invalid @enderror" name="nilai_matematika_4" id="nilai-matematika-4"
-                                        placeholder="Isikan Nilai matematika semester 4" value="{{ $nilai_raport->nilai_matematika_4 }}"/>
-                                    @error('nilai_matematika_4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-inggris-4" class="form-label">Nilai Bahasa Inggris</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_inggris_4') is-invalid @enderror" name="nilai_bahasa_inggris_4" id="nilai-bahasa_inggris-4"
-                                        placeholder="Isikan Nilai bahasa inggris semester 4" value="{{ $nilai_raport->nilai_bahasa_inggris_4 }}" />
-                                    @error('nilai_bahasa_inggris_4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                            {{-- Nilai Semester 3 --}}
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="divider text-start">
+                                        <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 3</div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-indonesia-3" class="form-label">Nilai Bahasa Indonesia</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_indonesia_3') is-invalid @enderror" name="nilai_bahasa_indonesia_3" id="nilai-bahasa_indonesia-3"
+                                            placeholder="Isikan Nilai bahasa indonesia semester 3" value="{{ $nilai_raport->nilai_bahasa_indonesia_3 }}" />
+                                        @error('nilai_bahasa_indonesia_3')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-matematika-3" class="form-label">Nilai Matematika</label>
+                                        <input type="text" class="form-control @error('nilai_matematika_3') is-invalid @enderror" name="nilai_matematika_3" id="nilai-matematika-3"
+                                            placeholder="Isikan Nilai matematika semester 3" value="{{ $nilai_raport->nilai_matematika_3 }}"/>
+                                        @error('nilai_matematika_3')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-inggris-3" class="form-label">Nilai Bahasa Inggris</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_inggris_3') is-invalid @enderror" name="nilai_bahasa_inggris_3" id="nilai-bahasa_inggris-3"
+                                            placeholder="Isikan Nilai bahasa inggris semester 3" value="{{ $nilai_raport->nilai_bahasa_inggris_3 }}" />
+                                        @error('nilai_bahasa_inggris_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {{-- Nilai Semester 5 --}}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="divider text-start">
-                                    <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 5</div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-indonesia-5" class="form-label">Nilai Bahasa Indonesia</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_indonesia_5') is-invalid @enderror" name="nilai_bahasa_indonesia_5" id="nilai-bahasa_indonesia-5"
-                                        placeholder="Isikan Nilai bahasa indonesia semester 5" value="{{ $nilai_raport->nilai_bahasa_indonesia_5 }}" />
-                                    @error('nilai_bahasa_indonesia_5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-matematika-5" class="form-label">Nilai Matematika</label>
-                                    <input type="text" class="form-control @error('nilai_matematika_5') is-invalid @enderror" name="nilai_matematika_5" id="nilai-matematika-5"
-                                        placeholder="Isikan Nilai matematika semester 5" value="{{ $nilai_raport->nilai_matematika_5 }}"/>
-                                    @error('nilai_matematika_5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="nilai-bahasa-inggris-5" class="form-label">Nilai Bahasa Inggris</label>
-                                    <input type="text" class="form-control @error('nilai_bahasa_inggris_5') is-invalid @enderror" name="nilai_bahasa_inggris_5" id="nilai-bahasa_inggris-5"
-                                        placeholder="Isikan Nilai bahasa inggris semester 5" value="{{ $nilai_raport->nilai_bahasa_inggris_5 }}" />
-                                    @error('nilai_bahasa_inggris_5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                            {{-- Nilai Semester 4 --}}
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="divider text-start">
+                                        <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 4</div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-indonesia-4" class="form-label">Nilai Bahasa Indonesia</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_indonesia_4') is-invalid @enderror" name="nilai_bahasa_indonesia_4" id="nilai-bahasa_indonesia-4"
+                                            placeholder="Isikan Nilai bahasa indonesia semester 4" value="{{ $nilai_raport->nilai_bahasa_indonesia_4 }}" />
+                                        @error('nilai_bahasa_indonesia_4')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-matematika-4" class="form-label">Nilai Matematika</label>
+                                        <input type="text" class="form-control @error('nilai_matematika_4') is-invalid @enderror" name="nilai_matematika_4" id="nilai-matematika-4"
+                                            placeholder="Isikan Nilai matematika semester 4" value="{{ $nilai_raport->nilai_matematika_4 }}"/>
+                                        @error('nilai_matematika_4')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-inggris-4" class="form-label">Nilai Bahasa Inggris</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_inggris_4') is-invalid @enderror" name="nilai_bahasa_inggris_4" id="nilai-bahasa_inggris-4"
+                                            placeholder="Isikan Nilai bahasa inggris semester 4" value="{{ $nilai_raport->nilai_bahasa_inggris_4 }}" />
+                                        @error('nilai_bahasa_inggris_4')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-primary btn-md w-100">Submit</button>
-                    </form>
+                            {{-- Nilai Semester 5 --}}
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="divider text-start">
+                                        <div class="divider-text fs-5 fw-bold">Nilai Raport Semester 5</div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-indonesia-5" class="form-label">Nilai Bahasa Indonesia</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_indonesia_5') is-invalid @enderror" name="nilai_bahasa_indonesia_5" id="nilai-bahasa_indonesia-5"
+                                            placeholder="Isikan Nilai bahasa indonesia semester 5" value="{{ $nilai_raport->nilai_bahasa_indonesia_5 }}" />
+                                        @error('nilai_bahasa_indonesia_5')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-matematika-5" class="form-label">Nilai Matematika</label>
+                                        <input type="text" class="form-control @error('nilai_matematika_5') is-invalid @enderror" name="nilai_matematika_5" id="nilai-matematika-5"
+                                            placeholder="Isikan Nilai matematika semester 5" value="{{ $nilai_raport->nilai_matematika_5 }}"/>
+                                        @error('nilai_matematika_5')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nilai-bahasa-inggris-5" class="form-label">Nilai Bahasa Inggris</label>
+                                        <input type="text" class="form-control @error('nilai_bahasa_inggris_5') is-invalid @enderror" name="nilai_bahasa_inggris_5" id="nilai-bahasa_inggris-5"
+                                            placeholder="Isikan Nilai bahasa inggris semester 5" value="{{ $nilai_raport->nilai_bahasa_inggris_5 }}" />
+                                        @error('nilai_bahasa_inggris_5')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-md w-100">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    @endif
 @endsection

@@ -114,6 +114,7 @@
         </div>
     @endif
 
+    @if ($data_periodik)
     <div class="modal fade" id="dataPeriodik{{ $data_periodik->id }}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -175,5 +176,7 @@
             </div>
         </div>
     </div>
+
+    @endif
 
 @endsection
