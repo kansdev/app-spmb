@@ -128,14 +128,14 @@
     /* Tablet */
     @media (max-width: 768px) {
         .brand-logo {
-            height: 52px;
+            height: 42px;
         }
     }
 
     /* Mobile */
-    @media (max-width: 576px) {
+    @media (min-width: 320px) {
         .brand-logo {
-            height: 48px;
+            height: 38px;
         }
     }
 
