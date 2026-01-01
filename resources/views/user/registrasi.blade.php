@@ -162,7 +162,7 @@
                         <label for="gelombang-sesi" class="form-label">Pilih Gelombang Sesi</label>
                         <select class="form-control" name="gelombang_sesi" id="gelombang-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="Gelombang I" {{ old('gelombang_sesi') == 'Gelombang I' ? 'selected' : '' }}>Gelombang I</option>
+                            <option value="Gelombang I" {{ old('gelombang_sesi') == 'Gelombang I' ? 'selected' : '' }}>Gelombang I (31 Januari - 1 Februari 2026)</option>
                         </select>
                     </div>
 

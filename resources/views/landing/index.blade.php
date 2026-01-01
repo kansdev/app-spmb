@@ -137,24 +137,38 @@
                     <th scope="col">#</th>
                     <th scope="col">Gelombang</th>
                     <th scope="col">Pendaftaran</th>
-                    <th scope="col">Test</th>
-                    <th scope="col">Pengumuman</th>
+                    <th scope="col">Tanggal Test</th>
+                    <th scope="col">Pengumuman Hasil Test</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
                     <td>Gelombang 1</td>
-                    <td>1 Januari 2025 - 28 Februari 2025</td>
-                    <td>5 Maret 2025</td>
-                    <td>20 Mei 2025</td>
+                    <td>1 Januari - 28 Februari 2026</td>
+                    <td>31 Januari - 1 Februari 2026</td>
+                    <td>5 Februari 2026</td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
                     <td>Gelombang 2</td>
-                    <td>5 Maret 2025 - 30 April 2025</td>
-                    <td>5 Mei 2025</td>
-                    <td>20 Mei 2025</td>
+                    <td>1 Februari - 25 Maret 2026</td>
+                    <td>28 - 29 Maret 2026</td>
+                    <td>1 April 2025</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Gelombang 3</td>
+                    <td>1 - 30 April 2026</td>
+                    <td>2 - 3 Mei 2026</td>
+                    <td>6 Mei 2025</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Gelombang 4</td>
+                    <td>1 Mei - 30 Juni 2026</td>
+                    <td>1 - 6 Juli 2026</td>
+                    <td>11 Juli 2025</td>
                   </tr>
                 </tbody>
               </table>
@@ -271,19 +285,19 @@
               </button>
             </h2>
             <div id="flush-collapse-col-2-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
+              <div class="accordion-body text-start">
                 Akreditasi SMK Nusantara 1 Kota Tangerang adalah A (Unggul)
               </div>
             </div>
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header">
-              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-col-2-2" aria-expanded="false" aria-controls="flush-collapseOne">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-col-2-2" aria-expanded="false" aria-controls="flush-collapseTwo">
                 Ada apa saja jurusan yang ada di sekolah ini ?
               </button>
             </h2>
-            <div id="flush-collapse-col-2-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
+            <div id="flush-collapse-col-2-2" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body text-start">
                 Jurusan yang ada di SMK Nusantara 1 Kota Tangerang adalah Manajemen Perkantoran (MP), Akuntansi (AK), Animasi (AN), Broadcasting dan Perfilman (BP), Desain Komunikasi Visual (DKV), Teknik Jaringan Komputer dan Telekomunikasi (TJKT) dan Pengembangan Perangkat Lunak dan Gim (PPLG)
               </div>
             </div>

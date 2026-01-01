@@ -1,6 +1,6 @@
 <h2>Hai, {{ $user->name }}</h2>
 
-<p>Registrasi Anda telah berhasil pendaftaran kamu berhasil!</p>
+<p>Registrasi pendaftaran Anda telah <strong>berhasil</strong></p>
 
 <p>
 Nomor Pendaftaran Anda adalah:
