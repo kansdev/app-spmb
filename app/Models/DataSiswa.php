@@ -15,6 +15,7 @@ class DataSiswa extends Model
     protected $table = 'data_siswa';
 
     protected $fillable = [
+        'id',
         'user_id',
         'nama_siswa',
         'jenis_kelamin',

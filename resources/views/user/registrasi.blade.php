@@ -27,12 +27,12 @@
         <div class="alert alert-info mt-4 ms-4 me-4">
             Data registrasi sudah tersimpan dan tidak dapat diubah. Tombol request reset registrasi akan muncul jika hasil seleksi registrasi anda di tolak
         </div>
-        <div class="d-flex justify-content-start ms-4">
+        {{-- <div class="d-flex justify-content-start ms-4">
             <a href="#" class="btn btn-danger btn-md">
                 <i class="fas fa-repeat"></i> Request Reset Registrasi
             </a>
-        </div>
-        <h5 class="card-header">Data Periodik</h5>
+        </div> --}}
+        <h5 class="card-header">Data Registrasi</h5>
         <div class="card-body">
             <table class="table table-striped">
                 <tr>
@@ -95,7 +95,7 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label for="nomor-pendaftaran" class="form-label">No. Pendaftaran</label>
-                        <input type="number" class="form-control" name="nomor_pendaftaran" id="nomor-pendaftaran" value="<?= rand(111111, 999999)?>" readonly/>
+                        <input type="number" class="form-control" name="nomor_pendaftaran" id="nomor-pendaftaran" value="<?= rand(111111, 999999) ?>" readonly/>
                     </div>
 
                     <div class="form-group mb-3">
@@ -127,20 +127,20 @@
 
                     <div class="form-group mb-3">
                         <label for="asal-sekolah" class="form-label">Asal Sekolah</label>
-                        <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" />
+                        <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" value="{{ old('asal_sekolah') }}" />
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="pilihan-jurusan-pertama" class="form-label">Pilihan Jurusan Pertama</label>
                         <select class="form-control" name="jurusan_pertama" id="pilih-jurusan-pertama">
                             <option value="">--- Pilih ---</option>
-                            <option value="MP">Manajemen Perkantoran</option>
-                            <option value="AK">Akuntansi</option>
-                            <option value="AN">Animasi</option>
-                            <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
-                            <option value="DKV">Desain Komunikasi Visual</option>
-                            <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
-                            <option value="BP">Broadcasting dan Perfilman</option>
+                            <option value="MP" {{ old('jurusan_pertama') == 'MP' ? 'selected' : '' }}>Manajemen Perkantoran</option>
+                            <option value="AK" {{ old('jurusan_pertama') == 'AK' ? 'selected' : '' }}>Akuntansi</option>
+                            <option value="AN" {{ old('jurusan_pertama') == 'AN' ? 'selected' : '' }}>Animasi</option>
+                            <option value="TJKT" {{ old('jurusan_pertama') == 'TJKT' ? 'selected' : '' }}>Teknik Jaringan Komputer dan Telekomnuikasi</option>
+                            <option value="DKV" {{ old('jurusan_pertama') == 'DKV' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
+                            <option value="PPLG" {{ old('jurusan_pertama') == 'PPLG' ? 'selected' : '' }}>Pengembangan Perangkat Lunak dan Gim</option>
+                            <option value="BP" {{ old('jurusan_pertama') == 'BP' ? 'selected' : '' }}>Broadcasting dan Perfilman</option>
                         </select>
                     </div>
 
@@ -148,13 +148,30 @@
                         <label for="pilihan-jurusan-kedua" class="form-label">Pilihan Jurusan Kedua</label>
                         <select class="form-control" name="jurusan_kedua" id="pilih-jurusan-kedua">
                             <option value="">--- Pilih ---</option>
-                            <option value="MP">Manajemen Perkantoran</option>
-                            <option value="AK">Akuntansi</option>
-                            <option value="AN">Animasi</option>
-                            <option value="TJKT">Teknik Jaringan Komputer dan Telekomnuikasi</option>
-                            <option value="DKV">Desain Komunikasi Visual</option>
-                            <option value="PPLG">Pengembangan Perangkat Lunak dan Gim</option>
-                            <option value="BP">Broadcasting dan Perfilman</option>
+                            <option value="MP" {{ old('jurusan_pertama') == 'MP' ? 'selected' : '' }}>Manajemen Perkantoran</option>
+                            <option value="AK" {{ old('jurusan_pertama') == 'AK' ? 'selected' : '' }}>Akuntansi</option>
+                            <option value="AN" {{ old('jurusan_pertama') == 'AN' ? 'selected' : '' }}>Animasi</option>
+                            <option value="TJKT" {{ old('jurusan_pertama') == 'TJKT' ? 'selected' : '' }}>Teknik Jaringan Komputer dan Telekomnuikasi</option>
+                            <option value="DKV" {{ old('jurusan_pertama') == 'DKV' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
+                            <option value="PPLG" {{ old('jurusan_pertama') == 'PPLG' ? 'selected' : '' }}>Pengembangan Perangkat Lunak dan Gim</option>
+                            <option value="BP" {{ old('jurusan_pertama') == 'BP' ? 'selected' : '' }}>Broadcasting dan Perfilman</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="gelombang-sesi" class="form-label">Pilih Gelombang Sesi</label>
+                        <select class="form-control" name="gelombang_sesi" id="gelombang-sesi">
+                            <option value="">--- Pilih ---</option>
+                            <option value="Gelombang I" {{ old('gelombang_sesi') == 'Gelombang I' ? 'selected' : '' }}>Gelombang I</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="wkatu-sesi" class="form-label">Pilih Waktu Sesi Test</label>
+                        <select class="form-control" name="waktu_sesi" id="waktu-sesi">
+                            <option value="">--- Pilih ---</option>
+                            <option value="Sesi I" {{ old('waktu_sesi') == 'Sesi I' ? 'selected' : '' }}>Sesi I (09:00 s/d 12:00)</option>
+                            <option value="Sesi II" {{ old('waktu_sesi') == 'Sesi II' ? 'selected' : '' }}>Sesi II (13:00 s/d 15:00)</option>
                         </select>
                     </div>
 

@@ -51,6 +51,7 @@ Route::middleware(['auth', 'preventBackHistory', 'checkProfile'])->group(functio
     // Formulir orang tua
     Route::get('/formulir_siswa', [FormulirSiswaController::class, 'index'])->name('formulir_siswa');
     Route::post('/formulir_siswa/save', [FormulirSiswaController::class, 'save_siswa'])->name('save_siswa');
+    Route::put('/formulir_siswa/edit/{siswa}', [FormulirSiswaController::class, 'edit_siswa'])->name('edit_siswa');
 });
 
 // Middleware untuk formulir orang tua
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'preventBackHistory', 'checkProfile', 'checkDataSiswa
     // Formulir orang tua
     Route::get('/formulir_orang_tua', [FormulirOrangTuaController::class, 'index'])->name('formulir_orang_tua');
     Route::post('/formulir_orang_tua/save', [FormulirOrangTuaController::class, 'save_orang_tua'])->name('save_orang_tua');
+    Route::put('/formulir_orang_tua/edit/{orang_tua}', [FormulirOrangTuaController::class, 'edit_orang_tua'])->name('edit_orang_tua');
 });
 
 // Midleware untuk formulir periodik
@@ -65,6 +67,7 @@ Route::middleware(['auth', 'preventBackHistory', 'checkProfile', 'checkDataSiswa
     // Formulir Periodik
     Route::get('/formulir_periodik', [FormulirPeriodik::class, 'index'])->name('formulir_periodik');
     Route::post('/formulir_periodik/save', [FormulirPeriodik::class, 'save_periodik'])->name('save_periodik');
+    Route::put('/formulir_periodik/edit/{periodik}', [FormulirPeriodik::class, 'edit_periodik'])->name('edit_periodik');
 });
 
 // Middleware formulir untuk upload berkas dan id_card
@@ -72,6 +75,7 @@ Route::middleware(['auth', 'preventBackHistory', 'checkProfile', 'checkDataSiswa
     // route nilai raport
     Route::get('/formulir_nilai_raport', [FormulirNilaiRaport::class, 'index'])->name('formulir_nilai_raport');
     Route::post('/formulir_nilai_raport/save', [FormulirNilaiRaport::class, 'save_nilai_raport'])->name('save_nilai_raport');
+    Route::put('/formulir_nilai_raport/edit/{nilai_raport}', [FormulirNilaiRaport::class, 'edit_nilai_raport'])->name('edit_nilai_raport');
 
 });
 

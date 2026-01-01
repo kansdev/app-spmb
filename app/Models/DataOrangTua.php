@@ -14,6 +14,7 @@ class DataOrangTua extends Model
     protected $table = 'data_orang_tua';
 
     protected $fillable = [
+        'id',
         'user_id',
         'nama_ayah',
         'status_ayah',

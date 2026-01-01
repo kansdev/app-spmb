@@ -3,7 +3,34 @@
     @foreach ($types as $key => $label)
         <div class="row mb-3 align-items-end">
             <div class="col-sm-10">
-                <label class="form-label">{{ $label }}</label>
+
+                @php
+                    $uploadRules = [
+                        'foto' => [
+                            'ext' => 'JPG/PNG',
+                            'size' => '1MB'
+                        ],
+                        'kk' => [
+                            'ext' => 'PDF',
+                            'size' => '1MB'
+                        ],
+                        'ktp_orang_tua' => [
+                            'ext' => 'JPG/PNG',
+                            'size' => '1MB'
+                        ],
+                        'akte_lahir' => [
+                            'ext' => 'JPG/PNG',
+                            'size' => '1MB'
+                        ]
+                    ];
+                @endphp
+                <label class="form-label">
+                    {{ $label }}
+                    @php
+                        $rule = $uploadRules[$key];
+                    @endphp
+                    <small class="text-muted">*{{ strtoupper($label) }} harus berupa {{ $rule['ext'] }}, maksimal {{ $rule['size'] }}</small>
+                </label>
 
                 @if (isset($documents[$key]))
                     <div class="text-success">

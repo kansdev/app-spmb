@@ -51,7 +51,7 @@
     </div>
 
     @php
-        $requiredFiles = ['foto', 'kk', 'ktp_ayah', 'ktp_ibu', 'akte_lahir'];
+        $requiredFiles = ['foto', 'kk', 'ktp_orang_tua', 'akte_lahir'];
         $allUploaded = true;
 
         $uploads = $user->upload_berkas->pluck('file_path', 'type');

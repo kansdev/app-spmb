@@ -18,16 +18,14 @@ class DocumentUploader extends Component
     public $types = [
         'foto' => 'Foto',
         'kk' => 'Kartu Keluarga',
-        'ktp_ayah' => 'KTP Ayah',
-        'ktp_ibu' => 'KTP Ibu',
+        'ktp_orang_tua' => 'KTP Orang Tua',
         'akte_lahir' => 'Akte Kelahiran',
     ];
 
     public $rules = [
         'fileInputs.foto' => 'required|mimes:jpg,jpeg,png|max:1024',
         'fileInputs.kk' => 'required|mimes:pdf|max:1024',
-        'fileInputs.ktp_ayah' => 'required|mimes:pdf|max:1024',
-        'fileInputs.ktp_ibu' => 'required|mimes:pdf|max:1024',
+        'fileInputs.ktp_orang_tua' => 'required|mimes:jpg,jpeg,png|max:1024',
         'fileInputs.akte_lahir' => 'required|mimes:pdf|max:1024',
     ];
 
@@ -77,7 +75,6 @@ class DocumentUploader extends Component
         $this->fileInputs[$type] = null;
 
         // Tampilkan pesan ketika berhasil di upload
-        // session()->flash('message', ($this->types[$type] ?? ucfirst($type)) . " berhasil diupload.");
         $this->dispatch('success', message : ($this->types[$type] ?? ucfirst($type)) . " berhasil diupload.");
     }
 

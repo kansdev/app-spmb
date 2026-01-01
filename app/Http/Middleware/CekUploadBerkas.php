@@ -22,7 +22,7 @@ class CekUploadBerkas
         }
 
         // Berkas wajib
-        $required_filed = ['kk', 'ktp_ayah', 'ktp_ibu', 'akte_lahir', 'foto'];
+        $required_filed = ['kk', 'ktp_orang_tua', 'akte_lahir', 'foto'];
 
         // Ambil berkas yang sudah di upload
         $upload_type = Auth::user()->upload()->pluck('type')->toArray();

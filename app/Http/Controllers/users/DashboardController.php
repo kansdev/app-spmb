@@ -24,10 +24,10 @@ class DashboardController extends Controller
         return view('user.formulir_orang_tua', ['user' => Auth::user()]);
     }
 
-    public function upload_berkas()
-    {
-        return view('user.upload_berkas', ['user' => Auth::user()]);
-    }
+    // public function upload_berkas()
+    // {
+    //     return view('user.upload_berkas', ['user' => Auth::user()]);
+    // }
 
     public function akun()
     {
@@ -50,7 +50,6 @@ class DashboardController extends Controller
 
             return redirect()->route('home')->with('success', 'Nomor telepon berhasil di perbarui.');
         } catch (\Exception $e) {
-            // return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon' . $e->getMessage());
             return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon, '. $e->getMessage());
         }
     }

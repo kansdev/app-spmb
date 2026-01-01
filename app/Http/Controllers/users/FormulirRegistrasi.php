@@ -51,11 +51,12 @@ class FormulirRegistrasi extends Controller
                 'asal_sekolah' => 'required',
                 'jurusan_pertama' => 'required',
                 'jurusan_kedua' => 'required',
+                'gelombang_sesi' => 'required',
+                'waktu_sesi' => 'required'
             ], [
                 'required' => ':attribute wajib di isi'
             ]);
 
-            // var_dump($validated);
             $registrasi = Registrasi::create(array_merge($validated, [
                 'user_id' => Auth::id(),
                 'nis' => $nis,
@@ -64,10 +65,8 @@ class FormulirRegistrasi extends Controller
 
             try {
                 $user = Auth::user();
-                // $nomor_pendaftaran = $validated['nomor_pendaftaran'];
                 Mail::to($user->email)->send(new SendMail($user, $registrasi));
             } catch (\Throwable $th) {
-                //throw $th;
                 Log::error('Email registrasi gagal dikirim', [
                     'user_id' => $user->id,
                     'error' => $th->getMessage()
@@ -80,7 +79,6 @@ class FormulirRegistrasi extends Controller
             throw $e;
         } catch (\Exception $e) {
             return redirect()->route('formulir_registrasi')->with('failed', 'Gagal menyimpan data ke database'. $e->getMessage());
-            // return redirect()->route('formulir_registrasi')->with('failed', 'Gagal menyimpan data ke database');
         }
     }
 }

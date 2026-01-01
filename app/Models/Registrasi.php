@@ -21,7 +21,9 @@ class Registrasi extends Model
         'asal_sekolah',
         'jurusan_pertama',
         'jurusan_kedua',
-        'status'
+        'status',
+        'gelombang_sesi',
+        'waktu_sesi'
     ];
 
     public function user() {
