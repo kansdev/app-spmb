@@ -96,7 +96,7 @@
 <!-- HERO -->
 <section id="beranda" class="hero text-center">
   <div class="container">
-    <h1 class="display-5 mb-3">Seleksi Penerimaan Murid Baru</h1>
+    <h1 class="display-5 mb-3">Sistem Penerimaan Murid Baru</h1>
     <h1 class="display-5 mb-3">SMK Nusantara 1 Kota Tangerang</h1>
     <p class="lead">Tahun Akademik 2026 / 2027</p>
     <p class="lead">Jalan Cisadane VII - VIII Perumnas 1, Jl. Cisadane V, RT.003/RW.002, Nusa Jaya, Kec. Karawaci, Kota Tangerang, Banten 15116</p>
