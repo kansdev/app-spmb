@@ -24,7 +24,7 @@
       ),
       url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover no-repeat;
       color: #fff;
-      padding: 145px 0;
+      padding: 165px 0;
     }
 
     .hero h1 {
@@ -82,6 +82,12 @@
         padding: 10px 16px;
     }
 
+    .brand-logo {
+        height: 40px;        /* default desktop */
+        width: auto;
+        max-height: 40px;
+    }
+
     footer {
       background: #0b1c2d;
       color: #fff;
@@ -104,6 +110,20 @@
         }
     }
 
+    /* Tablet */
+    @media (max-width: 768px) {
+        .brand-logo {
+            height: 52px;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 576px) {
+        .brand-logo {
+            height: 48px;
+        }
+    }
+
   </style>
 </head>
 <body>
@@ -111,8 +131,8 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">
-      <img src="/assets/img/landing/logo.png" alt="Logo">
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+      <img src="/assets/img/landing/logo.png" class="brand-logo" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <span class="navbar-toggler-icon"></span>
@@ -142,14 +162,14 @@
 </section>
 
 <!-- INFO PMB -->
-<section id="info" class="p-5">
-  <div class="container">
-    <div class="card border-0 shadow">
+<section id="info" class="py-5">
+  <div class="container p-0">
+    <div class="card p-0 border-0 shadow">
       <div class="card-body">
         <div class="p-5 p-md-5">
           <h2 class="section-title text-center">Informasi</h2>
           <div class="tab-scroll-wrapper">
-              <ul class="nav nav-underline nav-tabs-scroll" id="informasiTab" role="tablist">
+              <ul class="nav nav-underline justify-content-center nav-tabs-scroll" id="informasiTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
                 </li>
@@ -163,7 +183,7 @@
                   <a class="nav-link" href="#" id="pendaftaran-reguler-tab" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
                 </li>
               </ul>
-        </div>
+          </div>
           <div class="tab-content mt-4" id="informasiTabContent">
             <div class="tab-pane fade show active" id="jadwal-tab-pane" role="tabpanel" aria-labelledby="jadwal-tab" tabindex="0">
                 <div class="table-responsive">
@@ -243,7 +263,7 @@
 
       </div>
     </div>
-    <h2 class="section-title text-center mt-4">Alur Pendaftaran</h2>
+    <h2 class="section-title text-center mt-4 py-5">Alur Pendaftaran</h2>
     <div class="row g-4 text-center">
       <div class="col-md-3">
         <div class="step-icon">1</div>
