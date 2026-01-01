@@ -65,10 +65,45 @@
       font-weight: 600;
     }
 
+    .tab-scroll-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding-left: 12px;   /* 🔑 supaya tab pertama tidak ketutup */
+        padding-right: 12px;
+    }
+
+    .nav-tabs-scroll .nav-link {
+        padding: 10px 16px;
+    }
+
     footer {
       background: #0b1c2d;
       color: #fff;
     }
+
+    @media (max-width: 576px) {
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+    }
+
   </style>
 </head>
 <body>
@@ -111,82 +146,85 @@
   <div class="container">
     <div class="card border-0 shadow">
       <div class="card-body">
-        <div class="m-5 p-5">
+        <div class="p-5 p-md-5">
           <h2 class="section-title text-center">Informasi</h2>
-          <nav>
-            <ul class="nav nav-underline justify-content-center " id="informasiTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="persyaratan-tab" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="tata-cara-tab" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="pendaftaran-reguler-tab" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
-              </li>
-            </ul>
-          </nav>
+          <div class="tab-scroll-wrapper">
+              <ul class="nav nav-underline nav-tabs-scroll" id="informasiTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="persyaratan-tab" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="tata-cara-tab" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="pendaftaran-reguler-tab" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
+                </li>
+              </ul>
+        </div>
           <div class="tab-content mt-4" id="informasiTabContent">
             <div class="tab-pane fade show active" id="jadwal-tab-pane" role="tabpanel" aria-labelledby="jadwal-tab" tabindex="0">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Gelombang</th>
-                    <th scope="col">Pendaftaran</th>
-                    <th scope="col">Tanggal Test</th>
-                    <th scope="col">Pengumuman Hasil Test</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Gelombang 1</td>
-                    <td>1 Januari - 28 Februari 2026</td>
-                    <td>31 Januari - 1 Februari 2026</td>
-                    <td>5 Februari 2026</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Gelombang 2</td>
-                    <td>1 Februari - 25 Maret 2026</td>
-                    <td>28 - 29 Maret 2026</td>
-                    <td>1 April 2025</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Gelombang 3</td>
-                    <td>1 - 30 April 2026</td>
-                    <td>2 - 3 Mei 2026</td>
-                    <td>6 Mei 2025</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Gelombang 4</td>
-                    <td>1 Mei - 30 Juni 2026</td>
-                    <td>1 - 6 Juli 2026</td>
-                    <td>11 Juli 2025</td>
-                  </tr>
-                </tbody>
-              </table>
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Gelombang</th>
+                          <th scope="col">Pendaftaran</th>
+                          <th scope="col">Tanggal Test</th>
+                          <th scope="col">Pengumuman Hasil Test</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Gelombang 1</td>
+                          <td>1 Januari - 28 Februari 2026</td>
+                          <td>31 Januari - 1 Februari 2026</td>
+                          <td>5 Februari 2026</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Gelombang 2</td>
+                          <td>1 Februari - 25 Maret 2026</td>
+                          <td>28 - 29 Maret 2026</td>
+                          <td>1 April 2025</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Gelombang 3</td>
+                          <td>1 - 30 April 2026</td>
+                          <td>2 - 3 Mei 2026</td>
+                          <td>6 Mei 2025</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td>Gelombang 4</td>
+                          <td>1 Mei - 30 Juni 2026</td>
+                          <td>1 - 6 Juli 2026</td>
+                          <td>11 Juli 2025</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade" id="persyaratan-tab-pane" role="tabpanel" aria-labelledby="persyaratan-tab" tabindex="0">
               <div class="row">
-                <div class="col-md-4">
-                  <img src="/assets/img/landing/image.webp" class="img-fluid" alt="image">
+                <div class="col-12 col-md-4 mb-3 mb-md-0 text-center">
+                  <img src="/assets/img/landing/image.webp" class="img-fluid rounded" alt="image">
                 </div>
                 <div class="col-md-8">
                   <div class="card border-0 shadow">
                     <div class="card-body">
                       <ul class="checklist list-unstyled">
-                        <li class="mb-2">Deposit tabungan wajib Rp. 500.000,-</li>
+                        <li class="mb-2">Membuka tabungan wajib Rp. 500.000,-</li>
+                        <li class="mb-2">Mengisi formulir biodata, orang tua, periodik dan nilai raport</li>
                         <li class="mb-2">Mengunggah Pas Foto Berwarna terbaru ukuran 3x4 cm</li>
-                        <li class="mb-2">Mengunggah Akta Kelahiran</li>
                         <li class="mb-2">Mengunggah Kartu Keluarga</li>
                         <li class="mb-2">Mengunggah KTP Ayah dan Ibu</li>
+                        <li class="mb-2">Mengunggah Akta Kelahiran</li>
                         <li class="mb-2">Mengikuti tes Akademik dan Wawancara</li>
                       </ul>
                     </div>
@@ -195,7 +233,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="tata-cara-tab-pane" role="tabpanel" aria-labelledby="tata-cara-tab" tabindex="0">
-              <img class="img-fluid" src="/assets/img/landing/alur-pendaftaran.jpg" alt="Alur Pendaftaran">
+              <img class="img-fluid rounded mx-auto d-block" style="max-height:400px; object-fit:contain;" src="/assets/img/landing/alur-pendaftaran.jpg" alt="Alur Pendaftaran">
             </div>
             <div class="tab-pane fade text-center" id="pendaftaran-reguler-tab-pane" role="tabpanel" aria-labelledby="pendaftaran-reguler-tab" tabindex="0">
               Informasi lebih lanjut hubungi : 082133353539
