@@ -70,16 +70,31 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    .nav-tabs-scroll {
+    .nav-scroll {
         display: flex;
         flex-wrap: nowrap;
-        white-space: nowrap;
-        padding-left: 12px;   /* 🔑 supaya tab pertama tidak ketutup */
-        padding-right: 12px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .nav-tabs-scroll .nav-link {
-        padding: 10px 16px;
+    .nav-scroll .nav-link {
+        white-space: nowrap;
+        padding-inline: 1rem;
+    }
+
+
+    /* Hilangkan scrollbar */
+    .nav-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Desktop: center normal */
+    @media (min-width: 768px) {
+        .nav-scroll {
+            justify-content: center;
+            overflow-x: visible;
+        }
     }
 
     .brand-logo {
@@ -163,13 +178,13 @@
 
 <!-- INFO PMB -->
 <section id="info" class="py-5">
-  <div class="container p-0">
-    <div class="card p-0 border-0 shadow">
+  <div class="container">
+    <div class="card border-0 shadow">
       <div class="card-body">
-        <div class="p-5 p-md-5">
+        <div class="p-3 p-md-5">
           <h2 class="section-title text-center">Informasi</h2>
           <div class="tab-scroll-wrapper">
-              <ul class="nav nav-underline justify-content-center nav-tabs-scroll" id="informasiTab" role="tablist">
+              <ul class="nav nav-underline nav-scroll" id="informasiTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
                 </li>
