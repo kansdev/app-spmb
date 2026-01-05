@@ -28,7 +28,7 @@
 
     <br>
 
-    <h3 align="center">Bukti Pendaftara SPMB </h3>
+    <h3 align="center">Bukti Pendaftaran SPMB </h3>
 
     <table width="100%">
         <tr>
@@ -44,20 +44,32 @@
             <td>: {{ $registrasi->nomor_pendaftaran }}</td>
         </tr>
         <tr>
-            <td width="35%">Jurusan Utama</td>
+            <td width="35%">Pilihan Pertama</td>
             <td>: {{ $registrasi->jurusan_pertama }}</td>
         </tr>
         <tr>
-            <td width="35%">Jurusan Cadangan</td>
+            <td width="35%">Pilihan kedua</td>
             <td>: {{ $registrasi->jurusan_kedua }}</td>
+        </tr>
+        <tr>
+            <td width="35%">Waktu Tes</td>
+            <td>:
+                @if ($registrasi->gelombang_sesi === "Gelombang I")
+                    Gelombang I, 31 Januari - 1 Februari 2026, {{ $registrasi->waktu_sesi }}
+                @elseif ($registrasi->gelombang_sesi === "Gelombang II")
+                    Gelombang II, 28 - 29 Maret 2026, {{ $registrasi->waktu_sesi }}
+                @elseif($registrasi->gelombang_sesi === "Gelombang III")
+                    Gelombang III, 2 - 3 Mei 2026, {{ $registrasi->waktu_sesi }}
+                @elseif ($registrasi->gelombang_sesi === "Gelombang IV")
+                    Gelombang IV, 1 - 6 Juli 2026, {{ $registrasi->waktu_sesi }}
+                @endif
+            </td>
         </tr>
 
     </table>
     <br>
 
-    <p>Registrasi Anda telah berhasil pendaftaran kamu berhasil!</p>
-
-    <p>Silahkan datang ke SMK Nusantara 1 Kota Tangerang untuk <strong>Lapor Diri</strong> dengan membawa surat ini.</p>
+    <p>Selamat, Registrasi Anda telah berhasil. Selanjutnya silahkan datang ke SMK Nusantara 1 Kota Tangerang untuk <strong>Tes dan Lapor Diri</strong> dengan membawa surat ini sesuai dengan waktu yang telah di pilih. </p>
     <p>Terima kasih sudah mendaftar.</p>
 
     <p align="right">Tangerang, {{ now()->translatedFormat('d F Y') }} <br> Panitia SPMB</p>

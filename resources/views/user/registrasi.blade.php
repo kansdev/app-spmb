@@ -72,6 +72,21 @@
                     <td>{{ $data_registrasi->jurusan_kedua }}</td>
                 </tr>
                 <tr>
+                    <td>Waktu Tes</td>
+                    {{-- <td>{{$data_registrasi->waktu_sesi}}</td> --}}
+                    <td>
+                        @if ($data_registrasi->waktu_sesi === "Sesi I")
+                            Gelombang I, 31 Januari - 1 Februari 2026
+                        @elseif ($data_registrasi->waktu_sesi === "Sesi II")
+                            Gelombang II, 28 - 29 Maret 2026
+                        @elseif($data_registrasi->waktu_sesi === "Sesi III")
+                            Gelombang III, 2 - 3 Mei 2026
+                        @elseif ($data_registrasi->waktu_sesi === "Sesi IV")
+                            Gelombang IV, 1 - 6 Juli 2026
+                        @endif
+                    </td>
+                </tr>
+                <tr>
                     <th>Status Registrasi</th>
                     @if ($data_registrasi->status == 'Belum Terverifikasi')
                         <td style="color: red">{{ $data_registrasi->status }}</td>
@@ -127,7 +142,7 @@
 
                     <div class="form-group mb-3">
                         <label for="asal-sekolah" class="form-label">Asal Sekolah</label>
-                        <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" value="{{ old('asal_sekolah') }}" />
+                        <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" placeholder="Masukan sekolah asal anda" value="{{ old('asal_sekolah') }}" />
                     </div>
 
                     <div class="form-group mb-3">
@@ -170,8 +185,8 @@
                         <label for="wkatu-sesi" class="form-label">Pilih Waktu Sesi Test</label>
                         <select class="form-control" name="waktu_sesi" id="waktu-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="Sesi I" {{ old('waktu_sesi') == 'Sesi I' ? 'selected' : '' }}>Sesi I (09:00 s/d 12:00)</option>
-                            <option value="Sesi II" {{ old('waktu_sesi') == 'Sesi II' ? 'selected' : '' }}>Sesi II (13:00 s/d 15:00)</option>
+                            <option value="Sesi I (09:00 s/d 12:00)" {{ old('waktu_sesi') == 'Sesi I (09:00 s/d 12:00)' ? 'selected' : '' }}>Sesi I (09:00 s/d 12:00)</option>
+                            <option value="Sesi II (13:00 s/d 15:00)" {{ old('waktu_sesi') == 'Sesi II (13:00 s/d 15:00)' ? 'selected' : '' }}>Sesi II (13:00 s/d 15:00)</option>
                         </select>
                     </div>
 
