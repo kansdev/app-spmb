@@ -72,19 +72,23 @@
                     <td>{{ $data_registrasi->jurusan_kedua }}</td>
                 </tr>
                 <tr>
-                    <td>Waktu Tes</td>
+                    <th>Waktu Tes</th>
                     {{-- <td>{{$data_registrasi->waktu_sesi}}</td> --}}
                     <td>
-                        @if ($data_registrasi->waktu_sesi === "Sesi I")
-                            Gelombang I, 31 Januari - 1 Februari 2026
-                        @elseif ($data_registrasi->waktu_sesi === "Sesi II")
-                            Gelombang II, 28 - 29 Maret 2026
-                        @elseif($data_registrasi->waktu_sesi === "Sesi III")
-                            Gelombang III, 2 - 3 Mei 2026
-                        @elseif ($data_registrasi->waktu_sesi === "Sesi IV")
-                            Gelombang IV, 1 - 6 Juli 2026
+                        @if ($data_registrasi->gelombang_sesi === "Gelombang I")
+                            {{ $data_registrasi->gelombang_sesi }}, 31 Januari - 1 Februari 2026
+                        @elseif ($data_registrasi->gelombang_sesi === "Gelombang II")
+                            `{{ $data_registrasi->gelombang_sesi }}, 28 - 29 Maret 2026
+                        @elseif($data_registrasi->gelombang_sesi === "Gelombang III")
+                            `{{ $data_registrasi->gelombang_sesi }}, 2 - 3 Mei 2026
+                        @elseif ($data_registrasi->gelombang_sesi === "Gelombang IV")
+                            `{{ $data_registrasi->gelombang_sesi }}, 1 - 6 Juli 2026
                         @endif
                     </td>
+                </tr>
+                <tr>
+                    <th>Sesi Tes</th>
+                    <td>{{$data_registrasi->waktu_sesi}}</td>
                 </tr>
                 <tr>
                     <th>Status Registrasi</th>
@@ -190,11 +194,25 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-md w-100">Daftar Sekarang</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-md w-100">
+                        <span id="btnText">Daftar Sekarang</span>
+                        <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
                 </form>
 
             </div>
 
+        </div>
+
+        <div id="loadingOverlay"
+            class="position-fixed top-0 start-0 w-100 h-100 bg-white bg-opacity-75 d-none"
+            style="z-index:9999">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-center">
+                    <div class="spinner-border text-primary"></div>
+                    <p class="mt-2">Menyimpan data pendaftaran...</p>
+                </div>
+            </div>
         </div>
     @endif
     <script>
@@ -223,6 +241,18 @@
 
             jurusan1.addEventListener('change', updateJurusanKedua);
         });
+
+        document.querySelector('form').addEventListener('submit', function () {
+            const btn = document.getElementById('btnSubmit');
+            const text = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+            document.getElementById('loadingOverlay').classList.remove('d-none');
+
+            btn.disabled = true;
+            text.textContent = 'Memproses data...';
+            spinner.classList.remove('d-none');
+        });
+
     </script>
 
 @endsection
