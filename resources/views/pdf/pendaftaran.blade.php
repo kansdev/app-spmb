@@ -72,6 +72,9 @@
     <p>Selamat, Registrasi Anda telah berhasil. Selanjutnya silahkan datang ke SMK Nusantara 1 Kota Tangerang untuk <strong>Tes dan Lapor Diri</strong> dengan membawa surat ini sesuai dengan waktu yang telah di pilih. </p>
     <p>Terima kasih sudah mendaftar.</p>
 
-    <p align="right">Tangerang, {{ now()->translatedFormat('d F Y') }} <br> Panitia SPMB</p>
+    <p align="right">Tangerang, {{ now()->translatedFormat('d F Y') }} <br> Panitia SPMB </p>
+    <div style="clear: both">
+        <img style="float: right" src="data:image/png;base64,{{ $qrPng }}" width="150" alt="QR Code">
+    </div>
 </body>
 </html>
