@@ -13,6 +13,7 @@ class DataPeriodik extends Model
         'berat_badan',
         'jarak_tempuh',
         'waktu_tempuh',
-        'jumlah_saudara_kandung'
+        'jumlah_saudara_kandung',
+        'tinggi_badan'
     ];
 }

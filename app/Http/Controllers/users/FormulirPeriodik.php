@@ -38,7 +38,7 @@ class FormulirPeriodik extends Controller
         } catch (ValidationException $e) {
             throw $e;
         } catch (\Exception $e) {
-            return redirect()->back()->with('failed', 'Data Gagal disimpan' . $e->getMessage());
+            return redirect()->back()->with('failed', 'Data Gagal disimpan');
         }
     }
 

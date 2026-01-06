@@ -73,8 +73,8 @@
     <p>Terima kasih sudah mendaftar.</p>
 
     <p align="right">Tangerang, {{ now()->translatedFormat('d F Y') }} <br> Panitia SPMB </p>
-    <div style="clear: both">
+    {{-- <div style="clear: both">
         <img style="float: right" src="data:image/png;base64,{{ $qrPng }}" width="150" alt="QR Code">
-    </div>
+    </div> --}}
 </body>
 </html>
