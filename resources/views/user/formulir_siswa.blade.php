@@ -125,12 +125,12 @@
                         <label for="agama" class="form-label">Agama</label>
                         <select class="form-control @error('agama') is-invalid @enderror" name="agama" id="agama">
                             <option value="">--- Pilih ---</option>
-                            <option value="islam {{ old('agama') == 'islam' ? 'selected' : '' }}">Islam</option>
-                            <option value="katolik {{ old('agama') == 'katolik' ? 'selected' : '' }}">Katolik</option>
-                            <option value="protestan {{ old('agama') == 'protestan' ? 'selected' : '' }}">Protestan</option>
-                            <option value="hindu {{ old('agama') == 'hindu' ? 'selected' : '' }}">Hindu</option>
-                            <option value="budha {{ old('jenis_kelamin') == 'budha' ? 'selected' : '' }}">Budha</option>
-                            <option value="khonghucu {{ old('jenis_kelamin') == 'khonghucu' ? 'selected' : '' }}">KhongHucu</option>
+                            <option value="islam" {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
+                            <option value="katolik" {{ old('agama') == 'katolik' ? 'selected' : '' }}>Katolik</option>
+                            <option value="protestan" {{ old('agama') == 'protestan' ? 'selected' : '' }}>Protestan</option>
+                            <option value="hindu" {{ old('agama') == 'hindu' ? 'selected' : '' }}>Hindu</option>
+                            <option value="budha" {{ old('jenis_kelamin') == 'budha' ? 'selected' : '' }}>Budha</option>
+                            <option value="khonghucu" {{ old('jenis_kelamin') == 'khonghucu' ? 'selected' : '' }}>KhongHucu</option>
                         </select>
                         @error('agama')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -169,8 +169,8 @@
                         <label for="disabilitas" class="form-label">Disabilitas</label>
                         <select class="form-control @error('disabilitas') is-invalid @enderror" name="disabilitas" id="disabilitas">
                             <option value="">--- Pilih ---</option>
-                            <option value="Ya {{ old('disabilitas') == 'Ya' ? 'selected' : '' }}">Ya</option>
-                            <option value="Tidak {{ old('disabilitas') == 'Tidak' ? 'selected' : '' }}">Tidak</option>
+                            <option value="Ya" {{ old('disabilitas') == 'Ya' ? 'selected' : '' }}>Ya</option>
+                            <option value="Tidak" {{ old('disabilitas') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
                         </select>
                         @error('disabilitas')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -182,8 +182,8 @@
                         <label for="kwarganegaraan" class="form-label">Kwarganegaraan</label>
                         <select class="form-control @error('kwarganegaraan') is-invalid @enderror" name="kwarganegaraan" id="kwarganegaraan">
                             <option value="">--- Pilih ---</option>
-                            <option value="wni {{ old('kwarganegaraan') == 'wni' ? 'selected' : '' }}">WNI (Warga Negara Indonesia)</option>
-                            <option value="wna {{ old('kwarganegaraan') == 'wna' ? 'selected' : '' }}">WNA (Warga Negara Asing)</option>
+                            <option value="wni" {{ old('kwarganegaraan') == 'wni' ? 'selected' : '' }}>WNI (Warga Negara Indonesia)</option>
+                            <option value="wna" {{ old('kwarganegaraan') == 'wna' ? 'selected' : '' }}>WNA (Warga Negara Asing)</option>
                         </select>
                         @error('kwarganegaraan')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -245,6 +245,7 @@
                     <div class="form-group mb-3">
                         <label for="transportasi" class="form-label">Transportasi</label>
                         <select class="form-control @error('transportasi') is-invalid @enderror" name="transportasi" id="transportasi">
+                            <option value="">--- Pilih ---</option>
                             <option value="Mobil Pribadi" {{ old('transportasi') == 'Mobil Pribadi' ? 'selected' : '' }}>Mobil Pribadi</option>
                             <option value="Motor" {{ old('transport') == 'Motor' ? 'selected' : '' }}>Motor</option>
                             <option value="Angkutan Umum" {{ old('transport') == 'Angkutan Umum' ? 'selected' : '' }}>Angkutan Umum</option>
@@ -493,6 +494,5 @@
                 </div>
             </div>
         </div>
-
     @endif
 @endsection
