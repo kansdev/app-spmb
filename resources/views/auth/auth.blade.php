@@ -59,7 +59,7 @@
                                 </a>
                             </div> --}}
                             <!-- /Logo -->
-                            <h4 class="mb-4 text-center">Seleksi Penerimaan Murid Baru <br> SMK Nusantara 1 Kota Tangerang</h4>
+                            <h4 class="mb-4 text-center">Sistem Penerimaan Murid Baru <br> SMK Nusantara 1 Kota Tangerang</h4>
 
                             <form id="formAuthentication" class="mb-3" action="{{ route('admin_login') }}" method="POST">
                                 @csrf
