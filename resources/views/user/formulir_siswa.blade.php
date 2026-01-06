@@ -45,6 +45,10 @@
                         <td>{{ $siswa->no_kk }}</td>
                     </tr>
                     <tr>
+                        <th>No KK</th>
+                        <td>{{ $siswa->agam }}</td>
+                    </tr>
+                    <tr>
                         <th>Tempat / Tanggal Lahir</th>
                         <td>{{ $siswa->tempat_lahir }}, {{ $siswa->tanggal_lahir }}</td>
                     </tr>
