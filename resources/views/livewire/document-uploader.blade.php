@@ -19,7 +19,7 @@
                             'size' => '1MB'
                         ],
                         'akte_lahir' => [
-                            'ext' => 'JPG/PNG',
+                            'ext' => 'PDF',
                             'size' => '1MB'
                         ]
                     ];
