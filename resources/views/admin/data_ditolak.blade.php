@@ -45,13 +45,8 @@
                                         Lihat Berkas
                                     </a>
                                 </td>
-                                @if ($p->status == 'Belum Terverifikasi')
-                                    <td><span class="badge bg-label-warning">{{ $p->status }}</span></td>
-                                @elseif($p->status == 'Terverifikasi')
-                                    <td><span class="badge bg-label-success">{{ $p->status }}</span></td>
-                                @else
-                                    <td><span class="badge bg-label-danger">{{ $p->status }}</span></td>
-                                @endif
+                                <td><span class="badge bg-label-danger">{{ $p->status }}</span></td>
+
                             </tr>
                         @endforeach
                     </tbody>

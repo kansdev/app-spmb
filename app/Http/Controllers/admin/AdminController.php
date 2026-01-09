@@ -112,82 +112,44 @@ class AdminController extends Controller
         // Skrip lama
         $admin = session()->only(['id', 'name', 'level']);
         // $calon_pendaftar = Registrasi::with('user.nilai_raport')->first();
+
         $calon_pendaftar = Registrasi::with('user.nilai_raport')
         ->where('status', 'Belum Terverifikasi')
         ->orderBy('created_at', 'asc')
         ->get();
-        // Berdasarkan Jurusan
-        $pendaftar_ak = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'AK')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_mp = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'MP')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_an = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'AN')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_tjkt = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'TJKT')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_dkv = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'DKV')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_pplg = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'PPLG')
-        ->orderBy('created_at', 'asc')
-        ->get();
-        $pendaftar_bp = Registrasi::with([
-            'user.nilai_raport',
-            'user.upload_berkas'
-        ])
-        ->where('status', 'Belum Terverifikasi')
-        ->where('jurusan_pertama', 'BP')
-        ->orderBy('created_at', 'asc')
-        ->get();
+
         $jurusan = Registrasi::select('jurusan_pertama')
         ->selectRaw('COUNT(*) as total')
         ->groupBy('jurusan_pertama')
         ->get();
-        return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'jurusan', 'pendaftar_ak', 'pendaftar_mp', 'pendaftar_an', 'pendaftar_tjkt', 'pendaftar_dkv', 'pendaftar_pplg', 'pendaftar_bp'));
+
+        return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'jurusan'));
     }
 
     public function data_pendaftar() {
         $admin = session()->only(['id', 'name', 'level']);
+
         $pendaftar = Registrasi::with('user.nilai_raport')
         ->where('status', 'Terverifikasi')
         ->orderBy('created_at', 'desc')
         ->get();
-        $berkas = DocumentUpload::get();
-        return view('admin.data_pendaftar', compact('admin', 'pendaftar', 'berkas'));
+
+        // $berkas = DocumentUpload::get();
+
+        return view('admin.data_pendaftar', compact('admin', 'pendaftar'));
+    }
+
+    public function data_ditolak() {
+        $admin = session()->only(['id', 'name', 'level']);
+
+        $pendaftar = Registrasi::with('user.nilai_raport')
+        ->where('status', 'Ditolak')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        // $berkas = DocumentUpload::get();
+
+        return view('admin.data_ditolak', compact('admin', 'pendaftar'));
     }
 
     public function verifikasi($id) {
@@ -208,7 +170,39 @@ class AdminController extends Controller
         ]);
 
         return back()->with('success', 'Pendaftar berhasil ditolak');
+    }
 
+    public function delete_akun($id) {
+        try {
+            $user = User::with([
+                'siswa',
+                'orang_tua',
+                'periodik',
+                'nilai_raport',
+                'upload_berkas',
+                'registrasi'
+            ])->findOrFail($id);
+
+            // Cek apakah user sudah mengisi salah satu data
+            $sudahMengisi =
+                $user->siswa ||
+                $user->orang_tua ||
+                $user->periodik ||
+                $user->nilai_raport ||
+                $user->upload_berkas->isNotEmpty() ||
+                $user->registrasi;
+
+            if ($sudahMengisi) {
+                return back()->with('failed',
+                    'Akun ini sudah mengisi formulir. Penghapusan dapat menyebabkan kehilangan data!'
+                );
+            };
+
+            $user->delete();
+            return back()->with('success', 'User berhasil dihapus');
+        } catch (\Exception $e) {
+            return back()->with('failed', $e->getMessage());
+        }
 
     }
 

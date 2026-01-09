@@ -210,7 +210,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="divider text-start">
-                                <div class="divider-text fs-5 fw-bold">Ayah Kandung</div>
+                                <div class="divider-text fs-5 fw-bold">Biodata Ayah</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="nama-ayah" class="form-label">Nama Ayah</label>
@@ -303,7 +303,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="divider text-start">
-                                <div class="divider-text fs-5 fw-bold">Ibu Kandung</div>
+                                <div class="divider-text fs-5 fw-bold">Biodata Ibu</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="nama-ibu" class="form-label">Nama Ibu</label>
@@ -358,6 +358,7 @@
                                     <option value="pns-tni-polri">PNS/TNI/POLRI</option>
                                     <option value="buruh">Buruh</option>
                                     <option value="tidak bekerja">Tidak Bekerja</option>
+                                    <option value="ibu rumah tangga">Ibu Rumah Tangga</option>
                                     <option value="meninggal">Meninggal</option>
                                 </select>
                                 @error('status_ibu')

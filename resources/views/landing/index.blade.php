@@ -254,7 +254,6 @@
                   <div class="card border-0 shadow">
                     <div class="card-body">
                       <ul class="checklist list-unstyled">
-                        <li class="mb-2">Membuka tabungan wajib Rp. 500.000,-</li>
                         <li class="mb-2">Mengisi formulir biodata, orang tua, periodik dan nilai raport</li>
                         <li class="mb-2">Mengunggah Pas Foto Berwarna terbaru ukuran 3x4 cm</li>
                         <li class="mb-2">Mengunggah Kartu Keluarga</li>
@@ -271,7 +270,7 @@
               <img class="img-fluid rounded mx-auto d-block" style="max-height:400px; object-fit:contain;" src="/assets/img/landing/alur-pendaftaran.jpg" alt="Alur Pendaftaran">
             </div>
             <div class="tab-pane fade text-center" id="pendaftaran-reguler-tab-pane" role="tabpanel" aria-labelledby="pendaftaran-reguler-tab" tabindex="0">
-              Informasi lebih lanjut hubungi : 082133353539
+              Informasi lebih lanjut hubungi : 085117289700
             </div>
           </div>
         </div>
