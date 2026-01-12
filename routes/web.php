@@ -38,8 +38,9 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/data_pendaftar', [AdminController::class, 'data_pendaftar'])->name('admin.data_pendaftar');
     Route::get('/admin/data_ditolak', [AdminController::class, 'data_ditolak'])->name('admin.data_ditolak');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
-    Route::get('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
+    Route::post('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
     Route::get('/admin/{id}', [AdminController::class, 'delete_akun'])->name('admin.delete_akun');
+    Route::delete('admin/hapus_berkas/{id}', [AdminController::class, 'hapus_berkas'])->name('admin.hapus_berkas');
 });
 
 // Middleware untuk akun

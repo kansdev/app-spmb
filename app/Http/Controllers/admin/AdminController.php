@@ -3,14 +3,22 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Mail\NotificationRejectMail;
+
 use App\Models\DataSiswa;
 use App\Models\User;
 use App\Models\Registrasi;
 use App\Models\DocumentUpload;
+
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 // use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -162,12 +170,31 @@ class AdminController extends Controller
         return back()->with('success', 'Pendaftar berhasil diverifikasi');
     }
 
-    public function tolak_verifikasi($id) {
-        $registrasi = Registrasi::findOrFail($id);
-
-        $registrasi->update([
-            'status' => 'Ditolak'
+    public function tolak_verifikasi(Request $request, $id) {
+        // Cek validasi input alasan
+        $request->validate([
+            'alasan' => 'required|string'
         ]);
+
+        // Ambil id user untuk email
+        $registrasi = Registrasi::with('user')->findOrFail($id);
+
+        // Proses update 
+        $registrasi->update([
+            'status' => 'Ditolak',
+            'alasan_ditolak' => $request->alasan
+        ]);
+
+        try {
+            // Kirim email ke user 
+            Mail::to($registrasi->user->email)->send(new NotificationRejectMail($registrasi));
+        } catch (\Exception $e) {
+            // Catat Log eror ketika gagal di kirim
+            Log::error('Email registrasi gagal dikirim', [
+                'user_id' => optional($registrasi->user)->id,
+                'error' => $e->getMessage()
+            ]);
+        }
 
         return back()->with('success', 'Pendaftar berhasil ditolak');
     }
@@ -203,7 +230,40 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             return back()->with('failed', $e->getMessage());
         }
+    }
 
+    // Delete berkas
+    public function hapus_berkas($id) {
+        try {
+            $berkas = DocumentUpload::findOrFail($id);
+
+            // Hapus file fisik
+            if (Storage::disk('public')->exists($berkas->file_path)) {
+                Storage::disk('public')->exists($berkas->file_path);
+            }
+
+            // LOG AKTIVITAS
+            Log::info('Berkas dihapus', [
+                'dihapus_oleh' => Auth::user()->name ?? 'system',
+                'role'         => Auth::user()->level ?? 'unknown',
+                'user_id'      => $berkas->user_id,
+                'berkas_id'    => $berkas->id,
+                'jenis_berkas' => $berkas->type,
+                'file_path'   => $berkas->file_path,
+                'waktu'       => now()->toDateTimeString(),
+            ]);
+
+
+            // Hapus file DB
+            $berkas->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berkas Berhasil Di Hapus'
+            ]);
+        } catch (\Exception $e) {
+            return back()->with('failed', 'Gagal menghapus berkas: ' . $e->getMessage());
+        }
     }
 
 }

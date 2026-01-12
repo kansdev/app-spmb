@@ -23,7 +23,8 @@ class Registrasi extends Model
         'jurusan_kedua',
         'status',
         'gelombang_sesi',
-        'waktu_sesi'
+        'waktu_sesi',
+        'alasan_ditolak'
     ];
 
     public function user() {

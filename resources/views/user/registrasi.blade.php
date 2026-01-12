@@ -93,11 +93,21 @@
                 <tr>
                     <th>Status Registrasi</th>
                     @if ($data_registrasi->status == 'Belum Terverifikasi')
-                        <td style="color: red">{{ $data_registrasi->status }}</td>
-                    @else
+                        <td style="color: orange">{{ $data_registrasi->status }}</td>
+                    @elseif($data_registrasi->status == 'Terverifikasi')
                         <td style="color: green">{{ $data_registrasi->status }}</td>
+                    @elseif($data_registrasi->status == 'Ditolak')
+                        <td style="color: red">{{ $data_registrasi->status }}</td>
                     @endif
                 </tr>
+                @if ($data_registrasi->status == 'Ditolak')
+                    <tr>
+                        <th>Alasan Di Tolak</th>
+                        <td>{{$data_registrasi->alasan_ditolak}}</td>
+                    </tr>
+                @endif
+                        
+                
             </table>
         </div>
     </div>

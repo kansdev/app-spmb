@@ -93,14 +93,17 @@
                         <div class="modal-body">
                             <table class="table table-striped">
                                 @forelse ($cp->user->upload_berkas as $b)
-                                    <tr>
+                                    <tr id="berkas-row-{{ $b->id }}">
                                         <th>File {{ str_replace('_', ' ', $b->type) }}</th>
-                                        <td>
+                                        <td class="d-flex gap-2">
                                             <a href="{{ asset('storage/'.$b->file_path) }}"
                                             target="_blank"
                                             class="btn btn-outline-primary btn-sm">
                                             Lihat
                                             </a>
+                                            <button class="btn btn-outline-danger btn-sm btn-hapus-berkas" data-id="{{ $b->id }}" data-token="{{ csrf_token() }}">
+                                                Hapus
+                                            </button>
                                         </td>
                                     </tr>
                                 @empty
@@ -114,10 +117,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <a href="{{ route('admin.ditolak', $cp->id) }}"
-                            class="btn btn-danger">
-                            Tolak Verifikasi
-                            </a>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal_{{ $cp->id }}">Di Tolak</button>
                             <a href="{{ route('admin.verifikasi', $cp->id) }}"
                             class="btn btn-primary">
                             Verifikasi
@@ -128,5 +128,84 @@
                 </div>
             </div>
         @endforeach
+
+        @foreach ($calon_pendaftar as $cp)
+        <div class="modal fade" id="tolakModal_{{ $cp->id }}">
+            <div class="modal-dialog">
+                <form action="{{ route('admin.ditolak', $cp->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger">
+                                Tolak Pendaftar
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>
+                                Pendaftar:
+                                <strong>{{ $cp->nama_siswa }} | {{ $cp->nomor_pendaftaran }} | {{ $cp->nik }} | {{$cp->created_at}}</strong>
+                            </p>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Alasan Penolakan
+                                </label>
+                                <textarea name="alasan"
+                                        class="form-control"
+                                        rows="4"
+                                        required
+                                        placeholder="Contoh: Berkas tidak lengkap / nilai tidak memenuhi syarat"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button class="btn btn-danger">
+                                Kirim Penolakan
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endforeach
+
+
+        <script>
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('btn-hapus-berkas')) {
+                    e.preventDefault();
+
+                    if (!confirm('Yakin ingin hapus berkas ini ?')) return;
+
+                    const id = e.target.dataset.id;
+                    const token = e.target.dataset.token;
+
+                    fetch(`hapus_berkas/${id}`, {
+                        method : 'DELETE',
+                        headers : {
+                            'X-CSRF-TOKEN' : token,
+                            'Accept' : 'application/json'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.status === 'success') {
+                            document.getElementById(`berkas-row-${id}`).remove();
+                        }
+                    })
+                    .catch(err => {
+                        alert('Gagal menghapus berkas');
+                        console.error(err);
+                    });
+                }
+            })
+        </script>
 
 @endsection
