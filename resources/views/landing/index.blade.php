@@ -225,21 +225,21 @@
                           <td>Gelombang 2</td>
                           <td>1 Februari - 25 Maret 2026</td>
                           <td>28 - 29 Maret 2026</td>
-                          <td>1 April 2025</td>
+                          <td>1 April 2026</td>
                         </tr>
                         <tr>
                           <th scope="row">3</th>
                           <td>Gelombang 3</td>
                           <td>1 - 30 April 2026</td>
                           <td>2 - 3 Mei 2026</td>
-                          <td>6 Mei 2025</td>
+                          <td>6 Mei 2026</td>
                         </tr>
                         <tr>
                           <th scope="row">4</th>
                           <td>Gelombang 4</td>
                           <td>1 Mei - 30 Juni 2026</td>
                           <td>1 - 6 Juli 2026</td>
-                          <td>11 Juli 2025</td>
+                          <td>11 Juli 2026</td>
                         </tr>
                       </tbody>
                     </table>
