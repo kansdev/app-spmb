@@ -28,5 +28,6 @@ npm-debug.log
 Thumbs.db
 yarn-error.log
 desktop.ini
-# composer.json
-# composer.lock
+composer.json
+composer.lock
+package.json
