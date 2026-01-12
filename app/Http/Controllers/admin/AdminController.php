@@ -39,7 +39,28 @@ class AdminController extends Controller
 
         $users = DB::table('users')->count();
 
-        $data_user = User::get();
+        $data_user = User::with([
+            'siswa',
+            'orang_tua',
+            'periodik',
+            'nilai_raport',
+            'upload',
+            'registrasi'
+        ])
+        ->get();
+
+        $data_user->map(function ($user) {
+            $user->sudah_isi_form = 
+                $user->siswa()->exists() || 
+                $user->orang_tua()->exists() ||
+                $user->periodik()->exists() ||
+                $user->nilai_raport()->exists() ||
+                $user->upload_berkas()->exists() ||
+                $user->registrasi()->exists();
+
+            return $user;
+        });
+
         $data_siswa = DataSiswa::with('user')->get();
 
         $cek_user = User::with([
@@ -199,7 +220,7 @@ class AdminController extends Controller
         return back()->with('success', 'Pendaftar berhasil ditolak');
     }
 
-    public function delete_akun($id) {
+    public function delete_akun(Request $request, $id) {
         try {
             $user = User::with([
                 'siswa',
@@ -212,23 +233,35 @@ class AdminController extends Controller
 
             // Cek apakah user sudah mengisi salah satu data
             $sudahMengisi =
-                $user->siswa ||
-                $user->orang_tua ||
-                $user->periodik ||
-                $user->nilai_raport ||
-                $user->upload_berkas->isNotEmpty() ||
-                $user->registrasi;
+                $user->siswa()->exists() ||
+                $user->orang_tua()->exists() ||
+                $user->periodik()->exists() ||
+                $user->nilai_raport()->exists() ||
+                $user->upload_berkas()->exists() ||
+                $user->registrasi()->exists();
 
             if ($sudahMengisi) {
-                return back()->with('failed',
-                    'Akun ini sudah mengisi formulir. Penghapusan dapat menyebabkan kehilangan data!'
-                );
+                // return back()->with('failed',
+                //     'Akun ini sudah mengisi formulir. Penghapusan dapat menyebabkan kehilangan data!'
+                // );
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Akun ini sudah mengisi formulir. Penghapusan dapat menyebabkan kehilangan data!'
+                ], 422);
             };
 
             $user->delete();
-            return back()->with('success', 'User berhasil dihapus');
+
+            return response()->json([
+                'status' => 'success'
+            ], 200);
+            // return back()->with('success', 'User berhasil dihapus');
         } catch (\Exception $e) {
-            return back()->with('failed', $e->getMessage());
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Terjadi kesalahan : '. $e->getMessage()
+            ], 500);
+            // return back()->with('failed', $e->getMessage());
         }
     }
 

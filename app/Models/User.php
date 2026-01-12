@@ -76,4 +76,15 @@ class User extends Authenticatable
     public function registrasi() {
         return $this->hasOne(Registrasi::class, 'user_id');
     }
+
+    // Accessor User
+    public function getSudahIsiFormAttribute() {
+        return
+            $this->siswa()->exists() ||
+            $this->orang_tua()->exists() ||
+            $this->periodik()->exists() ||
+            $this->nilai_raport()->exists() ||
+            $this->upload_berkas()->exists() ||
+            $this->registrasi()->exists();
+    }
 }

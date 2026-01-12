@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <p class="mb-1">Akun</p>
-                    <h4 class="card-title mb-3">{{ $users }}</h4>
+                    <h4 id="total-akun" class="card-title mb-3">{{ $users }}</h4>
                     <a href="#" data-bs-target="#data_user" data-bs-toggle="modal"><small>Lihat Data</small></a>
                 </div>
             </div>
@@ -77,20 +77,12 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($data_user as $du)
-                                @php
-                                    $sudahIsiForm =
-                                        $du->siswa ||
-                                        $du->orang_tua ||
-                                        $du->periodik ||
-                                        $du->upload_berkas ||
-                                        $du->registrasi;
-                                @endphp
-                                <tr>
+                                <tr id="user-row-{{ $du->id }}">
                                     <td>{{ $du->name}}</td>
                                     <td>{{ $du->email}}</td>
                                     <td>{{ $du->phone}}</td>
                                     <td>
-                                        @if ($sudahIsiForm)
+                                        @if ($du->sudah_isi_form)
                                             <!-- TOMBOL DENGAN PERINGATAN -->
                                             <button class="btn btn-sm btn-danger"
                                                     data-bs-toggle="modal"
@@ -99,11 +91,12 @@
                                             </button>
                                         @else
                                             <!-- LANGSUNG HAPUS -->
-                                            <a href="{{ route('admin.delete_akun', $du->id) }}"
+                                            {{-- <a href="{{ route('admin.delete_akun', $du->id) }}"
                                             class="btn btn-sm btn-danger"
                                             onclick="return confirm('Yakin ingin menghapus akun ini?')">
                                                 Hapus Akun
-                                            </a>
+                                            </a> --}}
+                                            <button class="btn btn-sm btn-danger btn-hapus-akun" data-id="{{ $du->id }}" data-token="{{ csrf_token() }}">Hapus Akun</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -227,10 +220,11 @@
                             <button class="btn btn-secondary" data-bs-dismiss="modal">
                                 Batal
                             </button>
-                            <a href="{{ route('admin.delete_akun', $du->id) }}"
+                            {{-- <a href="{{ route('admin.delete_akun', $du->id) }}"
                             class="btn btn-danger">
                                 Ya, Hapus Akun
-                            </a>
+                            </a> --}}
+                            <button class="btn btn-sm btn-danger btn-hapus-akun" data-id="{{ $du->id }}" data-token="{{ csrf_token() }}">Hapus Akun</button>
                         </div>
 
                     </div>
@@ -240,4 +234,42 @@
         @endif
     @endforeach
 
+    <script>
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-hapus-akun')) {
+                e.preventDefault();
+
+                if (!confirm('Yakin ingin menghapus akun ini ? ')) return;
+
+                const id = e.target.dataset.id;
+                const token = e.target.dataset.token;
+
+                fetch(`/admin/delete/akun/${id}`, {
+                    method : 'DELETE', 
+                    headers : {
+                        'X-CSRF-TOKEN' : token,
+                        'Accept' : 'application/json'
+                    }
+                })
+                .then(async res => {
+                    const data = await res.json();
+                    if (!res.ok) {
+                        alert(data.message);
+                        return;
+                    }
+                    // Hapus baris data
+                    document.getElementById(`user-row-${id}`).remove();                      
+
+                    // Hapus penghitungan
+                    const counter = document.getElementById('total-akun');
+                    counter.innerText = parseInt(counter.innerText) - 1;
+                })
+                .catch(err => {
+                    alert(err.message);
+                    console.log(err.message);
+
+                });
+            }
+        });
+    </script>
 @endsection

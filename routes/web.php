@@ -39,7 +39,7 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/data_ditolak', [AdminController::class, 'data_ditolak'])->name('admin.data_ditolak');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
     Route::post('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
-    Route::get('/admin/{id}', [AdminController::class, 'delete_akun'])->name('admin.delete_akun');
+    Route::delete('/admin/delete/akun/{id}', [AdminController::class, 'delete_akun'])->name('admin.delete_akun');
     Route::delete('admin/hapus_berkas/{id}', [AdminController::class, 'hapus_berkas'])->name('admin.hapus_berkas');
 });
 
