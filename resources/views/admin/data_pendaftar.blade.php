@@ -57,8 +57,8 @@
                     </tbody>
                 </table>
 
-                <div class="mt-4">
-                    {{ $pendaftar->links() }}
+                <div class="d-flex justify-content-center">
+                    {{ $data_user->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
