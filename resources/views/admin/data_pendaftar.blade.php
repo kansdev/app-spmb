@@ -58,7 +58,7 @@
                 </table>
 
                 <div class="d-flex justify-content-center">
-                    {{ $data_user->links('pagination::bootstrap-4') }}
+                    {{ $pendaftar->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
