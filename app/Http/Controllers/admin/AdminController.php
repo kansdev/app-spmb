@@ -24,20 +24,16 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index(): View {
+        $admin = session()->only(['id', 'name', 'level']);
 
-        $calon_pendaftar = DB::table('users')
-        ->leftJoin('registrasi', 'users.id', '=', 'registrasi.user_id')
-        ->join('data_siswa', 'users.id', '=', 'data_siswa.user_id')
-        // ->join('data_orang_tua', 'users.id', '=', 'data_orang_tua.user_id')
-        // ->join('document_upload', 'users.id', '=', 'document_upload.user_id')
-        // ->join('data_periodik', 'users.id', '=', 'data_periodik.user_id')
-        // ->join('nilai_raport', 'users.id', '=', 'nilai_raport.user_id')
-        ->whereNull('registrasi.id')
-        ->count();
+        $calon_pendaftar = cache()->remember(
+            'calon_pendaftar',
+            300,
+            fn () => User::doesntHave('registrasi')->count()
+        );
 
-        $teregistrasi = DB::table('registrasi')->count();
-
-        $users = DB::table('users')->count();
+        $teregistrasi = Registrasi::count();
+        $users = User::count();
 
         $data_user = User::with([
             'siswa',
@@ -47,22 +43,21 @@ class AdminController extends Controller
             'upload',
             'registrasi'
         ])
-        ->get();
+        ->paginate(20);
 
-        $data_user->map(function ($user) {
+        $data_user->getCollection()->transform(function ($user) {
             $user->sudah_isi_form = 
-                $user->siswa()->exists() || 
-                $user->orang_tua()->exists() ||
-                $user->periodik()->exists() ||
-                $user->nilai_raport()->exists() ||
-                $user->upload_berkas()->exists() ||
-                $user->registrasi()->exists();
+                $user->siswa || 
+                $user->orang_tua ||
+                $user->periodik ||
+                $user->nilai_raport ||
+                $user->upload_berkas ||
+                $user->registrasi;
 
             return $user;
         });
 
         $data_siswa = DataSiswa::with('user')->get();
-
         $cek_user = User::with([
             'siswa',
             'orang_tua',
@@ -72,10 +67,9 @@ class AdminController extends Controller
             'registrasi'
         ])
         ->whereDoesntHave('registrasi')
-        ->get();
+        ->paginate(20);
 
         $pendaftar_teregistrasi = Registrasi::get();
-        $admin = session()->only(['id', 'name', 'level']);
         // dd($cek_user);
 
         return view('admin.dashboard', compact('admin', 'calon_pendaftar', 'teregistrasi', 'users', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'));
@@ -94,12 +88,9 @@ class AdminController extends Controller
         ->get()
         ->groupBy('kecamatan');
 
-        $agama = DataSiswa::select('agama')
-        ->get()
+        $agama = DataSiswa::select('agama', DB::raw('COUNT(*) as total'))
         ->groupBy('agama')
-        ->map(function ($item){
-            return $item->count();
-        });
+        ->pluck('total', 'agama');
 
         $registrasi = Registrasi::select('jurusan_pertama', 'jurusan_kedua')->get();
 
@@ -145,7 +136,7 @@ class AdminController extends Controller
         $calon_pendaftar = Registrasi::with('user.nilai_raport')
         ->where('status', 'Belum Terverifikasi')
         ->orderBy('created_at', 'asc')
-        ->get();
+        ->paginate(15);
 
         $jurusan = Registrasi::select('jurusan_pertama')
         ->selectRaw('COUNT(*) as total')
@@ -161,9 +152,7 @@ class AdminController extends Controller
         $pendaftar = Registrasi::with('user.nilai_raport')
         ->where('status', 'Terverifikasi')
         ->orderBy('created_at', 'desc')
-        ->get();
-
-        // $berkas = DocumentUpload::get();
+        ->paginate(15);
 
         return view('admin.data_pendaftar', compact('admin', 'pendaftar'));
     }
@@ -272,7 +261,7 @@ class AdminController extends Controller
 
             // Hapus file fisik
             if (Storage::disk('public')->exists($berkas->file_path)) {
-                Storage::disk('public')->exists($berkas->file_path);
+                Storage::disk('public')->delete($berkas->file_path);
             }
 
             // LOG AKTIVITAS
