@@ -37,44 +37,44 @@
             <table class="table table-striped">
                 <tr>
                     <th>Nomor Registrasi</th>
-                    <td>{{ $data_registrasi->nomor_pendaftaran }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->nomor_pendaftaran }}</td>
                 </tr>
                 <tr>
                     <th>Nama Siswa</th>
-                    <td>{{ $data_registrasi->nama_siswa }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->nama_siswa }}</td>
                 </tr>
                 <tr>
                     <th>Tempat Lahir</th>
-                    <td>{{ $data_registrasi->tempat_lahir }} Km</td>
+                    <td class="fw-bold">{{ $data_registrasi->tempat_lahir }}</td>
                 </tr>
                 <tr>
                     <th>Tanggal Lahir</th>
-                    <td>{{ $data_registrasi->tanggal_lahir }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->tanggal_lahir }}</td>
                 </tr>
                 <tr>
                     <th>NISN</th>
-                    <td>{{ $data_registrasi->nisn }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->nisn }}</td>
                 </tr>
                 <tr>
                     <th>NIK</th>
-                    <td>{{ $data_registrasi->nik }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->nik }}</td>
                 </tr>
                 <tr>
                     <th>Asal Sekolah</th>
-                    <td>{{ $data_registrasi->asal_sekolah }}</td>
+                    <td class="fw-bold">{{ $data_registrasi->asal_sekolah }}</td>
                 </tr>
                 <tr>
-                    <th>Pilihan Jurusan Utama</th>
-                    <td>{{ $data_registrasi->jurusan_pertama }}</td>
+                    <th>Pilihan Jurusan Pertama</th>
+                    <td class="fw-bold">{{ $data_registrasi->jurusan_pertama }}</td>
                 </tr>
                 <tr>
-                    <th>Pilihan Jurusan Cadangan</th>
-                    <td>{{ $data_registrasi->jurusan_kedua }}</td>
+                    <th>Pilihan Jurusan Kedua</th>
+                    <td class="fw-bold">{{ $data_registrasi->jurusan_kedua }}</td>
                 </tr>
                 <tr>
                     <th>Waktu Tes</th>
                     {{-- <td>{{$data_registrasi->waktu_sesi}}</td> --}}
-                    <td>
+                    <td class="fw-bold">
                         @if ($data_registrasi->gelombang_sesi === "Gelombang I")
                             {{ $data_registrasi->gelombang_sesi }}, 31 Januari - 1 Februari 2026
                         @elseif ($data_registrasi->gelombang_sesi === "Gelombang II")
@@ -88,26 +88,26 @@
                 </tr>
                 <tr>
                     <th>Sesi Tes</th>
-                    <td>{{$data_registrasi->waktu_sesi}}</td>
+                    <td class="fw-bold">{{$data_registrasi->waktu_sesi}}</td>
                 </tr>
                 <tr>
                     <th>Status Registrasi</th>
                     @if ($data_registrasi->status == 'Belum Terverifikasi')
-                        <td style="color: orange">{{ $data_registrasi->status }}</td>
+                        <td class="fw-bold" style="color: orange">{{ $data_registrasi->status }}</td>
                     @elseif($data_registrasi->status == 'Terverifikasi')
-                        <td style="color: green">{{ $data_registrasi->status }}</td>
+                        <td class="fw-bold" style="color: green">{{ $data_registrasi->status }}</td>
                     @elseif($data_registrasi->status == 'Ditolak')
-                        <td style="color: red">{{ $data_registrasi->status }}</td>
+                        <td class="fw-bold" style="color: red">{{ $data_registrasi->status }}</td>
                     @endif
                 </tr>
                 @if ($data_registrasi->status == 'Ditolak')
                     <tr>
                         <th>Alasan Di Tolak</th>
-                        <td>{{$data_registrasi->alasan_ditolak}}</td>
+                        <td class="fw-bold">{{$data_registrasi->alasan_ditolak}}</td>
                     </tr>
                 @endif
-                        
-                
+
+
             </table>
         </div>
     </div>

@@ -14,7 +14,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h5>Data Calon Pendaftar</h5>
+            <h5>Data Pendaftar</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -83,6 +83,10 @@
                                 </tr>
                             @endforeach
                         </table>
+
+                        <div class="mt-4">
+                            {{ $pendaftar->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

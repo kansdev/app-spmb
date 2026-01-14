@@ -70,6 +70,14 @@ class DocumentUploader extends Component
             ['file_path' => $path]
         );
 
+        // Update status ketika berkas di upload ulang dengan status ditolak
+        $user = Auth::user();
+        if ($user->registrasi && $user->registrasi->status === 'Ditolak') {
+            $user->registrasi()->update([
+                'status' => 'Belum Terverifikasi'
+            ]);
+        }
+
         // Menyimpan ke lokasi penyimpanan
         $this->documents[$type] = $path;
         $this->fileInputs[$type] = null;

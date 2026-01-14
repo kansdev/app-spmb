@@ -36,7 +36,7 @@ class AdminController extends Controller
         $data_siswa = $this->app->getDataSiswa();
         $cek_user = $this->app->getCekUser();
         $pendaftar_teregistrasi = $this->app->getPendaftarTeregistrasi();
-        
+
         return view('admin.dashboard', compact('admin', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'), $stats);
     }
 
@@ -44,104 +44,37 @@ class AdminController extends Controller
 
         $admin = session()->only(['id', 'name', 'level']);
 
-        // Ambil data siswa kelompok perkecamatan -> per kelurahan
-        // Mengelompokan kecamatan supaya gampang di looping
-        $statistik = DataSiswa::select('kecamatan', 'kelurahan', DB::raw('COUNT(*) as total'))
-        ->groupBy('kecamatan', 'kelurahan')
-        ->orderBy('kecamatan')
-        ->orderBy('kelurahan')
-        ->get()
-        ->groupBy('kecamatan');
+        $statistik = $this->app->getStatistikWilayah();
+        $agama = $this->app->getStatistikAgama();
+        $statistik_jurusan = $this->app->getStatistikJurusan();
 
-        $agama = DataSiswa::select('agama', DB::raw('COUNT(*) as total'))
-        ->groupBy('agama')
-        ->pluck('total', 'agama');
 
-        $registrasi = Registrasi::select('jurusan_pertama', 'jurusan_kedua')->get();
-
-        $jurusan_pertama = collect();
-        $jurusan_kedua = collect();
-        foreach ($registrasi as $r) {
-            if ($r->jurusan_pertama) {
-                $jurusan_pertama->push($r->jurusan_pertama);
-            }
-            if ($r->jurusan_kedua) {
-                $jurusan_kedua->push($r->jurusan_kedua);
-            }
-        }
-
-        $statistik_jurusan_pertama = $jurusan_pertama
-        ->groupBy(fn($item) => $item)
-        ->map(fn ($items) => $items->count())
-        ->sortDesc();
-
-        $statistik_jurusan_kedua = $jurusan_kedua
-        ->groupBy(fn($item) => $item)
-        ->map(fn ($items) => $items->count())
-        ->sortDesc();
-
-        $map_jurusan = [
-            'MP' => 'Manajemen Perkantoran',
-            'AK' => 'Akuntansi',
-            'AN' => 'Animasi',
-            'TJKT' => 'Teknik Jaringan Komputer dan Telekomunikasi',
-            'DKV' => 'Desain Komunikasi Visual',
-            'PPLG' => 'Pengembangan Perangkat Lunak dan Gim',
-            'BP' => 'Broadcasting dan Perfilman',
-        ];
-
-        return view('admin.grafik', compact('admin', 'statistik', 'statistik_jurusan_pertama', 'statistik_jurusan_kedua', 'agama', 'map_jurusan'));
+        return view('admin.grafik', compact('admin', 'statistik', 'agama'), $statistik_jurusan);
     }
 
     public function pendaftar() {
-        // Skrip lama
         $admin = session()->only(['id', 'name', 'level']);
-        // $calon_pendaftar = Registrasi::with('user.nilai_raport')->first();
 
-        $calon_pendaftar = Registrasi::with('user.nilai_raport')
-        ->where('status', 'Belum Terverifikasi')
-        ->orderBy('created_at', 'asc')
-        ->paginate(15);
-
-        $jurusan = Registrasi::select('jurusan_pertama')
-        ->selectRaw('COUNT(*) as total')
-        ->groupBy('jurusan_pertama')
-        ->get();
+        $calon_pendaftar = $this->app->getCalonPendaftar();
+        $jurusan = $this->app->getTotalJurusanPertama();
 
         return view('admin.pendaftar', compact('admin', 'calon_pendaftar', 'jurusan'));
     }
 
     public function data_pendaftar() {
         $admin = session()->only(['id', 'name', 'level']);
-
-        $pendaftar = Registrasi::with('user.nilai_raport')
-        ->where('status', 'Terverifikasi')
-        ->orderBy('created_at', 'desc')
-        ->paginate(15);
-
+        $pendaftar = $this->app->getPendaftar();
         return view('admin.data_pendaftar', compact('admin', 'pendaftar'));
     }
 
     public function data_ditolak() {
         $admin = session()->only(['id', 'name', 'level']);
-
-        $pendaftar = Registrasi::with('user.nilai_raport')
-        ->where('status', 'Ditolak')
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-        // $berkas = DocumentUpload::get();
-
+        $pendaftar = $this->app->getDataDiTolak();
         return view('admin.data_ditolak', compact('admin', 'pendaftar'));
     }
 
     public function verifikasi($id) {
-        $registrasi = Registrasi::findOrFail($id);
-
-        $registrasi->update([
-            'status' => 'Terverifikasi'
-        ]);
-
+        $this->app->verifikasi($id);
         return back()->with('success', 'Pendaftar berhasil diverifikasi');
     }
 
@@ -154,14 +87,14 @@ class AdminController extends Controller
         // Ambil id user untuk email
         $registrasi = Registrasi::with('user')->findOrFail($id);
 
-        // Proses update 
+        // Proses update
         $registrasi->update([
             'status' => 'Ditolak',
             'alasan_ditolak' => $request->alasan
         ]);
 
         try {
-            // Kirim email ke user 
+            // Kirim email ke user
             Mail::to($registrasi->user->email)->send(new NotificationRejectMail($registrasi));
         } catch (\Exception $e) {
             // Catat Log eror ketika gagal di kirim
@@ -218,7 +151,6 @@ class AdminController extends Controller
             // return back()->with('failed', $e->getMessage());
         }
     }
-
     // Delete berkas
     public function hapus_berkas($id) {
         try {

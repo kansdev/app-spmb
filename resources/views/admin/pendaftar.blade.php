@@ -75,6 +75,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $calon_pendaftar->links() }}
+                </div>
             </div>
         </div>
 
