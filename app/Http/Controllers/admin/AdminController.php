@@ -21,58 +21,23 @@ use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 
+use App\Services\AppServices;
+
 class AdminController extends Controller
 {
+    public function __construct(
+        protected AppServices $app
+    ) {}
+
     public function index(): View {
         $admin = session()->only(['id', 'name', 'level']);
-
-        $calon_pendaftar = cache()->remember(
-            'calon_pendaftar',
-            300,
-            fn () => User::doesntHave('registrasi')->count()
-        );
-
-        $teregistrasi = Registrasi::count();
-        $users = User::count();
-
-        $data_user = User::with([
-            'siswa',
-            'orang_tua',
-            'periodik',
-            'nilai_raport',
-            'upload',
-            'registrasi'
-        ])
-        ->paginate(20);
-
-        $data_user->getCollection()->transform(function ($user) {
-            $user->sudah_isi_form = 
-                $user->siswa || 
-                $user->orang_tua ||
-                $user->periodik ||
-                $user->nilai_raport ||
-                $user->upload_berkas ||
-                $user->registrasi;
-
-            return $user;
-        });
-
-        $data_siswa = DataSiswa::with('user')->get();
-        $cek_user = User::with([
-            'siswa',
-            'orang_tua',
-            'periodik',
-            'nilai_raport',
-            'upload',
-            'registrasi'
-        ])
-        ->whereDoesntHave('registrasi')
-        ->paginate(20);
-
-        $pendaftar_teregistrasi = Registrasi::get();
-        // dd($cek_user);
-
-        return view('admin.dashboard', compact('admin', 'calon_pendaftar', 'teregistrasi', 'users', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'));
+        $stats = $this->app->getStatusPendaftar();
+        $data_user = $this->app->getDataUser();
+        $data_siswa = $this->app->getDataSiswa();
+        $cek_user = $this->app->getCekUser();
+        $pendaftar_teregistrasi = $this->app->getPendaftarTeregistrasi();
+        
+        return view('admin.dashboard', compact('admin', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'), $stats);
     }
 
     public function grafik(): View {
