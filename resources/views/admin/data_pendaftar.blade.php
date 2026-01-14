@@ -59,9 +59,6 @@
 
                 <div class="mt-4">
                     {{ $pendaftar->links() }}
-                    Total data: {{ $pendaftar->total() }} <br>
-                    Per page: {{ $pendaftar->perPage() }} <br>
-                    Last page: {{ $pendaftar->lastPage() }}
                 </div>
             </div>
         </div>
