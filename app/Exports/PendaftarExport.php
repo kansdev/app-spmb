@@ -25,13 +25,75 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
 
     public function headings(): array {
         return [
-            'Nama', 'Jenis Kelamin', 'Agama', 'Tanggal Lahir', 'Tempat Lahir', 'Nomor KK', 'NIK', 'Akta Lahir', 'Disabilitas', 'Provinsi', 'Kab/Kota', 'Kecamatana', 'Kelurahan', 'Alamat', 'Transportasi', 'Nama Ayah', 'Nama Ibu', 'Pekerjaan Ayah', 'Pekerjaan Ibu', 'Penghasilan Ayah', 'Penghasilan Ibu', 'Email', 'Nisn', 'Asal Sekolah', 'Pilihan Pertama', 'Pilihan Kedua', 'Status Registrasi'
+            'Nama', 
+            'Jenis Kelamin', 
+            'Agama', 
+            'Tanggal Lahir', 
+            'Tempat Lahir', 
+            'Nomor KK', 
+            'NIK', 
+            'Akta Lahir', 
+            'Disabilitas', 
+            'Provinsi', 
+            'Kab/Kota', 
+            'Kecamatana', 
+            'Kelurahan', 
+            'Alamat', 
+            'Transportasi', 
+            'Nama Ayah', 
+            'Nama Ibu', 
+            'Pekerjaan Ayah', 
+            'Pekerjaan Ibu', 
+            'Penghasilan Ayah', 
+            'Penghasilan Ibu', 
+            'Email', 
+            'Nomor Telepon', 
+            'Nisn', 
+            'Asal Sekolah', 
+            'Pilihan Pertama', 
+            'Pilihan Kedua', 
+            'Status Registrasi'            
         ];
     }
 
     public function map($user): array {
         return [
-            $user->name, $user->email, optional($user->siswa)->nisn, optional($user->siswa)->asal_sekolah, optional($user->siswa)->status, 
+            // Siswa
+            optional($user->siswa)->nama_siswa, 
+            optional($user->siswa)->jenis_kelamin, 
+            optional($user->siswa)->agama, 
+            optional($user->siswa)->tanggal_lahir, 
+            optional($user->siswa)->tempat_lahir, 
+            optional($user->siswa)->kk, 
+            optional($user->siswa)->nik, 
+            optional($user->siswa)->akta_lahir, 
+            optional($user->siswa)->disabilitas, 
+            optional($user->siswa)->provinsi, 
+            optional($user->siswa)->kota, 
+            optional($user->siswa)->kecamatan, 
+            optional($user->siswa)->kelurahan, 
+            optional($user->siswa)->alamat, 
+            optional($user->siswa)->transportasi,
+            
+            // Orang Tua
+            optional($user->orang_tua)->nama_ayah, 
+            optional($user->orang_tua)->nama_ibu, 
+            optional($user->orang_tua)->pekerjaan_ayah, 
+            optional($user->orang_tua)->pekerjaan_ibu, 
+            optional($user->orang_tua)->penghasilan_ayah, 
+            optional($user->orang_tua)->penghasilan_ibu, 
+
+            // User
+            $user->email,
+            $user->nomor_telepon,
+            
+            // Registrasi
+            optional($user->registrasi)->nisn, 
+            optional($user->registrasi)->asal_sekolah, 
+            optional($user->registrasi)->jurusan_pertama, 
+            optional($user->registrasi)->jurusan_kedua,
+            optional($user->registrasi)->status, 
+            optional($user->registrasi)->alasan_ditolak, 
         ];
     }
 
