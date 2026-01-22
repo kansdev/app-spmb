@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Exports\PendaftarExport;
 use App\Models\IdCard;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\users\CekPendaftarController;
 use App\Http\Controllers\users\DashboardController;
@@ -14,7 +17,7 @@ use App\Http\Controllers\users\FormulirRegistrasi;
 use App\Http\Controllers\users\FormulirNilaiRaport;
 
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 // Root direct to login page
 Route::get('/', function () {
@@ -36,6 +39,12 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/grafik_agama', [AdminController::class, 'grafik_agama'])->name('admin.grafik_agama');
     Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
     Route::get('/admin/data_pendaftar', [AdminController::class, 'data_pendaftar'])->name('admin.data_pendaftar');
+    Route::get('admin/data_pendaftar/unduh', function () {
+        return Excel::download(
+            new PendaftarExport,
+            'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx'
+        );
+    });
     Route::get('/admin/data_ditolak', [AdminController::class, 'data_ditolak'])->name('admin.data_ditolak');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
     Route::post('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');

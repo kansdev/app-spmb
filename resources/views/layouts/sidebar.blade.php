@@ -142,14 +142,14 @@
 
             <li class="menu-item {{ request()->routeIs('admin.data_pendaftar') ? 'active' : '' }}">
                 <a href="{{ route('admin.data_pendaftar') }}" class="menu-link">
-                    <i class="menu-icon tf-icons fa-solid fa-user"></i>
+                    <i class="menu-icon tf-icons fa-solid fa-users"></i>
                     <div data-i18n="Account Settings">Data Pendaftar</div>
                 </a>
             </li>
 
             <li class="menu-item {{ request()->routeIs('admin.data_ditolak') ? 'active' : '' }}">
                 <a href="{{ route('admin.data_ditolak') }}" class="menu-link">
-                    <i class="menu-icon tf-icons fa-solid fa-user"></i>
+                    <i class="menu-icon tf-icons fa-solid fa-ban"></i>
                     <div data-i18n="Account Settings">Data Ditolak</div>
                 </a>
             </li>

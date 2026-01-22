@@ -185,4 +185,8 @@ class AdminController extends Controller
         }
     }
 
+    public function unduh_data_pendaftar() {
+        // 
+    }
+
 }

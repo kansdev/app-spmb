@@ -11,6 +11,11 @@
             {{ session('success') }}
         </div>
     @endif
+    
+    <a href="{{ url('admin/data_pendaftar/unduh') }}" target="_blank" class="btn tbn-sm btn-primary mb-4">
+        <i class="menu-icon tf-icons fa-solid fa-download"></i>
+        Unduh Data Pendaftar
+    </a>
 
     <div class="card">
         <div class="card-header">
@@ -61,7 +66,7 @@
                     {{ $pendaftar->links('pagination::bootstrap-4') }}
                 </div>
             </div>
-        </div>
+        </div>        
 
         @foreach ($pendaftar as $p)
         <div class="modal fade" id="berkasModal_{{ $p->user_id }}">
@@ -94,5 +99,7 @@
         @endforeach
 
     </div>
+
+    
 
 @endsection
