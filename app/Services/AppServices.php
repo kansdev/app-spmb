@@ -47,8 +47,8 @@ class AppServices
             'upload',
             'registrasi'
         ])
+        ->paginate();
         // ->paginate(50);
-        ->get();
 
         $data_user->getCollection()->transform(function ($user) {
             $user->sudah_isi_form =
