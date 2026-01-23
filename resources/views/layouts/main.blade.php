@@ -194,7 +194,9 @@
             scrollY: 300
         });
 
-        new DataTable('#dataAkun');
+        new DataTable('#dataAkun' {
+            paging: false,
+        });
         new DataTable('#dataCalonPendaftar');
         new DataTable('#dataRegistrasi');
     </script>
