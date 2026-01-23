@@ -47,7 +47,7 @@ class AppServices
             'upload',
             'registrasi'
         ])
-        ->paginate();
+        ->paginate(25);
         // ->paginate(50);
 
         $data_user->getCollection()->transform(function ($user) {
