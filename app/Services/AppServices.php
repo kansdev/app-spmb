@@ -180,5 +180,31 @@ class AppServices
             'status' => 'Terverifikasi'
         ]);
     }
+
+    public static function toNominal($kode): int
+    {
+        return match ((int) $kode) {
+            1 => 999_999,
+            2 => 2_999_999,
+            3 => 4_999_999,
+            4 => 7_999_999,
+            5 => 9_999_999,
+            6 => 10_000_000,
+            default => 0,
+        };
+    }
+
+    public static function label($kode): string
+    {
+        return match ((int) $kode) {
+            1 => '< Rp 1.000.000',
+            2 => 'Rp 1.000.000 – 2.999.999',
+            3 => 'Rp 3.000.000 – 4.999.999',
+            4 => 'Rp 5.000.000 – 7.999.999',
+            5 => 'Rp 8.000.000 – 9.999.999',
+            6 => '> Rp 10.000.000',
+            default => 'Tidak Diketahui',
+        };
+    }
 }
 

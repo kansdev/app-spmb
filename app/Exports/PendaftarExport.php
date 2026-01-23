@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\User;
 use App\Services\WilayahService;
+use App\Services\AppService;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -65,7 +66,7 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             optional($user->siswa)->agama, 
             optional($user->siswa)->tanggal_lahir, 
             optional($user->siswa)->tempat_lahir, 
-            optional($user->siswa)->kk, 
+            optional($user->siswa)->no_kk, 
             optional($user->siswa)->nik, 
             optional($user->siswa)->akta_lahir, 
             optional($user->siswa)->disabilitas, 
@@ -79,8 +80,8 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             // Orang Tua
             optional($user->orang_tua)->nama_ayah, 
             optional($user->orang_tua)->nama_ibu, 
-            optional($user->orang_tua)->pekerjaan_ayah, 
-            optional($user->orang_tua)->pekerjaan_ibu, 
+            AppService::label(optional($user->orang_tua)->pekerjaan_ayah), 
+            AppService::label(optional($user->orang_tua)->pekerjaan_ibu), 
             optional($user->orang_tua)->penghasilan_ayah, 
             optional($user->orang_tua)->penghasilan_ibu, 
 
