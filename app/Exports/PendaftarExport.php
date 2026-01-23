@@ -48,8 +48,6 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             'Pekerjaan Ibu', 
             'Penghasilan Ayah', 
             'Penghasilan Ibu', 
-            'Email', 
-            'Nomor Telepon', 
             'Nisn', 
             'Asal Sekolah', 
             'Pilihan Pertama', 
@@ -83,11 +81,7 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             optional($user->orang_tua)->pekerjaan_ayah, 
             optional($user->orang_tua)->pekerjaan_ibu, 
             AppServices::label(optional($user->orang_tua)->penghasilan_ayah), 
-            AppServices::label(optional($user->orang_tua)->penghasilan_ibu), 
-
-            // User
-            $user->email,
-            $user->nomor_telepon,
+            AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
             
             // Registrasi
             optional($user->registrasi)->nisn, 
