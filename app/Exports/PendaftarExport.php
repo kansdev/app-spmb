@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\User;
+use App\Services\WilayahService;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -68,10 +69,10 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             optional($user->siswa)->nik, 
             optional($user->siswa)->akta_lahir, 
             optional($user->siswa)->disabilitas, 
-            optional($user->siswa)->provinsi, 
-            optional($user->siswa)->kota, 
-            optional($user->siswa)->kecamatan, 
-            optional($user->siswa)->kelurahan, 
+            WilayahService::provinsi(optional($user->siswa)->provinsi), 
+            WilayahService::kota(optional($user->siswa)->kota), 
+            WilayahService::kecamatan(optional($user->siswa)->kecamatan), 
+            WilayahService::kelurahan(optional($user->siswa)->kelurahan), 
             optional($user->siswa)->alamat, 
             optional($user->siswa)->transportasi,
             
