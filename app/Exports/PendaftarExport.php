@@ -80,10 +80,10 @@ class PendaftarExport implements FromCollection, WithHeadings, WithMapping, With
             // Orang Tua
             optional($user->orang_tua)->nama_ayah, 
             optional($user->orang_tua)->nama_ibu, 
-            AppServices::label(optional($user->orang_tua)->pekerjaan_ayah), 
-            AppServices::label(optional($user->orang_tua)->pekerjaan_ibu), 
-            optional($user->orang_tua)->penghasilan_ayah, 
-            optional($user->orang_tua)->penghasilan_ibu, 
+            optional($user->orang_tua)->pekerjaan_ayah, 
+            optional($user->orang_tua)->pekerjaan_ibu, 
+            AppServices::label(optional($user->orang_tua)->penghasilan_ayah), 
+            AppServices::label(optional($user->orang_tua)->penghasilan_ibu), 
 
             // User
             $user->email,
