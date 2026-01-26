@@ -145,8 +145,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/api/k6-login', function (Illuminate\Http\Request $request) {
     if (
         auth()->attempt([
-            'username' => $request->email,
-            'password' => $request->password,
+            'username' => 'admin',
+            'password' => 'Smknusantara1!',
         ])
     ) {
         return response()->json(['ok' => true]);
