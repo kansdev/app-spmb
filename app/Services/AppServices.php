@@ -17,7 +17,7 @@ use App\Models\Admin;
 class AppServices
 {
     public function getStatusPendaftar(): array {
-        return cache()->remember('dashboard_stats', 300, function () {
+        return cache()->remember('dashboard_stats', 60, function () {
             return [
                 'users' => User::count(),
                 'calon_pendaftar' => User::whereDoesntHave('registrasi')->count(),
