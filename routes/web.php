@@ -4,8 +4,11 @@ use App\Http\Controllers\admin\AdminController;
 use App\Exports\PendaftarExport;
 use App\Models\IdCard;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\users\CekPendaftarController;
@@ -17,6 +20,7 @@ use App\Http\Controllers\users\FormulirRegistrasi;
 use App\Http\Controllers\users\FormulirNilaiRaport;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 // Root direct to login page
@@ -60,7 +64,7 @@ Route::middleware(['cekAdmin'])->group(function() {
             'calon' => \App\Models\User::whereDoesntHave('registrasi')->count(),
             'pendaftar' => \App\Models\Registrasi::count()
         ]);
-    });            
+    });
     Route::get('/admin/dashboard/data-teregistrasi', [AdminController::class, 'data_teregistrasi']);
     Route::get('/admin/dashboard/data-teregistrasi/test', [AdminController::class, 'data_teregistrasi']);
 });
@@ -142,15 +146,32 @@ Route::get('/cekpendaftar/{registrasi}', [CekPendaftarController::class, 'show']
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Test
-Route::get('/api/k6-login', function (Illuminate\Http\Request $request) {
-    if (
-        auth()->attempt([
-            'username' => 'admin',
-            'password' => 'Smknusantara1!',
-        ])
-    ) {
-        return response()->json(['ok' => true]);
-    }
+Route::get('/api/k6-login', function (Request $request) {
+    try {
+        $admin = DB::table('account')->where('username', $request->username)->first();
 
-    return response()->json(['ok' => false], 401);
+        if (!$admin) {
+            return back()->with('error', 'Username tidak ditemukan');
+        }
+
+        if (!Hash::check($request->password, $admin->password)) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'Password anda salah');
+        }
+
+        session([
+            'admin_id' => $admin->id,
+            'admin_name' => $admin->name,
+            'admin_level' => $admin->level,
+        ]);
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('message', 'Selamat Datang ' . $admin->name);
+
+    } catch (\Exception $e) {
+        return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+    }
 });
+
