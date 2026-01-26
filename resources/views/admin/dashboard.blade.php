@@ -180,24 +180,7 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody id="data-pendaftar-teregistrasi" class="table-border-bottom-0">
-                            {{-- @foreach ($pendaftar_teregistrasi as $pt)
-                                <tr>
-                                    <td>{{ $pt->nomor_pendaftaran}}</td>
-                                    <td>{{ $pt->nama_siswa}}</td>
-                                    <td>{{ $pt->asal_sekolah}}</td>
-                                    <td>{{ $pt->jurusan_pertama}}</td>
-                                    <td>{{ $pt->jurusan_kedua}}</td>
-                                    @if ($pt->status == 'Belum Terverifikasi')
-                                        <td><span class="badge bg-label-warning">{{ $pt->status }}</span></td>
-                                    @elseif($pt->status == 'Terverifikasi')
-                                        <td><span class="badge bg-label-success">{{ $pt->status }}</span></td>
-                                    @elseif ($pt->status == 'Ditolak')
-                                        <td><span class="badge bg-label-danger">{{ $pt->status }}</span></td>
-                                    @endif
-                                </tr>
-                            @endforeach --}}
-                            <tr>
+                        <tbody id="data-pendaftar-teregistrasi" class="table-border-bottom-0">                         <tr>
                                 <td colspan="8" id="data-pendaftar-teregistrasi" class="text-center text-muted">Memuat Data....</td>
                             </tr>
                         </tbody>
@@ -376,7 +359,7 @@
             dataPendaftarLoaded = true;
         });
 
-        function badge(status) {
+        function renderStatusBadge(status) {
             switch (status) {
                 case 'Belum Terverifikasi':
                     return `<td><span class="badge bg-label-warning">${status}</span></td>`;
