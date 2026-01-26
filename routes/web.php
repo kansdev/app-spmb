@@ -140,3 +140,17 @@ Route::get('/cekpendaftar/{registrasi}', [CekPendaftarController::class, 'show']
 
 // Logout Sistem
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Test
+Route::post('/api/k6-login', function (Illuminate\Http\Request $request) {
+    if (
+        auth()->attempt([
+            'username' => $request->email,
+            'password' => $request->password,
+        ])
+    ) {
+        return response()->json(['ok' => true]);
+    }
+
+    return response()->json(['ok' => false], 401);
+});
