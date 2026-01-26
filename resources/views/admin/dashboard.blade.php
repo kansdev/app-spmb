@@ -421,12 +421,12 @@
                 res.data.forEach(p => {
                     tbody.innerHTML += `
                         <tr>
-                            <td>${p.nomor_pendaftaran}</td>  
-                            <td>${p.nama_siswa}</td>  
-                            <td>${p.asal_sekolah}</td>  
-                            <td>${p.jurusan_pertama}</td>  
-                            <td>${p.jurusan_kedua}</td>  
-                            <td>${renderStatusBadge(p.status)}</td>                      
+                            <td>${p.registrasi.nomor_pendaftaran}</td>  
+                            <td>${p.registrasi.nama_siswa}</td>  
+                            <td>${p.registrasi.asal_sekolah}</td>  
+                            <td>${p.registrasi.jurusan_pertama}</td>  
+                            <td>${p.registrasi.jurusan_kedua}</td>  
+                            <td>${renderStatusBadge(p.registrasi.status)}</td>                      
                         </tr>
                     `;
                 });
