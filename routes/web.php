@@ -147,7 +147,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Test
 Route::get('/api/k6-login', function (Request $request) {
-    $admin = DB::table('account')->where('username', 'admin')->first();
+    $admin = DB::table('account')->where('email', 'admin')->first();
 
     if (!$admin) {
         return response()->json([
