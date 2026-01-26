@@ -156,7 +156,7 @@ Route::get('/api/k6-login', function (Request $request) {
         ], 401);
     }
 
-    if (!Hash::check('admin123!', $admin->password)) {
+    if (!Hash::check('Smknusantara1!', $admin->password)) {
         return response()->json([
             'ok' => false,
             'message' => 'Password salah'
