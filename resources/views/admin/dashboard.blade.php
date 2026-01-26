@@ -434,12 +434,11 @@
                 renderTeregistrasiPagination(res, page);
             })
             .catch(err => {
-                alert(err);
-                window.location.href = `/login?error=${encodeURIComponent(err.message)}`;
+                alert(err.message);
             });
         }
 
-        function renderTeregistrasiPagination() {
+        function renderTeregistrasiPagination(res, currentPage) {
             let html = '';
 
             for (let i = 1; i <= res.last_page; i++) {
