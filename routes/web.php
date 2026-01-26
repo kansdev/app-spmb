@@ -147,31 +147,31 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Test
 Route::get('/api/k6-login', function (Request $request) {
-    try {
-        $admin = DB::table('account')->where('username', $request->username)->first();
+    $admin = DB::table('account')->where('username', 'admin')->first();
 
-        if (!$admin) {
-            return back()->with('error', 'Username tidak ditemukan');
-        }
-
-        if (!Hash::check($request->password, $admin->password)) {
-            return redirect()
-                ->route('login')
-                ->with('error', 'Password anda salah');
-        }
-
-        session([
-            'admin_id' => $admin->id,
-            'admin_name' => $admin->name,
-            'admin_level' => $admin->level,
-        ]);
-
-        return redirect()
-            ->route('admin.dashboard')
-            ->with('message', 'Selamat Datang ' . $admin->name);
-
-    } catch (\Exception $e) {
-        return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+    if (!$admin) {
+        return response()->json([
+            'ok' => false,
+            'message' => 'User tidak ditemukan'
+        ], 401);
     }
+
+    if (!Hash::check('admin123!', $admin->password)) {
+        return response()->json([
+            'ok' => false,
+            'message' => 'Password salah'
+        ], 401);
+    }
+
+    // simpan session (SAMA dengan login asli kamu)
+    session([
+        'id'    => $admin->id,
+        'name'  => $admin->name,
+        'level' => $admin->level,
+    ]);
+
+    return response()->json([
+        'ok' => true
+    ]);
 });
 
