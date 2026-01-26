@@ -333,7 +333,7 @@
             for (let i = 1; i <= res.last_page; i++) {
                 html += `
                     <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-light'}"
-                        onclick="loadCalonUser(${i})">
+                        onclick="loadDataCalon(${i})">
                         ${i}
                     </button>
                 `;
