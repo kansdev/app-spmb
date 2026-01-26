@@ -50,6 +50,19 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::post('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
     Route::delete('/admin/delete/akun/{id}', [AdminController::class, 'delete_akun'])->name('admin.delete_akun');
     Route::delete('admin/hapus_berkas/{id}', [AdminController::class, 'hapus_berkas'])->name('admin.hapus_berkas');
+
+    // Route ajax
+    Route::get('/admin/dashboard/data-calon-pendaftar', [AdminController::class, 'data_calon_pendaftar']);
+    Route::get('/admin/dashboard/data-user', [AdminController::class, 'data_user'])->name('admin.dashboard.data_user');
+    Route::get('/admin/dashboard/statistik', function() {
+        return response()->json([
+            'akun' => \App\Models\User::count(),
+            'calon' => \App\Models\User::whereDoesntHave('registrasi')->count(),
+            'pendaftar' => \App\Models\Registrasi::count()
+        ]);
+    });            
+    Route::get('/admin/dashboard/data-teregistrasi', [AdminController::class, 'data_teregistrasi']);
+    Route::get('/admin/dashboard/data-teregistrasi/test', [AdminController::class, 'data_teregistrasi']);
 });
 
 // Middleware untuk akun

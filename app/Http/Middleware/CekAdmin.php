@@ -16,6 +16,11 @@ class CekAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (!session()->has('id') || !session()->has('level')) {
+
+            if (!$request->expectsJson()) {
+                return response()->json(['message' => 'session habis'], 401);
+            }
+            
             return redirect()->route('login')->with('error', 'Session anda telah habis, silahkan login kembali.');
         }
         return $next($request);

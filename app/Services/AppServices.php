@@ -17,29 +17,33 @@ use App\Models\Admin;
 class AppServices
 {
     public function getStatusPendaftar(): array {
-        return [
-            'calon_pendaftar' => cache()->remember(
-                'calon_pendaftar',
-                300,
-                fn () => User::doesntHave('registrasi')->count()
-            ),
-            'teregistrasi' => cache()->remember(
-                'teregistrasi',
-                300,
-                fn () => Registrasi::count()
-            ),
-            'users' => cache()->remember(
-                'users',
-                300,
-                fn () => User::count()
-            )
-        ];
+        return cache()->remember('dashboard_stats', 300, function () {
+            return [
+                'users' => User::count(),
+                'calon_pendaftar' => User::whereDoesntHave('registrasi')->count(),
+                'teregistrasi' => Registrasi::count(),
+            ];
+            // 'calon_pendaftar' => cache()->remember(
+            //     'calon_pendaftar',
+            //     300,
+            //     fn () => User::doesntHave('registrasi')->count()
+            // ),
+            // 'teregistrasi' => cache()->remember(
+            //     'teregistrasi',
+            //     300,
+            //     fn () => Registrasi::count()
+            // ),
+            // 'users' => cache()->remember(
+            //     'users',
+            //     300,
+            //     fn () => User::count()
+            // )
+        });
         Log::info('Service status pendaftar dipanggil');
     }
 
     public function getDataUser() {
-        $data_user = User::select('id', 'name', 'email')
-        ->with([
+        $data_user = User::select('id', 'name', 'email', 'phone')->withExists([
             'siswa',
             'orang_tua',
             'periodik',
@@ -47,27 +51,24 @@ class AppServices
             'upload',
             'registrasi'
         ])
-        ->paginate(25);
-        // ->paginate(50);
-
-        $data_user->getCollection()->transform(function ($user) {
-            $user->sudah_isi_form =
-                $user->siswa ||
-                $user->orang_tua ||
-                $user->periodik ||
-                $user->nilai_raport ||
-                $user->upload_berkas ||
-                $user->registrasi;
-
-            return $user;
-        });
+        ->orderBy('id', 'desc')
+        ->paginate(20);
         Log::info('Service data user dipanggil');
 
         return $data_user;
     }
 
     public function getCekUser() {
+        Log::info('Service cek user dipanggil');
         return User::with([
+            'siswa:id,user_id,nama_siswa',
+            'orang_tua',
+            'periodik',
+            'nilai_raport',
+            'upload',
+            'registrasi'
+        ])
+        ->withCount([
             'siswa',
             'orang_tua',
             'periodik',
@@ -77,18 +78,19 @@ class AppServices
         ])
         ->whereDoesntHave('registrasi')
         ->paginate(20);
-
-        Log::info('Service cek user dipanggil');
     }
 
     public function getDataSiswa() {
-        return DataSiswa::with('user')->get();
         Log::info('Service data siswa dipanggil');
+        return DataSiswa::with('user')->get();
     }
 
     public function getPendaftarTeregistrasi() {
-        return Registrasi::get();
         Log::info('Service pendaftar teregistrasi dipanggil');
+        // return Registrasi::get();
+        $registrasi = User::with('registrasi')->whereHas('registrasi')->paginate(20);
+        return $registrasi;
+        // return 'tes';
     }
 
     public function getStatistikWilayah() {

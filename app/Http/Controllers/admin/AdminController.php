@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Http\Request;
 
@@ -33,11 +34,17 @@ class AdminController extends Controller
         $admin = session()->only(['id', 'name', 'level']);
         $stats = $this->app->getStatusPendaftar();
         $data_user = $this->app->getDataUser();
-        $data_siswa = $this->app->getDataSiswa();
-        $cek_user = $this->app->getCekUser();
-        $pendaftar_teregistrasi = $this->app->getPendaftarTeregistrasi();
+        // $data_siswa = $this->app->getDataSiswa();
+        // $cek_user = $this->app->getCekUser();
+        // $pendaftar_teregistrasi = $this->app->getPendaftarTeregistrasi();
 
-        return view('admin.dashboard', compact('admin', 'data_user', 'data_siswa', 'cek_user', 'pendaftar_teregistrasi'), $stats);
+        return view('admin.dashboard', array_merge(
+            [
+                'admin' => $admin,
+                'data_user' => $data_user
+            ],
+            $stats
+        ));
     }
 
     public function grafik(): View {
@@ -139,6 +146,8 @@ class AdminController extends Controller
 
             $user->delete();
 
+            Cache::forget('dashboard_stats');
+
             return response()->json([
                 'status' => 'success'
             ], 200);
@@ -185,8 +194,20 @@ class AdminController extends Controller
         }
     }
 
-    public function unduh_data_pendaftar() {
-        // 
+    public function data_user(Request $request) {
+        return response()->json($this->app->getDataUser());
+    }
+
+    public function data_calon_pendaftar(Request $request) {
+        return response()->json($this->app->getCekUser());
+    }
+
+    public function data_teregistrasi(Request $request) {
+        return response()->json($this->app->getPendaftarTeregistrasi());
+        // return dd($this->app->getPendaftarTeregistrasi());
+        // return dd(User::with('registrasi')
+        //         ->whereHas('registrasi')
+        //         ->paginate(20));
     }
 
 }
