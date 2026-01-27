@@ -156,6 +156,41 @@
     </div>
     <!-- / Layout wrapper -->
 
+    <!-- MODAL LOADING -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                {{-- <div class="spinner-border text-primary mb-3" role="status"></div> --}}
+                <h5>Memuat data...</h5>
+                <small class="text-muted">Mohon tunggu</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TIMEOUT -->
+    <div class="modal fade" id="timeoutModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Request Timeout</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Server membutuhkan waktu terlalu lama untuk merespon.
+                    </p>
+                    <p class="text-muted">
+                        Silakan coba kembali atau periksa koneksi internet Anda.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button class="btn btn-primary" onclick="loadGrafik()">Coba Lagi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
@@ -416,6 +451,48 @@
 
         });
     </script>
+
+    <script>
+        let timeoutHandle;
+
+        function loadHalaman() {
+            const loadingModal = new bootstrap.Modal(
+                document.getElementById('loadingModal')
+            );
+            const timeoutModal = new bootstrap.Modal(
+                document.getElementById('timeoutModal')
+            );
+
+            // Tampilkan loading
+            loadingModal.show();
+
+            // ⏱ Timeout 10 detik
+            timeoutHandle = setTimeout(() => {
+                loadingModal.hide();
+                timeoutModal.show();
+            }, 10000);
+
+            fetch('/admin/grafik/data')
+                .then(res => {
+                    if (!res.ok) throw new Error('Server error');
+                    return res.json();
+                })
+                .then(data => {
+                    clearTimeout(timeoutHandle);
+                    loadingModal.hide();
+
+                    // 👉 render grafik di sini
+                    renderGrafik(data);
+                })
+                .catch(err => {
+                    clearTimeout(timeoutHandle);
+                    loadingModal.hide();
+                    timeoutModal.show();
+                    console.error(err);
+                });
+        }
+        </script>
+
 
 </body>
 

@@ -114,7 +114,7 @@
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                <a href="{{ route('admin.dashboard') }}" onclick="loadHalaman()" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-gauge"></i>
                     <div data-i18n="Analytics">Dashboard</div>
                 </a>
@@ -127,28 +127,28 @@
             @endphp
             <!-- Layouts -->
             <li class="menu-item {{ $grafikActive ? 'active' : '' }}">
-                <a href="{{ route('admin.grafik') }}" class="menu-link">
+                <a href="{{ route('admin.grafik') }}" onclick="loadHalaman()" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-chart-area"></i>
                     <div data-i18n="Account Settings">Grafik</div>
                 </a>
             </li>
 
             <li class="menu-item {{ request()->routeIs('admin.pendaftar') ? 'active' : '' }}">
-                <a href="{{ route('admin.pendaftar') }}" class="menu-link">
+                <a href="{{ route('admin.pendaftar') }}" onclick="loadHalaman()" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-user"></i>
                     <div data-i18n="Account Settings">Calon Pendaftar</div>
                 </a>
             </li>
 
             <li class="menu-item {{ request()->routeIs('admin.data_pendaftar') ? 'active' : '' }}">
-                <a href="{{ route('admin.data_pendaftar') }}" class="menu-link">
+                <a href="{{ route('admin.data_pendaftar') }}" onclick="loadHalaman()" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-users"></i>
                     <div data-i18n="Account Settings">Data Pendaftar</div>
                 </a>
             </li>
 
             <li class="menu-item {{ request()->routeIs('admin.data_ditolak') ? 'active' : '' }}">
-                <a href="{{ route('admin.data_ditolak') }}" class="menu-link">
+                <a href="{{ route('admin.data_ditolak') }}" onclick="loadHalaman()" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-ban"></i>
                     <div data-i18n="Account Settings">Data Ditolak</div>
                 </a>
