@@ -17,7 +17,7 @@ use App\Models\Admin;
 class AppServices
 {
     public function getStatusPendaftar(): array {
-        return cache()->remember('dashboard_stats', 300, function () {
+        return cache()->remember('dashboard_stats', 60, function () {
             return [
                 'users' => User::count(),
                 'calon_pendaftar' => User::whereDoesntHave('registrasi')->count(),
@@ -51,7 +51,7 @@ class AppServices
             'upload',
             'registrasi'
         ])
-        ->orderBy('id', 'desc')
+        ->orderBy('name', 'asc')
         ->paginate(20);
         Log::info('Service data user dipanggil');
 
@@ -76,13 +76,15 @@ class AppServices
             'upload',
             'registrasi'
         ])
+        ->orderBy('id','asc')
         ->whereDoesntHave('registrasi')
         ->paginate(20);
     }
 
-    public function getDataSiswa() {
+    public function getDataSiswa($id) {
         Log::info('Service data siswa dipanggil');
-        return DataSiswa::with('user')->get();
+        // return DataSiswa::with('user')->get();
+        return DataSiswa::where('user_id', $id)->first();
     }
 
     public function getPendaftarTeregistrasi() {

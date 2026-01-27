@@ -12,12 +12,20 @@ use App\Models\DataSiswa;
 use App\Models\Registrasi;
 use App\Models\User;
 
+use App\Services\AppServices;
+
 class FormulirSiswaController extends Controller
 {
+
+    public function __construct(
+        protected AppServices $app
+    ) {}
+
     public function index()
     {
         $user = Auth::user();
-        $siswa = DataSiswa::where('user_id', $user->id)->first();
+        // $siswa = DataSiswa::where('user_id', $user->id)->first();
+        $siswa = $this->app->getDataSiswa($user->id);
         $cek_user_registrasi = Registrasi::where('user_id', $user->id)->first();
         return view('user.formulir_siswa', compact('user', 'siswa', 'cek_user_registrasi'));
         // dd($cek_user_registrasi);
