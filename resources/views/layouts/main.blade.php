@@ -157,16 +157,15 @@
     <!-- / Layout wrapper -->
 
     <!-- MODAL LOADING -->
-    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4">
-                <div class="text-center">
-                    {{-- <div class="spinner-border text-primary" role="status"></div> --}}
-                    <p class="mt-2">Memuat data...</p>
-                </div>
+    <div id="loadingModal" class="position-fixed top-0 start-0 w-100 h-100 bg-white bg-opacity-75 d-none" style="z-index:9999">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-center">
+                <div class="spinner-border text-primary"></div>
+                <p class="mt-2">Memuat data...</p>
             </div>
         </div>
     </div>
+    {{--  --}}
 
     <!-- MODAL TIMEOUT -->
     <div class="modal fade" id="timeoutModal" tabindex="-1">
