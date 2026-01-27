@@ -176,16 +176,12 @@
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>
-                        Server membutuhkan waktu terlalu lama untuk merespon.
-                    </p>
-                    <p class="text-muted">
-                        Silakan coba kembali atau periksa koneksi internet Anda.
-                    </p>
+                    <p>Sepertinya koneksi kurang stabil, server butuh waktu lebih lama.</p>
+                    <p class="text-muted">Silakan klik tombol refresh atau periksa koneksi internet Anda.</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button class="btn btn-primary" onclick="loadGrafik()">Coba Lagi</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" onclick="loadHalaman()">Refresh</button>
                 </div>
             </div>
         </div>
@@ -482,7 +478,7 @@
                     loadingModal.hide();
 
                     // 👉 render grafik di sini
-                    renderGrafik(data);
+                    // renderGrafik(data);
                 })
                 .catch(err => {
                     clearTimeout(timeoutHandle);
