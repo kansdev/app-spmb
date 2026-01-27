@@ -34,9 +34,6 @@ class AdminController extends Controller
         $admin = session()->only(['id', 'name', 'level']);
         $stats = $this->app->getStatusPendaftar();
         $data_user = $this->app->getDataUser();
-        // $data_siswa = $this->app->getDataSiswa();
-        // $cek_user = $this->app->getCekUser();
-        // $pendaftar_teregistrasi = $this->app->getPendaftarTeregistrasi();
 
         return view('admin.dashboard', array_merge(
             [
