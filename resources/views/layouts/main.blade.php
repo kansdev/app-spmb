@@ -160,9 +160,10 @@
     <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center p-4">
-                {{-- <div class="spinner-border text-primary mb-3" role="status"></div> --}}
-                <h5>Memuat data...</h5>
-                <small class="text-muted">Mohon tunggu</small>
+                <div class="text-center">
+                    {{-- <div class="spinner-border text-primary" role="status"></div> --}}
+                    <p class="mt-2">Memuat data...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -181,7 +182,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" onclick="loadHalaman()">Refresh</button>
+                    <button class="btn btn-primary" onclick="refresh()">Refresh</button>
                 </div>
             </div>
         </div>
@@ -450,6 +451,7 @@
 
     <script>
         let timeoutHandle;
+        let controller;
 
         function loadHalaman() {
             const loadingModal = new bootstrap.Modal(
@@ -459,33 +461,29 @@
                 document.getElementById('timeoutModal')
             );
 
+            controller = new AbortController();
+            // const signal = controller.signal();
+
             // Tampilkan loading
             loadingModal.show();
 
             // ⏱ Timeout 10 detik
             timeoutHandle = setTimeout(() => {
+                controller.abort();
                 loadingModal.hide();
                 timeoutModal.show();
             }, 10000);
+        }
 
-            fetch('/admin/grafik/data')
-                .then(res => {
-                    if (!res.ok) throw new Error('Server error');
-                    return res.json();
-                })
-                .then(data => {
-                    clearTimeout(timeoutHandle);
-                    loadingModal.hide();
+        function refresh() {
+            const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+            const timeoutModal = new bootstrap.Modal(document.getElementById('timeoutModal'));
 
-                    // 👉 render grafik di sini
-                    // renderGrafik(data);
-                })
-                .catch(err => {
-                    clearTimeout(timeoutHandle);
-                    loadingModal.hide();
-                    timeoutModal.show();
-                    console.error(err);
-                });
+            loadingModal.show();
+
+            setTimeout(() => {
+                location.reload();
+            }, 300)
         }
         </script>
 

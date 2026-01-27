@@ -66,6 +66,7 @@ class FormulirRegistrasi extends Controller
             try {
                 $user = Auth::user();
                 Mail::to($user->email)->send(new SendMail($user, $registrasi));
+                Log::info('Email registrasi berhasil dikirim', ['nomor_pendaftaran' => $registrasi->nomor_pendaftaran]);
             } catch (\Throwable $th) {
                 Log::error('Email registrasi gagal dikirim', [
                     'user_id' => $user->id,
