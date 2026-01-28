@@ -19,6 +19,7 @@ use Carbon\Carbon;
 
 class PendaftarExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithCustomStartCell, ShouldAutoSize, ShouldQueueWithoutChain {
     public function collection() {
+        Log::info("Export Data");
         return User::with([
             'siswa', 'orang_tua', 'registrasi'
         ])->get();
