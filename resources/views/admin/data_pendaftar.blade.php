@@ -122,7 +122,7 @@
                         alert('File sedang diproses. Klik OK untuk mengunduh.');
 
                         // redirect download
-                        window.location.href = `/admin/data_pendaftar/unduh/${data.filename}`;
+                        window.location.href = `/storage/${data.filename}`;
                     }
                 })
                 .catch(() => {

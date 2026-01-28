@@ -171,7 +171,7 @@ Route::get('/api/k6-login', function (Request $request) {
 
 // Unduh data
 Route::get('/admin/data_pendaftar/export', function () {
-    $filename = 'data-pendaftar-' . now()->format('Ymd_His') . '.xlsx';
+    $filename = 'data-pendaftar.xlsx';
     Excel::queue(new PendaftarExport, $filename, 'public');
 
     return response()->json([
@@ -181,8 +181,9 @@ Route::get('/admin/data_pendaftar/export', function () {
     ]);
 })->middleware('cekAdmin');
 
-Route::get('/admin/data_pendaftar/unduh/{filename}', function ($filename) {
-    $path = storage_path('app/public/' . $filename);
+Route::get('/storage/{filename}', function () {
+    
+    $path = Storage::disk('public')->exists($filename);
 
     abort_unless(file_exists($path), 404);
 
