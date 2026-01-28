@@ -12,76 +12,78 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+
 use Illuminate\Support\Facades\Log;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 
-class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyles, WithCustomStartCell, ShouldAutoSize, ShouldQueue {
-    // public function query() {
-    //     Log::info('PendaftarExport query executed');
-    //     return User::query()->with('siswa');
-    // }
-
-    public function query()
-    {
-        return User::query()->with(['registrasi']);
+class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyles,  ShouldAutoSize, ShouldQueue, WithEvents {
+    public function query() {
+        return User::query()->with(['siswa', 'registrasi']);
     }
 
     public function chunkSize(): int {
         return 500;
     }
 
-
     public function startCell(): string {
-        return 'A5';
+        return 'A4';
     }
 
     public function headings(): array {
         return [
+            'Nomor Registrasi',
             'Nama',
+            'Agama',
+            'Tempat Lahir',
+            'Tanggal Lahir',
+            'Jenis Kelamin',
             'Nisn',
             'Asal Sekolah',
             'Pilihan Pertama',
             'Pilihan Kedua',
+            'Sesi',
+            'Waktu Sesi',
             'Status Registrasi'
         ];
     }
 
     public function map($user): array {
         return [
+            optional($user->registrasi)->nomor_pendaftaran,
             optional($user->registrasi)->nama_siswa,
+            optional($user->siswa)->agama,
+            optional($user->siswa)->tempat_lahir,
+            optional($user->siswa)->tanggal_lahir,
+            optional($user->siswa)->jenis_kelamin,
             optional($user->registrasi)->nisn,
             optional($user->registrasi)->asal_sekolah,
             optional($user->registrasi)->jurusan_pertama,
             optional($user->registrasi)->jurusan_kedua,
+            optional($user->registrasi)->gelombang_sesi,
+            optional($user->registrasi)->waktu_sesi,
             optional($user->registrasi)->status,
-            optional($user->registrasi)->alasan_ditolak,
         ];
     }
 
-    public function styles(Worksheet $sheet) {
-        // Judul File
-        $sheet->mergeCells('A1:F1');
-        $sheet->setCellValue('A1', 'DATA PENDAFTAR PESERTA DIDIK SMK NUSANTARA 1 KOTA TANGERANG');
 
-        // Tanggal Unduh
-        $sheet->mergeCells('A2:F2');
-        $sheet->setCellValue('A2', 'Tanggal Unduh : '. Carbon::now()->translatedFormat('d F Y'));
-
+    public function registerEvents(): array {
         return [
-            1 => [
-                'font' => ['bold' => true, 'size' => 14],
-                'alignment' => ['horizontal' => 'center'],
-            ],
-            2 => [
-                'font' => ['italic' => true],
-                'alignment' => ['horizontal' => 'center']
-            ],
-            5 => [
-                'font' => ['bold' => true],
-            ],
+            AfterSheet::class => function(AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
+                $sheet->insertNewRowBefore(1, 3);
+
+                $sheet->mergeCells('A1:M1');
+                $sheet->setCellValue('A1', 'DATA PENDAFTAR PESERTA DIDIK SMK NUSANTARA 1 KOTA TANGERANG');
+
+                // Style heading (baris ke-4)
+                $sheet->getStyle('A4:M4')->getFont()->setBold(true);
+            }
         ];
     }
 }

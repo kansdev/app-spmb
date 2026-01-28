@@ -15,7 +15,7 @@ class FormulirPeriodik extends Controller
         $user = Auth::user();
         $data_periodik = DataPeriodik::where('user_id', $user->id)->first();
         $cek_user_registrasi = Registrasi::where('user_id', $user->id)->first();
-        return view('user.formulir_periodik', compact('user', 'data_periodik', 'cek_user_registrasi'));
+        return view('user..close.formulir_periodik', compact('user', 'data_periodik', 'cek_user_registrasi'));
     }
 
     public function save_periodik(Request $request) {

@@ -13,6 +13,9 @@
         </div>
     @endif
 
+    <div class="alert alert-danger" role="alert">
+        Informasi, pendafaran sudah di tutup, saat ini anda tidak bisa mengisi formulir pendaftaran hingga pendaftaran gelombang berikutnya dibuka, info lebih lanjut hubungi admin !!!
+    </div>
     <div class="card shadow-sm rounded">
         <div class="row g-0">
             <!-- Foto Profil -->
