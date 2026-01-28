@@ -182,12 +182,13 @@ Route::get('/admin/data_pendaftar/export', function () {
 })->middleware('cekAdmin');
 
 Route::get('/storage/{filename}', function ($filename) {
-    
+
     $path = Storage::disk('public')->exists($filename);
 
-    abort_unless(file_exists($path), 404);
+    abort_unless($path, 404);
 
-    return response()->download($path)->deleteFileAfterSend(false);
+    // return response()->download($path)->deleteFileAfterSend(false);
+    return response()->download($path);
 })->middleware('cekAdmin');
 
 
