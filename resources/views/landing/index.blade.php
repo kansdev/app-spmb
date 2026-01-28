@@ -216,7 +216,7 @@
                         <tr>
                           <th scope="row">1</th>
                           <td>Gelombang 1</td>
-                          <td>1 Januari - 28 Februari 2026</td>
+                          <td>1 Januari - 28 Januari 2026</td>
                           <td>31 Januari - 1 Februari 2026</td>
                           <td>5 Februari 2026</td>
                         </tr>

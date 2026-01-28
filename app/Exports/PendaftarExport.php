@@ -40,88 +40,89 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyle
         return 'A5';
     }
 
-    // public function headings(): array {
-    //     return [
-    //         'Nama',
-    //         'Jenis Kelamin',
-    //         'Agama',
-    //         'Tanggal Lahir',
-    //         'Tempat Lahir',
-    //         'Nomor KK',
-    //         'NIK',
-    //         'Akta Lahir',
-    //         'Disabilitas',
-    //         'Provinsi',
-    //         'Kab/Kota',
-    //         'Kecamatana',
-    //         'Kelurahan',
-    //         'Alamat',
-    //         'Transportasi',
-    //         'Nama Ayah',
-    //         'Nama Ibu',
-    //         'Pekerjaan Ayah',
-    //         'Pekerjaan Ibu',
-    //         'Penghasilan Ayah',
-    //         'Penghasilan Ibu',
-    //         'Nisn',
-    //         'Asal Sekolah',
-    //         'Pilihan Pertama',
-    //         'Pilihan Kedua',
-    //         'Status Registrasi'
-    //     ];
-    // }
-
-    public function headings(): array
-    {
-        return ['Nama', 'Email', 'Penghasilan Ayah', 'NIS'];
-    }
-
-    // public function map($user): array {
-    //     return [
-    //         // Siswa
-    //         optional($user->siswa)->nama_siswa,
-    //         optional($user->siswa)->jenis_kelamin,
-    //         optional($user->siswa)->agama,
-    //         optional($user->siswa)->tanggal_lahir,
-    //         optional($user->siswa)->tempat_lahir,
-    //         optional($user->siswa)->no_kk,
-    //         optional($user->siswa)->nik,
-    //         optional($user->siswa)->akta_lahir,
-    //         optional($user->siswa)->disabilitas,
-    //         WilayahService::provinsi(optional($user->siswa)->provinsi),
-    //         WilayahService::kota(optional($user->siswa)->kota),
-    //         WilayahService::kecamatan(optional($user->siswa)->kecamatan),
-    //         WilayahService::kelurahan(optional($user->siswa)->kelurahan),
-    //         optional($user->siswa)->alamat,
-    //         optional($user->siswa)->transportasi,
-
-    //         // Orang Tua
-    //         optional($user->orang_tua)->nama_ayah,
-    //         optional($user->orang_tua)->nama_ibu,
-    //         optional($user->orang_tua)->pekerjaan_ayah,
-    //         optional($user->orang_tua)->pekerjaan_ibu,
-    //         AppServices::label(optional($user->orang_tua)->penghasilan_ayah),
-    //         AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
-
-    //         // Registrasi
-    //         optional($user->registrasi)->nisn,
-    //         optional($user->registrasi)->asal_sekolah,
-    //         optional($user->registrasi)->jurusan_pertama,
-    //         optional($user->registrasi)->jurusan_kedua,
-    //         optional($user->registrasi)->status,
-    //         optional($user->registrasi)->alasan_ditolak,
-    //     ];
-    // }
-
-    public function map($user): array
-    {
+    public function headings(): array {
         return [
-            $user->name,
-            $user->email,
-            optional($user->orang_tua)->penghasilan_ayah ?? '-',
-            optional($user->siswa)->nis ?? '-',
+            'Nama',
+            'Jenis Kelamin',
+            'Agama',
+            'Tanggal Lahir',
+            'Tempat Lahir',
+            'Nomor KK',
+            'NIK',
+            'Akta Lahir',
+            'Disabilitas',
+            'Provinsi',
+            'Kab/Kota',
+            'Kecamatana',
+            'Kelurahan',
+            'Alamat',
+            'Transportasi',
+            'Nama Ayah',
+            'Nama Ibu',
+            'Pekerjaan Ayah',
+            'Pekerjaan Ibu',
+            'Penghasilan Ayah',
+            'Penghasilan Ibu',
+            'Nisn',
+            'Asal Sekolah',
+            'Pilihan Pertama',
+            'Pilihan Kedua',
+            'Status Registrasi'
         ];
     }
+
+    // public function headings(): array
+    // {
+    //     return ['Nama', 'Email', 'Penghasilan Ayah', 'NIS'];
+    // }
+
+    public function map($user): array {
+        return [
+            // Siswa
+            optional($user->siswa)->nama_siswa,
+            optional($user->siswa)->jenis_kelamin,
+            optional($user->siswa)->agama,
+            optional($user->siswa)->tanggal_lahir,
+            optional($user->siswa)->tempat_lahir,
+            optional($user->siswa)->no_kk,
+            optional($user->siswa)->nik,
+            optional($user->siswa)->akta_lahir,
+            optional($user->siswa)->disabilitas,
+            WilayahService::provinsi(optional($user->siswa)->provinsi),
+            WilayahService::kota(optional($user->siswa)->kota),
+            WilayahService::kecamatan(optional($user->siswa)->kecamatan),
+            WilayahService::kelurahan(optional($user->siswa)->kelurahan),
+            optional($user->siswa)->alamat,
+            optional($user->siswa)->transportasi,
+
+            // Orang Tua
+            optional($user->orang_tua)->nama_ayah,
+            optional($user->orang_tua)->nama_ibu,
+            optional($user->orang_tua)->pekerjaan_ayah,
+            optional($user->orang_tua)->pekerjaan_ibu,
+            AppServices::label(optional($user->orang_tua)->penghasilan_ayah),
+            AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
+
+            // Registrasi
+            optional($user->registrasi)->nisn,
+            optional($user->registrasi)->asal_sekolah,
+            optional($user->registrasi)->jurusan_pertama,
+            optional($user->registrasi)->jurusan_kedua,
+            optional($user->registrasi)->status,
+            optional($user->registrasi)->alasan_ditolak,
+        ];
+    }
+
+    // public function map($user): array
+    // {
+    //     return [
+    //         $user->name,
+    //         $user->email,
+    //         AppServices::label(optional($user->orang_tua)->penghasilan_ayah),
+    //         AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
+    //         optional($user->siswa)->nis ?? '-',
+    //     ];
+    // }
 
     public function styles(Worksheet $sheet) {
         // Judul File
