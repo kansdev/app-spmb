@@ -12,7 +12,6 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-// use Maatwebsite\Excel\Concerns\ShouldQueueWithoutChain;
 use Illuminate\Support\Facades\Log;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -27,8 +26,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyle
 
     public function query()
     {
-        return User::query()
-            ->with(['siswa', 'orang_tua', 'registrasi']);
+        return User::query()->with(['registrasi']);
     }
 
     public function chunkSize(): int {
@@ -43,26 +41,6 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyle
     public function headings(): array {
         return [
             'Nama',
-            'Jenis Kelamin',
-            'Agama',
-            'Tanggal Lahir',
-            'Tempat Lahir',
-            'Nomor KK',
-            'NIK',
-            'Akta Lahir',
-            'Disabilitas',
-            'Provinsi',
-            'Kab/Kota',
-            'Kecamatana',
-            'Kelurahan',
-            'Alamat',
-            'Transportasi',
-            'Nama Ayah',
-            'Nama Ibu',
-            'Pekerjaan Ayah',
-            'Pekerjaan Ibu',
-            'Penghasilan Ayah',
-            'Penghasilan Ibu',
             'Nisn',
             'Asal Sekolah',
             'Pilihan Pertama',
@@ -71,39 +49,9 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyle
         ];
     }
 
-    // public function headings(): array
-    // {
-    //     return ['Nama', 'Email', 'Penghasilan Ayah', 'NIS'];
-    // }
-
     public function map($user): array {
         return [
-            // Siswa
-            optional($user->siswa)->nama_siswa,
-            optional($user->siswa)->jenis_kelamin,
-            optional($user->siswa)->agama,
-            optional($user->siswa)->tanggal_lahir,
-            optional($user->siswa)->tempat_lahir,
-            optional($user->siswa)->no_kk,
-            optional($user->siswa)->nik,
-            optional($user->siswa)->akta_lahir,
-            optional($user->siswa)->disabilitas,
-            WilayahService::provinsi(optional($user->siswa)->provinsi),
-            WilayahService::kota(optional($user->siswa)->kota),
-            WilayahService::kecamatan(optional($user->siswa)->kecamatan),
-            WilayahService::kelurahan(optional($user->siswa)->kelurahan),
-            optional($user->siswa)->alamat,
-            optional($user->siswa)->transportasi,
-
-            // Orang Tua
-            optional($user->orang_tua)->nama_ayah,
-            optional($user->orang_tua)->nama_ibu,
-            optional($user->orang_tua)->pekerjaan_ayah,
-            optional($user->orang_tua)->pekerjaan_ibu,
-            AppServices::label(optional($user->orang_tua)->penghasilan_ayah),
-            AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
-
-            // Registrasi
+            optional($user->registrasi)->nama_siswa,
             optional($user->registrasi)->nisn,
             optional($user->registrasi)->asal_sekolah,
             optional($user->registrasi)->jurusan_pertama,
@@ -113,21 +61,10 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping, WithStyle
         ];
     }
 
-    // public function map($user): array
-    // {
-    //     return [
-    //         $user->name,
-    //         $user->email,
-    //         AppServices::label(optional($user->orang_tua)->penghasilan_ayah),
-    //         AppServices::label(optional($user->orang_tua)->penghasilan_ibu),
-    //         optional($user->siswa)->nis ?? '-',
-    //     ];
-    // }
-
     public function styles(Worksheet $sheet) {
         // Judul File
         $sheet->mergeCells('A1:F1');
-        $sheet->setCellValue('A1', 'DATA PENDAFTAR SMK NUSANTARA 1 KOTA TANGERANG');
+        $sheet->setCellValue('A1', 'DATA PENDAFTAR PESERTA DIDIK SMK NUSANTARA 1 KOTA TANGERANG');
 
         // Tanggal Unduh
         $sheet->mergeCells('A2:F2');

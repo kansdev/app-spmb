@@ -18,7 +18,8 @@ use App\Http\Controllers\users\FormulirSiswaController;
 use App\Http\Controllers\users\FormulirPeriodik;
 use App\Http\Controllers\users\FormulirRegistrasi;
 use App\Http\Controllers\users\FormulirNilaiRaport;
-
+// use Illuminate\Container\Attributes\Storage;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -172,19 +173,16 @@ Route::get('/api/k6-login', function (Request $request) {
 // Unduh data
 Route::post('/admin/export/pendaftar', function () {
 
-    $filename = 'data-pendaftar-' . now()->timestamp . '.xlsx';
+    $filename = 'data-pendaftar.xlsx';
 
+    if (Storage::disk('public')->exists($filename)) {
+        Storage::disk('public')->delete($filename);
+    }
     Excel::queue(
         new PendaftarExport,
         $filename,
         'public'
     );
-
-    // Excel::download(
-    //     new PendaftarExport,
-    //     $filename,
-    //     'public'
-    // );
 
     return response()->json([
         'status' => 'processing',
@@ -193,7 +191,6 @@ Route::post('/admin/export/pendaftar', function () {
 })->middleware('cekAdmin');
 
 Route::get('/admin/export/check/{filename}', function ($filename) {
-
     if (Storage::disk('public')->exists($filename)) {
         return response()->json([
             'ready' => true,
@@ -204,7 +201,7 @@ Route::get('/admin/export/check/{filename}', function ($filename) {
     return response()->json(['ready' => false]);
     // return 'Gagal';
 
-});
+})->middleware('cekAdmin');
 
 
 
