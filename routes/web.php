@@ -181,7 +181,7 @@ Route::get('/admin/data_pendaftar/export', function () {
     ]);
 })->middleware('cekAdmin');
 
-Route::get('/storage/{filename}', function () {
+Route::get('/storage/{filename}', function ($filename) {
     
     $path = Storage::disk('public')->exists($filename);
 
