@@ -12,10 +12,17 @@
         </div>
     @endif
     
-    <a href="{{ url('admin/data_pendaftar/unduh') }}" target="_blank" class="btn tbn-sm btn-primary mb-4">
+    {{-- <a href="{{ url('admin/data_pendaftar/unduh') }}" target="_blank" class="btn tbn-sm btn-primary mb-4">
         <i class="menu-icon tf-icons fa-solid fa-download"></i>
         Unduh Data Pendaftar
-    </a>
+    </a> --}}
+
+    <button id="btnExport" class="btn btn-md btn-primary mb-4">
+        <i class="menu-icon tf-icons fa-solid fa-download"></i>
+        Export Data Pendaftar
+    </button>
+
+    
 
     <div class="card">
         <div class="card-header">
@@ -100,6 +107,29 @@
 
     </div>
 
-    
+    <script>
+        document.getElementById('btnExport').addEventListener('click', function () {
+
+            // const loading = new bootstrap.Modal('#loadingModal');
+            // loading.show();
+
+            fetch('/admin/data_pendaftar/export')
+                .then(res => res.json())
+                .then(data => {
+                    // loading.hide();
+
+                    if (data.status === 'processing') {
+                        alert('File sedang diproses. Klik OK untuk mengunduh.');
+
+                        // redirect download
+                        window.location.href = `/admin/data_pendaftar/unduh/${data.filename}`;
+                    }
+                })
+                .catch(() => {
+                    // loading.hide();
+                    alert('Gagal memproses data');
+                });
+        });
+    </script>
 
 @endsection

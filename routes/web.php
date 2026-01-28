@@ -43,14 +43,6 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/grafik_agama', [AdminController::class, 'grafik_agama'])->name('admin.grafik_agama');
     Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
     Route::get('/admin/data_pendaftar', [AdminController::class, 'data_pendaftar'])->name('admin.data_pendaftar');
-    Route::get('admin/data_pendaftar/unduh', function () {
-        // $filename = 'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx';
-        // return Excel::queue(new PendaftarExport, $filename, 'public');
-        return Excel::download(
-            new PendaftarExport,
-            'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx'
-        );
-    });
     Route::get('/admin/data_ditolak', [AdminController::class, 'data_ditolak'])->name('admin.data_ditolak');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
     Route::post('/admin/pendaftar/{id}/tolak_verifikasi', [AdminController::class, 'tolak_verifikasi'])->name('admin.ditolak');
@@ -176,4 +168,26 @@ Route::get('/api/k6-login', function (Request $request) {
         'ok' => true
     ]);
 });
+
+// Unduh data
+Route::get('/admin/data_pendaftar/export', function () {
+    $filename = 'data-pendaftar-' . now()->format('Ymd_His') . '.xlsx';
+    Excel::queue(new PendaftarExport, $filename, 'public');
+
+    return response()->json([
+        'status' => 'processing',
+        'message' => 'Data sedang diproses, silakan tunggu…',
+        'filename' => $filename
+    ]);
+})->middleware('cekAdmin');
+
+Route::get('/admin/data_pendaftar/unduh/{filename}', function ($filename) {
+    $path = storage_path('app/public/' . $filename);
+
+    abort_unless(file_exists($path), 404);
+
+    return response()->download($path)->deleteFileAfterSend(false);
+})->middleware('cekAdmin');
+
+
 
