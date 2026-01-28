@@ -13,13 +13,14 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\ShouldQueueWithoutChain;
+use Illuminate\Support\Facades\Log;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Carbon\Carbon;
 
 class PendaftarExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithCustomStartCell, ShouldAutoSize, ShouldQueueWithoutChain {
     public function collection() {
-        // Log::info("Export Data");
+        Log::info("Export Data");
         return User::with([
             'siswa', 'orang_tua', 'registrasi'
         ])->get();
