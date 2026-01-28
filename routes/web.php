@@ -170,26 +170,41 @@ Route::get('/api/k6-login', function (Request $request) {
 });
 
 // Unduh data
-Route::get('/admin/data_pendaftar/export', function () {
-    $filename = 'data-pendaftar.xlsx';
-    Excel::queue(new PendaftarExport, $filename, 'public');
+Route::post('/admin/export/pendaftar', function () {
+
+    $filename = 'data-pendaftar-' . now()->timestamp . '.xlsx';
+
+    Excel::queue(
+        new PendaftarExport,
+        $filename,
+        'public'
+    );
+
+    // Excel::download(
+    //     new PendaftarExport,
+    //     $filename,
+    //     'public'
+    // );
 
     return response()->json([
         'status' => 'processing',
-        'message' => 'Data sedang diproses, silakan tunggu…',
         'filename' => $filename
     ]);
 })->middleware('cekAdmin');
 
-Route::get('/storage/{filename}', function ($filename) {
+Route::get('/admin/export/check/{filename}', function ($filename) {
 
-    $path = Storage::disk('public')->exists($filename);
+    if (Storage::disk('public')->exists($filename)) {
+        return response()->json([
+            'ready' => true,
+            'url' => asset('storage/' . $filename)
+        ]);
+    }
 
-    abort_unless($path, 404);
+    return response()->json(['ready' => false]);
+    // return 'Gagal';
 
-    // return response()->download($path)->deleteFileAfterSend(false);
-    return response()->download($path);
-})->middleware('cekAdmin');
+});
 
 
 

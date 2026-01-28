@@ -11,18 +11,18 @@
             {{ session('success') }}
         </div>
     @endif
-    
+
     {{-- <a href="{{ url('admin/data_pendaftar/unduh') }}" target="_blank" class="btn tbn-sm btn-primary mb-4">
         <i class="menu-icon tf-icons fa-solid fa-download"></i>
         Unduh Data Pendaftar
     </a> --}}
 
-    <button id="btnExport" class="btn btn-md btn-primary mb-4">
+    <button id="btnExport" class="btn btn-md btn-primary mb-4" onclick="exportData()">
         <i class="menu-icon tf-icons fa-solid fa-download"></i>
         Export Data Pendaftar
     </button>
 
-    
+
 
     <div class="card">
         <div class="card-header">
@@ -58,7 +58,7 @@
                                     </a>
                                 </td>
                                 @if ($p->status == 'Belum Terverifikasi')
-                                    <td><span class="badge bg-label-warning">{{ $p->status }}</span></td>
+                                 <s></s>   <td><span class="badge bg-label-warning">{{ $p->status }}</span></td>
                                 @elseif($p->status == 'Terverifikasi')
                                     <td><span class="badge bg-label-success">{{ $p->status }}</span></td>
                                 @else
@@ -73,7 +73,7 @@
                     {{ $pendaftar->links('pagination::bootstrap-4') }}
                 </div>
             </div>
-        </div>        
+        </div>
 
         @foreach ($pendaftar as $p)
         <div class="modal fade" id="berkasModal_{{ $p->user_id }}">
@@ -107,29 +107,55 @@
 
     </div>
 
+    <div class="modal fade" id="loadingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <h5>Menyiapkan file...</h5>
+                <div class="spinner-border mt-3"></div>
+                <p class="mt-3 text-muted">
+                    Jangan tutup halaman ini
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('btnExport').addEventListener('click', function () {
+        function exportData() {
 
-            // const loading = new bootstrap.Modal('#loadingModal');
-            // loading.show();
+            const loading = new bootstrap.Modal(
+                document.getElementById('loadingModal')
+            );
+            loading.show();
 
-            fetch('/admin/data_pendaftar/export')
+            fetch('/admin/export/pendaftar', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                checkFile(data.filename, loading);
+            });
+        }
+
+        function checkFile(filename, loading) {
+
+            const interval = setInterval(() => {
+                fetch(`/admin/export/check/${filename}`)
                 .then(res => res.json())
                 .then(data => {
-                    // loading.hide();
+                    if (data.ready) {
+                        clearInterval(interval);
+                        loading.hide();
 
-                    if (data.status === 'processing') {
-                        alert('File sedang diproses. Klik OK untuk mengunduh.');
-
-                        // redirect download
-                        window.location.href = `/storage/${data.filename}`;
+                        // 🚀 AUTO DOWNLOAD
+                        window.location.href = data.url;
                     }
-                })
-                .catch(() => {
-                    // loading.hide();
-                    alert('Gagal memproses data');
                 });
-        });
+            }, 3000); // cek tiap 3 detik
+        }
     </script>
 
 @endsection
