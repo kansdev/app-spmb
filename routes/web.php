@@ -44,12 +44,12 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/pendaftar', [AdminController::class, 'pendaftar'])->name('admin.pendaftar');
     Route::get('/admin/data_pendaftar', [AdminController::class, 'data_pendaftar'])->name('admin.data_pendaftar');
     Route::get('admin/data_pendaftar/unduh', function () {
-        $filename = 'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx';
-        return Excel::queue(new PendaftarExport, $filename, 'public');
-        // return Excel::download(
-        //     new PendaftarExport,
-        //     'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx'
-        // );
+        // $filename = 'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx';
+        // return Excel::queue(new PendaftarExport, $filename, 'public');
+        return Excel::store(
+            new PendaftarExport,
+            'data-pendaftar-spmb-' . Carbon::now()->translatedFormat('d F Y') . '.xlsx'
+        );
     });
     Route::get('/admin/data_ditolak', [AdminController::class, 'data_ditolak'])->name('admin.data_ditolak');
     Route::get('/admin/pendaftar/{id}/verifikasi', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');

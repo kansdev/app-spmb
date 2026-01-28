@@ -5,21 +5,27 @@ namespace App\Exports;
 use App\Models\User;
 use App\Services\WilayahService;
 use App\Services\AppServices;
+// use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\ShouldQueue;
+use Maatwebsite\Excel\Concerns\ShouldQueueWithoutChain;
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Carbon\Carbon;
 
-class PendaftarExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithCustomStartCell, ShouldAutoSize, ShouldQueue {
+class PendaftarExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithCustomStartCell, ShouldAutoSize, ShouldQueueWithoutChain {
     public function collection() {
         return User::with([
             'siswa', 'orang_tua', 'registrasi'
         ])->get();
+    }
+
+    public function chunkSize(): int {
+        return 500;
     }
 
     public function startCell(): string {
