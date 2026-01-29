@@ -22,7 +22,7 @@ use Carbon\Carbon;
 
 class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAutoSize, ShouldQueue, WithEvents {
     public function query() {
-        return User::query()->with(['siswa', 'registrasi']);
+        return User::query()->with(['siswa', 'registrasi'])->orderBy('nama_siswa', 'asc');
     }
 
     public function chunkSize(): int {
