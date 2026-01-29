@@ -173,7 +173,7 @@ Route::get('/api/k6-login', function (Request $request) {
 // Unduh data
 Route::post('/admin/export/pendaftar', function () {
 
-    $filename = 'data-pendaftar-' . Carbon::now()->translatedFormat('dmY') .'.csv';
+    $filename = 'data-pendaftar-' . Carbon::now()->translatedFormat('dmY') .'.xlsx';
 
     if (Storage::disk('public')->exists($filename)) {
         Storage::disk('public')->delete($filename);

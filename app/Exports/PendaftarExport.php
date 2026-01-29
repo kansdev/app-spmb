@@ -22,7 +22,12 @@ use Carbon\Carbon;
 
 class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAutoSize, ShouldQueue, WithEvents {
     public function query() {
-        return User::query()->with(['siswa', 'registrasi'])->orderBy('nama_siswa', 'asc');
+        // return User::query()->with(['siswa', 'registrasi'])->orderBy('nama_siswa', 'asc');
+        return User::query()
+        ->join('data_siswa', 'data_siswa.user_id', '=', 'users.id')
+        ->leftJoin('registrasi', 'registrasi.user_id', '=', 'users.id')
+        ->select('users.*')
+        ->orderBy('data_siswa.nama_siswa', 'asc');
     }
 
     public function chunkSize(): int {
