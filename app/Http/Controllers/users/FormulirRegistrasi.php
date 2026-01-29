@@ -21,7 +21,7 @@ class FormulirRegistrasi extends Controller
         $data_siswa = DataSiswa::where('user_id', Auth::id())->first();
         $data_registrasi = Registrasi::where('user_id', $user->id)->first();
 
-        return view('user..close.registrasi', compact('data_siswa', 'user', 'data_registrasi'));
+        return view('user.close.registrasi', compact('data_siswa', 'user', 'data_registrasi'));
     }
 
     public function generate_nis() {

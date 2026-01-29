@@ -50,6 +50,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
             'Asal Sekolah',
             'Pilihan Pertama',
             'Pilihan Kedua',
+            'Skor Raport',
             'Sesi',
             'Waktu Sesi',
             'Status Registrasi'
@@ -68,6 +69,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
             optional($user->registrasi)->asal_sekolah,
             optional($user->registrasi)->jurusan_pertama,
             optional($user->registrasi)->jurusan_kedua,
+            optional($user->nilai_raport)->skor,
             optional($user->registrasi)->gelombang_sesi,
             optional($user->registrasi)->waktu_sesi,
             optional($user->registrasi)->status,
