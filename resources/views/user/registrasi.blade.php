@@ -74,21 +74,11 @@
                 <tr>
                     <th>Waktu Tes</th>
                     {{-- <td>{{$data_registrasi->waktu_sesi}}</td> --}}
-                    <td class="fw-bold">
-                        @if ($data_registrasi->gelombang_sesi === "Gelombang I")
-                            {{ $data_registrasi->gelombang_sesi }}, 31 Januari - 1 Februari 2026
-                        @elseif ($data_registrasi->gelombang_sesi === "Gelombang II")
-                            `{{ $data_registrasi->gelombang_sesi }}, 28 - 29 Maret 2026
-                        @elseif($data_registrasi->gelombang_sesi === "Gelombang III")
-                            `{{ $data_registrasi->gelombang_sesi }}, 2 - 3 Mei 2026
-                        @elseif ($data_registrasi->gelombang_sesi === "Gelombang IV")
-                            `{{ $data_registrasi->gelombang_sesi }}, 1 - 6 Juli 2026
-                        @endif
-                    </td>
+                    <td class="fw-bold">{{ $data_registrasi->gelombang_sesi }}</td>
                 </tr>
                 <tr>
                     <th>Sesi Tes</th>
-                    <td class="fw-bold">{{$data_registrasi->waktu_sesi}}</td>
+                    <td class="fw-bold">{{ $data_registrasi->waktu_sesi }}</td>
                 </tr>
                 <tr>
                     <th>Status Registrasi</th>
@@ -155,7 +145,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="asal-sekolah" class="form-label">Asal Sekolah</label>
+                        <label for="asal-sekolah" class="form-label">Asal Sekolah <small class="text-muted">(Contoh: SMPN 1 Tangerang)</small></label>
                         <input type="text" class="form-control" name="asal_sekolah" id="asal-sekolah" placeholder="Masukan sekolah asal anda" value="{{ old('asal_sekolah') }}" />
                     </div>
 
@@ -188,10 +178,11 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="gelombang-sesi" class="form-label">Pilih Gelombang Sesi</label>
+                        <label for="gelombang-sesi" class="form-label">Pilih Tanggal Tes</label>
                         <select class="form-control" name="gelombang_sesi" id="gelombang-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="Gelombang I" {{ old('gelombang_sesi') == 'Gelombang I' ? 'selected' : '' }}>Gelombang I (31 Januari - 1 Februari 2026)</option>
+                            <option value="28 Februari 2026" {{ old('gelombang_sesi') == '28 Februari 2026' ? 'selected' : '' }}>Sabtu, 28 Februari 2026</option>
+                            <option value="1 Maret 2026" {{ old('gelombang_sesi') == '1 Maret 2026' ? 'selected' : '' }}>Minggu, 1 Maret 2026</option>
                         </select>
                     </div>
 
@@ -199,8 +190,9 @@
                         <label for="wkatu-sesi" class="form-label">Pilih Waktu Sesi Test</label>
                         <select class="form-control" name="waktu_sesi" id="waktu-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="Sesi I (09:00 s/d 12:00)" {{ old('waktu_sesi') == 'Sesi I (09:00 s/d 12:00)' ? 'selected' : '' }}>Sesi I (09:00 s/d 12:00)</option>
-                            <option value="Sesi II (13:00 s/d 15:00)" {{ old('waktu_sesi') == 'Sesi II (13:00 s/d 15:00)' ? 'selected' : '' }}>Sesi II (13:00 s/d 15:00)</option>
+                            <option value="Sesi I (09:00 s/d 11:00)" {{ old('waktu_sesi') == 'Sesi I (09:00 s/d 11:00)' ? 'selected' : '' }}>Sesi I (09:00 s/d 11:00)</option>
+                            <option value="Sesi II (11:00 s/d 13:00)" {{ old('waktu_sesi') == 'Sesi II (11:00 s/d 13:00)' ? 'selected' : '' }}>Sesi II (11:00 s/d 13:00)</option>
+                            <option value="Sesi III (13:00 s/d 15:00)" {{ old('waktu_sesi') == 'Sesi II (13:00 s/d 15:00)' ? 'selected' : '' }}>Sesi III (13:00 s/d 15:00)</option>
                         </select>
                     </div>
 

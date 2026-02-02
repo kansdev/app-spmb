@@ -233,7 +233,7 @@
         new DataTable('#dataRegistrasi');
     </script>
 
-    <script>
+    {{-- <script>
         window.Livewire.on('bukaKamera', () => {
             // console.log("Event bekerja");
 
@@ -283,170 +283,13 @@
                 dataUrl: dataURL
             });
         }
-    </script>
+    </script> --}}
 
     <script>
         function openPrintWindow(url) {
             const printWindow = window.open(url, '_blank');
         }
-    </script>
-
-    <script>
-        const oldWilayah = {
-            provinsi: "{{ old('provinsi', $siswa->provinsi ?? '') }}",
-            kota: "{{ old('kota', $siswa->kota ?? '') }}",
-            kecamatan: "{{ old('kecamatan', $siswa->kecamatan ?? '') }}",
-            kelurahan: "{{ old('kelurahan', $siswa->kelurahan ?? '') }}",
-        };
-
-        // document.addEventListener("DOMContentLoaded", function () {
-
-        //     loadProvinsi();
-
-        //     function loadProvinsi() {
-        //         fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 let options = "<option value=''>-- Pilih Provinsi --</option>";
-        //                 data.forEach(p => {
-        //                     let selected = p.id == oldWilayah.provinsi ? 'selected' : '';
-        //                     options += `<option value="${p.id}" ${selected}>${p.name}</option>`;
-        //                 });
-        //                 document.getElementById("provinsi").innerHTML = options;
-        //             });
-        //     }
-
-        //     document.getElementById("provinsi").addEventListener("change", function () {
-        //         let provinceId = this.value;
-
-        //         fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 let options = "<option value=''>-- Pilih Kota --</option>";
-        //                 data.forEach(k => {
-        //                     options += `<option value="${k.id}">${k.name}</option>`;
-        //                 });
-        //                 document.getElementById("kota").innerHTML = options;
-        //                 document.getElementById("kecamatan").innerHTML = "";
-        //                 document.getElementById("kelurahan").innerHTML = "";
-        //             });
-        //     });
-
-        //     document.getElementById("kota").addEventListener("change", function () {
-        //         let cityId = this.value;
-
-        //         fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${cityId}.json`)
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 let options = "<option value=''>-- Pilih Kecamatan --</option>";
-        //                 data.forEach(kec => {
-        //                     options += `<option value="${kec.id}">${kec.name}</option>`;
-        //                 });
-        //                 document.getElementById("kecamatan").innerHTML = options;
-        //                 document.getElementById("kelurahan").innerHTML = "";
-        //             });
-        //     });
-
-        //     document.getElementById("kecamatan").addEventListener("change", function () {
-        //         let kecId = this.value;
-
-        //         fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${kecId}.json`)
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 let options = "<option value=''>-- Pilih Kelurahan --</option>";
-        //                 data.forEach(kel => {
-        //                     options += `<option value="${kel.id}">${kel.name}</option>`;
-        //                 });
-        //                 document.getElementById("kelurahan").innerHTML = options;
-        //             });
-        //     });
-
-        // });
-        document.addEventListener("DOMContentLoaded", function () {
-
-            loadProvinsi();
-
-            function loadProvinsi() {
-                fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
-                    .then(res => res.json())
-                    .then(data => {
-                        let options = "<option value=''>-- Pilih Provinsi --</option>";
-                        data.forEach(p => {
-                            let selected = p.id == oldWilayah.provinsi ? 'selected' : '';
-                            options += `<option value="${p.id}" ${selected}>${p.name}</option>`;
-                        });
-                        provinsi.innerHTML = options;
-
-                        if (oldWilayah.provinsi) {
-                            loadKota(oldWilayah.provinsi);
-                        }
-                    });
-            }
-
-            function loadKota(provinsiId) {
-                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiId}.json`)
-                    .then(res => res.json())
-                    .then(data => {
-                        let options = "<option value=''>-- Pilih Kota --</option>";
-                        data.forEach(k => {
-                            let selected = k.id == oldWilayah.kota ? 'selected' : '';
-                            options += `<option value="${k.id}" ${selected}>${k.name}</option>`;
-                        });
-                        kota.innerHTML = options;
-
-                        if (oldWilayah.kota) {
-                            loadKecamatan(oldWilayah.kota);
-                        }
-                    });
-            }
-
-            function loadKecamatan(kotaId) {
-                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${kotaId}.json`)
-                    .then(res => res.json())
-                    .then(data => {
-                        let options = "<option value=''>-- Pilih Kecamatan --</option>";
-                        data.forEach(kec => {
-                            let selected = kec.id == oldWilayah.kecamatan ? 'selected' : '';
-                            options += `<option value="${kec.id}" ${selected}>${kec.name}</option>`;
-                        });
-                        kecamatan.innerHTML = options;
-
-                        if (oldWilayah.kecamatan) {
-                            loadKelurahan(oldWilayah.kecamatan);
-                        }
-                    });
-            }
-
-            function loadKelurahan(kecamatanId) {
-                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${kecamatanId}.json`)
-                    .then(res => res.json())
-                    .then(data => {
-                        let options = "<option value=''>-- Pilih Kelurahan --</option>";
-                        data.forEach(kel => {
-                            let selected = kel.id == oldWilayah.kelurahan ? 'selected' : '';
-                            options += `<option value="${kel.id}" ${selected}>${kel.name}</option>`;
-                        });
-                        kelurahan.innerHTML = options;
-                    });
-            }
-
-            provinsi.addEventListener("change", function () {
-                oldWilayah.kota = oldWilayah.kecamatan = oldWilayah.kelurahan = null;
-                loadKota(this.value);
-            });
-
-            kota.addEventListener("change", function () {
-                oldWilayah.kecamatan = oldWilayah.kelurahan = null;
-                loadKecamatan(this.value);
-            });
-
-            kecamatan.addEventListener("change", function () {
-                oldWilayah.kelurahan = null;
-                loadKelurahan(this.value);
-            });
-
-        });
-    </script>
+    </script>   
 
     <script>
         let timeoutHandle;
