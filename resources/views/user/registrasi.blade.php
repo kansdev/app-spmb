@@ -181,8 +181,8 @@
                         <label for="gelombang-sesi" class="form-label">Pilih Tanggal Tes</label>
                         <select class="form-control" name="gelombang_sesi" id="gelombang-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="28 Februari 2026" {{ old('gelombang_sesi') == '28 Februari 2026' ? 'selected' : '' }}>Sabtu, 28 Februari 2026</option>
-                            <option value="1 Maret 2026" {{ old('gelombang_sesi') == '1 Maret 2026' ? 'selected' : '' }}>Minggu, 1 Maret 2026</option>
+                            <option value="28 Februari 2026" {{ old('gelombang_sesi') == '28 Februari 2026' ? 'selected' : '' }}>Sabtu, 28 Maret 2026</option>
+                            <option value="1 Maret 2026" {{ old('gelombang_sesi') == '1 Maret 2026' ? 'selected' : '' }}>Minggu, 29 Maret 2026</option>
                         </select>
                     </div>
 
