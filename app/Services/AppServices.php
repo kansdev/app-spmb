@@ -4,6 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SendMail;
 
 use App\Models\User;
 use App\Models\DataSiswa;
@@ -13,6 +16,9 @@ use App\Models\DocumentUpload;
 use App\Models\NilaiRaport;
 use App\Models\Registrasi;
 use App\Models\Admin;
+use App\Models\FixRegistrasi;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AppServices
 {
@@ -210,6 +216,53 @@ class AppServices
             6 => '> Rp 10.000.000',
             default => 'Tidak Berpenghasilan',
         };
+    }
+
+    public function fix_registrasi($req) {
+        $validated = $req->validate([
+            'nomor_pendaftaran' => 'required|string|digits:6',
+            'nama_siswa' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'nisn' => 'required',
+            'nik' => 'required',
+            'asal_sekolah' => 'required',
+            'jurusan' => 'required',
+            'skor_tes' => 'required',
+            'status' => 'required',
+        ]);
+
+        FixRegistrasi::create($validated);
+    }
+
+    public function cariByNomor($nomor_pendaftaran) {
+        return Registrasi::with(['user.nilai_raport', 'user.siswa'])
+            ->where('nomor_pendaftaran', $nomor_pendaftaran)
+            ->first();
+    }   
+
+    public function unduhBuktiPendaftaran($id) {
+        $registrasi = Registrasi::with([
+            'user.siswa',
+            'user.nilai_raport'
+        ])->findOrFail($id);
+
+        $pdf = PDF::loadView('pdf.pendaftaran', compact('registrasi'));
+
+        return $pdf->download('bukti_pendaftaran_' . $registrasi->nomor_pendaftaran . '.pdf');
+    }   
+
+    public function sendEmail($id): void {
+        $registrasi = Registrasi::with('user')
+            ->findOrFail($id);
+
+        Mail::to($registrasi->user->email)
+            ->send(new SendMail(
+                $registrasi->user,
+                $registrasi,
+                $registrasi->gelombang_sesi,
+                $registrasi->waktu_sesi
+            ));
     }
 }
 

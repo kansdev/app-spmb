@@ -22,7 +22,10 @@
         Export Data Pendaftar
     </button>
 
-
+    <button class="btn btn-success btn-md mb-4" data-bs-toggle="modal" data-bs-target="#unduhBuktiPendaftar">
+        <i class="menu-icon tf-icons fa-solid fa-download"></i>
+        Unduh Bukti daftar
+    </button>
 
     <div class="card">
         <div class="card-header">
@@ -119,6 +122,60 @@
         </div>
     </div>
 
+    <div id="loadingOverlay"class="position-fixed top-0 start-0 w-100 h-100 bg-white bg-opacity-75 d-none" style="z-index:9999">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-center">
+                <div class="spinner-border text-primary"></div>
+                <p class="mt-2">Mohon bersabar, sedang memproses data...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unduhBuktiPendaftar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cari Nomor Pendaftar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card p-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="nomor_pendaftaran" class="form-label">
+                                    Nomor Pendaftaran
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="nomor_pendaftaran" 
+                                    class="form-control" 
+                                    placeholder="Masukkan nomor pendaftaran"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button 
+                                    type="button" 
+                                    id="btnCari"
+                                    class="btn btn-primary w-100">
+                                    Cari & Unduh
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="hasilCari" class="mt-4"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="downloadFrame" style="display:none;"></iframe>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         function exportData() {
 
@@ -157,5 +214,161 @@
             }, 3000); // cek tiap 3 detik
         }
     </script>
+
+    <script>
+        document.getElementById('btnCari').addEventListener('click', cariNomorPendaftaran);
+
+        async function cariNomorPendaftaran() {
+
+            let nomorInput = document.getElementById('nomor_pendaftaran');
+            let nomor = nomorInput.value.trim();
+            let hasil = document.getElementById('hasilCari');
+
+            if (!nomor) {
+                alert('Nomor pendaftaran tidak boleh kosong!');
+                nomorInput.focus();
+                return;
+            }
+
+            hasil.innerHTML = `
+                <div class="alert alert-info">
+                    Mencari data...
+                </div>
+            `;
+            try {
+
+                let response = await fetch(
+                    "{{ route('admin.cari_pendaftar') }}?nomor_pendaftaran=" + encodeURIComponent(nomor),
+                    {
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    let errorData = await response.json();
+                    throw errorData;
+                }
+
+                let res = await response.json();
+                hideLoading();
+                if (res.status) {
+
+                    hasil.innerHTML = `
+                        <div class="alert alert-success">
+                            <strong>Data ditemukan!</strong><br><br>
+                            <strong>Nomor Pendaftaran:</strong> ${res.data.nomor_pendaftaran}<br>
+                            <strong>Nama:</strong> ${res.data.user?.siswa?.nama_siswa ?? '-'}<br>
+                            <strong>Jurusan:</strong> ${res.data.jurusan_pertama ?? '-'}<br><br>
+                            Klik tombol di bawah untuk mengunduh bukti pendaftaran.
+                        </div> 
+
+                        <a href="javascript:void(0)" data-url="{{ url('/admin/pendaftar') }}/${res.data.id}/unduhBuktiPendaftaran"
+                        class="btn btn-primary btn-loading-download">
+                            Unduh Bukti Pendaftaran
+                        </a>
+
+                        <a href="{{ url('/admin/pendaftar') }}/${res.data.id}/kirim_email"
+                        class="btn btn-primary btn-loading">
+                            Kirim Email Bukti Pendaftaran
+                        </a>
+                    `;
+
+                } else {
+
+                    hasil.innerHTML = `
+                        <div class="alert alert-danger">
+                            ${res.message}
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                hideLoading();
+                if (error.errors) {
+                    hasil.innerHTML = `
+                        <div class="alert alert-danger">
+                            ${Object.values(error.errors)[0][0]}
+                        </div>
+                    `;
+                } else {
+                    hasil.innerHTML = `
+                        <div class="alert alert-danger">
+                            Terjadi kesalahan pada server.
+                        </div>
+                    `;
+                }
+
+                console.error(error);
+            }
+        }
+
+    </script>  
+    
+    <script>
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        function showLoading() {
+            loadingOverlay.classList.remove('d-none');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.add('d-none');
+        }
+
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('.btn-loading');
+            if (target) {
+                showLoading();
+
+                target.classList.add('disabled');
+                target.style.pointerEvents = 'none';
+            }
+        });
+
+        window.addEventListener('pageshow', function () {
+            hideLoading();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const iframe = document.getElementById('downloadFrame');
+
+            function showLoading() {
+                loadingOverlay.classList.remove('d-none');
+            }
+
+            function hideLoading() {
+                loadingOverlay.classList.add('d-none');
+            }
+
+            document.addEventListener('click', function (e) {
+
+                const btn = e.target.closest('.btn-loading-download');
+
+                if (btn) {
+
+                    showLoading();
+
+                    const url = btn.getAttribute('data-url');
+
+                    iframe.src = url;
+
+                    // Tunggu beberapa detik lalu sembunyikan
+                    setTimeout(() => {
+                        hideLoading();
+                    }, 3000);
+                }
+
+            });
+
+        });
+
+    </script>
+
 
 @endsection
