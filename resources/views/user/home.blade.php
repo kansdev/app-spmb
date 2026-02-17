@@ -38,7 +38,7 @@
                         Sekolah Nusantara 1 Kota Tangerang
                     </p>
 
-                    <a href="#" class="btn btn-md btn-outline-primary" data-bs-target="#alur" data-bs-toggle="modal">Lihat Cara
+                    <a href="javascript:void(0)" class="btn btn-md btn-outline-primary" data-bs-target="#tutorial" data-bs-toggle="modal">Lihat video Cara
                         Mendaftar</a>
                 </div>
             </div>
@@ -141,6 +141,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="tutorial" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content p-0" style="border:none; background: transparent">
+                <div class="modal-body p-0">
+                    <iframe id="videoTutorial"
+                            width="420"
+                            height="315"
+                            src="https://www.youtube.com/embed/waH2Ab7yanw"
+                            frameborder="0"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var tutorialModal = document.getElementById('tutorial');
+        var video = document.getElementById('videoTutorial');
+        var videoSrc = video.src;
+
+        tutorialModal.addEventListener('shown.bs.modal', function () {
+            video.src = videoSrc + "?autoplay=1";
+        });
+
+        tutorialModal.addEventListener('hide.bs.modal', function () {
+            video.src = videoSrc;
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
