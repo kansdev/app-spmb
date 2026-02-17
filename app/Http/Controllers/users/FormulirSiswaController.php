@@ -27,7 +27,7 @@ class FormulirSiswaController extends Controller
         // $siswa = DataSiswa::where('user_id', $user->id)->first();
         $siswa = $this->app->getDataSiswa($user->id);
         $cek_user_registrasi = Registrasi::where('user_id', $user->id)->first();
-        return view('user..close.formulir_siswa', compact('user', 'siswa', 'cek_user_registrasi'));
+        return view('user.formulir_siswa', compact('user', 'siswa', 'cek_user_registrasi'));
         // dd($cek_user_registrasi);
     }
 

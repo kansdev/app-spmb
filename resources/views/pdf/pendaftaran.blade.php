@@ -53,17 +53,7 @@
         </tr>
         <tr>
             <td width="35%">Waktu Tes</td>
-            <td>:
-                @if ($registrasi->gelombang_sesi === "Gelombang I")
-                    Gelombang I, 31 Januari - 1 Februari 2026, {{ $registrasi->waktu_sesi }}
-                @elseif ($registrasi->gelombang_sesi === "Gelombang II")
-                    Gelombang II, 28 - 29 Maret 2026, {{ $registrasi->waktu_sesi }}
-                @elseif($registrasi->gelombang_sesi === "Gelombang III")
-                    Gelombang III, 2 - 3 Mei 2026, {{ $registrasi->waktu_sesi }}
-                @elseif ($registrasi->gelombang_sesi === "Gelombang IV")
-                    Gelombang IV, 1 - 6 Juli 2026, {{ $registrasi->waktu_sesi }}
-                @endif
-            </td>
+            <td>{{$registrasi->waktu_sesi }} - {{ $registrasi->gelombang_sesi }}</td>
         </tr>
 
     </table>

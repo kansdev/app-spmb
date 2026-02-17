@@ -17,7 +17,7 @@ class FormulirNilaiRaport extends Controller
         $nilai_raport = NilaiRaport::where('user_id', $user->id)->first();
         $cek_user_registrasi = Registrasi::where('user_id', $user->id)->first();
 
-        return view('user.close.formulir_nilai_raport', compact('user', 'nilai_raport', 'cek_user_registrasi'));
+        return view('user.formulir_nilai_raport', compact('user', 'nilai_raport', 'cek_user_registrasi'));
     }
 
     public function save_nilai_raport(Request $request)

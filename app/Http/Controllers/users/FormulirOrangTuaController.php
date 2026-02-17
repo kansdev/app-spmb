@@ -17,7 +17,7 @@ class FormulirOrangTuaController extends Controller
         $user = Auth::user();
         $data_orang_tua = DataOrangTua::where('user_id', $user->id)->first();
         $cek_user_registrasi = Registrasi::where('user_id', $user->id)->first();
-        return view('user.close.formulir_orang_tua', compact('user', 'data_orang_tua', 'cek_user_registrasi'));
+        return view('user.formulir_orang_tua', compact('user', 'data_orang_tua', 'cek_user_registrasi'));
     }
 
     public function save_orang_tua(Request $request)

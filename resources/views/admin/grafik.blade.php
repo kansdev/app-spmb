@@ -212,7 +212,6 @@
         </div>
     </div>
 <script>
-
     async function getNamaKecamatanById(kota) {
         try {
             kota = kota.toString().trim();

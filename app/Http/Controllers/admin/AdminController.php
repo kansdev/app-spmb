@@ -4,7 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Services\AppServices;
+
 use App\Mail\NotificationRejectMail;
+use App\Mail\SendMail;
 
 use App\Models\DataSiswa;
 use App\Models\User;
@@ -12,6 +15,7 @@ use App\Models\Registrasi;
 use App\Models\DocumentUpload;
 
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 // use Illuminate\Database\Eloquent\Builder;
@@ -19,10 +23,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-
-use Illuminate\Http\Request;
-
-use App\Services\AppServices;
 
 class AdminController extends Controller
 {
@@ -207,4 +207,52 @@ class AdminController extends Controller
         //         ->paginate(20));
     }
 
+    // public function fix_registrasi_siswa() {
+    //     $admin = session()->only(['id', 'name', 'level']);
+    //     $pendaftar = $this->app->getPendaftar();
+    //     return view('admin.fix_registrasi', compact('admin', 'pendaftar'));
+        
+    // }
+
+    // public function add_fix_registrasi_siswa(Request $request) {
+    //     try {
+    //         $this->app->fix_registrasi($request);
+    //         return back()->with('success', 'Status siswa sudah berhasil ditambahkan');
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', 'Gagal menambahkan siswa : ' . $e->getMessage());
+    //     }
+    // }
+
+    public function cari_pendaftar(Request $request) {
+        $validated = $request->validate([
+            'nomor_pendaftaran' => 'required|string'
+        ]);
+
+        $data = $this->app->cariByNomor($validated['nomor_pendaftaran']);
+
+        if (!$data) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $data
+        ]);
+    }
+
+    public function unduhBuktiPendaftaran($id) {
+        return $this->app->unduhBuktiPendaftaran($id);
+    }
+
+    public function send_email($id) {
+        $registrasi = Registrasi::with('user')->findOrFail($id);
+        if ($registrasi->status !== 'Terverifikasi') {
+            abort(403, 'Pendaftar belum terverifikasi');
+        }
+        $this->app->sendEmail($id);
+        return redirect()->back()->with('success', 'Bukti pendaftaran berhasil dikirim.');
+    }
 }

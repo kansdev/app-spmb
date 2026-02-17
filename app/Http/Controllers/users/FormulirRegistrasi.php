@@ -21,7 +21,9 @@ class FormulirRegistrasi extends Controller
         $data_siswa = DataSiswa::where('user_id', Auth::id())->first();
         $data_registrasi = Registrasi::where('user_id', $user->id)->first();
 
-        return view('user.close.registrasi', compact('data_siswa', 'user', 'data_registrasi'));
+        // dd($data_registrasi);
+
+        return view('user.registrasi', compact('data_siswa', 'user', 'data_registrasi'));
     }
 
     public function generate_nis() {
@@ -65,7 +67,7 @@ class FormulirRegistrasi extends Controller
 
             try {
                 $user = Auth::user();
-                Mail::to($user->email)->send(new SendMail($user, $registrasi));
+                Mail::to($user->email)->send(new SendMail($user, $registrasi, $registrasi->gelombang_sesi, $registrasi->waktu_sesi));
                 Log::info('Email registrasi berhasil dikirim', ['nomor_pendaftaran' => $registrasi->nomor_pendaftaran]);
             } catch (\Throwable $th) {
                 Log::error('Email registrasi gagal dikirim', [

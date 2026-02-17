@@ -17,15 +17,19 @@ class SendMail extends Mailable
 
     public $user;
     public $nomor_pendaftaran;
+    public $gelombang_sesi;
+    public $waktu_sesi;
     protected $registrasi;
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $registrasi)
+    public function __construct($user, $registrasi, $gelombang_sesi, $waktu_sesi)
     {
         $this->user = $user;
         $this->registrasi = $registrasi;
         $this->nomor_pendaftaran = $registrasi->nomor_pendaftaran;
+        $this->gelombang_sesi = $registrasi->gelombang_sesi;
+        $this->waktu_sesi = $registrasi->waktu_sesi;
     }
 
     /**
@@ -47,7 +51,9 @@ class SendMail extends Mailable
             view: 'emails.mail',
             with: [
                 'user' => $this->user,
-                'registrasi' => $this->registrasi
+                'registrasi' => $this->registrasi,
+                'gelombang_sesi' => $this->gelombang_sesi,
+                'waktu_sesi' => $this->waktu_sesi,
             ]
         );
     }
@@ -60,7 +66,9 @@ class SendMail extends Mailable
     public function attachments(): array
     {
         $pdf = Pdf::loadView('pdf.pendaftaran', [
-            'registrasi' => $this->registrasi
+            'registrasi' => $this->registrasi,
+            'gelombang_sesi' => $this->gelombang_sesi,
+            'waktu_sesi' => $this->waktu_sesi,
         ]);
 
         return [
