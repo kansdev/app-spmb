@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\Registrasi;
 use App\Models\DocumentUpload;
 
+use App\Imports\FixRegistrasiImport;
+
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -207,12 +211,11 @@ class AdminController extends Controller
         //         ->paginate(20));
     }
 
-    // public function fix_registrasi_siswa() {
-    //     $admin = session()->only(['id', 'name', 'level']);
-    //     $pendaftar = $this->app->getPendaftar();
-    //     return view('admin.fix_registrasi', compact('admin', 'pendaftar'));
-        
-    // }
+    public function fix_registrasi_siswa() {
+        $admin = session()->only(['id', 'name', 'level']);
+        $pendaftar = $this->app->getRegistrasiFix();
+        return view('admin.fix_registrasi', compact('admin', 'pendaftar'));        
+    }
 
     // public function add_fix_registrasi_siswa(Request $request) {
     //     try {
@@ -222,6 +225,28 @@ class AdminController extends Controller
     //         return back()->with('error', 'Gagal menambahkan siswa : ' . $e->getMessage());
     //     }
     // }
+
+    public function add_fix_registrasi_siswa(Request $request) {
+        $file = $request->validate([
+            'file' => 'required|file|mimes:csv'
+        ]);
+
+        $import = new FixRegistrasiImport;
+
+        try {
+            
+            Excel::import($import, $file['file']);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Status siswa sudah berhasil ditambahkan'
+            ]); 
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal menambahkan siswa : ' . $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function cari_pendaftar(Request $request) {
         $validated = $request->validate([

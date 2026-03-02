@@ -19,6 +19,7 @@ use App\Models\Admin;
 use App\Models\FixRegistrasi;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AppServices
 {
@@ -218,7 +219,7 @@ class AppServices
         };
     }
 
-    public function fix_registrasi($req) {
+    public function add_registrasi($req) {
         $validated = $req->validate([
             'nomor_pendaftaran' => 'required|string|digits:6',
             'nama_siswa' => 'required',
@@ -233,6 +234,10 @@ class AppServices
         ]);
 
         FixRegistrasi::create($validated);
+    }
+
+    public function getRegistrasiFix() {
+        return FixRegistrasi::orderBy('created_at', 'desc')->paginate(20);
     }
 
     public function cariByNomor($nomor_pendaftaran) {

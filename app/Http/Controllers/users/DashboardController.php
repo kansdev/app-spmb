@@ -11,7 +11,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('user.home', ['user' => Auth::user()]);
+        $user = auth()->user();
+
+        $kelulusan = null;
+
+        if ($user->registrasi) {
+            $kelulusan = $user->registrasi->kelulusan;
+        }
+        return view('user.home', compact('user', 'kelulusan'));
     }
 
     public function formulir_siswa()

@@ -31,5 +31,10 @@ class Registrasi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function kelulusan()
+    {
+        return $this->hasOne(FixRegistrasi::class, 'nomor_pendaftaran', 'nomor_pendaftaran');
+    }
+
 
 }

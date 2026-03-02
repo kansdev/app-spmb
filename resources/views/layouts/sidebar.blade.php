@@ -153,6 +153,13 @@
                     <div data-i18n="Account Settings">Data Ditolak</div>
                 </a>
             </li>
+
+            <li class="menu-item {{ request()->routeIs('admin.fix_registrasi') ? 'active' : '' }}">
+                <a href="{{ route('admin.fix_registrasi') }}" onclick="loadHalaman()" class="menu-link">
+                    <i class="menu-icon tf-icons fa-solid fa-ban"></i>
+                    <div data-i18n="Account Settings">Data Fix Registrasi</div>
+                </a>
+            </li>
         </ul>
     </aside>
     <!-- / Menu -->

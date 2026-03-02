@@ -26,7 +26,21 @@
         </div>
     @endif
 
-    <div class="card">
+    <div class="card mb-4 bg-light shadow">
+        <div class="d-flex align-items-end row">
+            <div class="col-sm-10">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Unduh Bukti Lapor Diri</h5>                    
+                    Silahkan klik link berikut untuk mengunduh bukti lapor diri anda, yang nantinya akan digunakan untuk melakukan lapor diri secara offline di sekolah jika anda dinyatakan lulus seleksi.
+                    <br>
+                    <a href="#" class="btn btn-md btn-outline-danger mt-3">Unduh Bukti Lapor Diri</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
         <div class="d-flex align-items-end row">
             <div class="col-sm-7">
                 <div class="card-body">
@@ -158,6 +172,20 @@
             </div>
         </div>
     </div>
+
+    @if($kelulusan && in_array($kelulusan->status, ['LULUS','TIDAK LULUS']))       
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    title: '{{ $kelulusan->status == "LULUS" ? "Selamat!" : "Mohon Maaf" }}',
+                    text: '{{ $kelulusan->status == "LULUS" ? "Anda dinyatakan LULUS seleksi. Silahkan unduh bukti lapor diri Anda." : "Anda belum lulus seleksi." }}',
+                    icon: '{{ $kelulusan->status == "LULUS" ? "success" : "error" }}',
+                    confirmButtonText: 'Tutup'
+                });
+            });
+        </script>
+    @endif
 
     <script>
         var tutorialModal = document.getElementById('tutorial');

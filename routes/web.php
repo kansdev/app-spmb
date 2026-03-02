@@ -67,7 +67,8 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/dashboard/data-teregistrasi', [AdminController::class, 'data_teregistrasi']);
     Route::get('/admin/dashboard/data-teregistrasi/test', [AdminController::class, 'data_teregistrasi']);
     Route::get('/admin/fix_registrasi', [AdminController::class, 'fix_registrasi_siswa'])->name('admin.fix_registrasi');
-
+    Route::post('/fix-registrasi/upload', [AdminController::class, 'add_fix_registrasi_siswa'])
+    ->name('fix-registrasi.upload');
 
 });
 
