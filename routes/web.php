@@ -69,7 +69,6 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/fix_registrasi', [AdminController::class, 'fix_registrasi_siswa'])->name('admin.fix_registrasi');
     Route::post('/fix-registrasi/upload', [AdminController::class, 'add_fix_registrasi_siswa'])
     ->name('fix-registrasi.upload');
-
 });
 
 // Middleware untuk akun
@@ -77,6 +76,7 @@ Route::middleware(['auth', 'preventBackHistory'])->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
     Route::get('/akun', [DashboardController::class, 'akun'])->name('akun');
     Route::post('/akun/update', [DashboardController::class, 'update_akun'])->name('update_akun');
+    Route::get('/unduh_pengumuman_seleksi', [DashboardController::class, 'unduh_pengumuman_seleksi'])->name('unduh_pengumuman_seleksi');
 });
 
 // Middleware untuk formulir siswa

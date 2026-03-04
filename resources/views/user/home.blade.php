@@ -33,7 +33,7 @@
                     <h5 class="card-title text-danger">Unduh Bukti Lapor Diri</h5>                    
                     Silahkan klik link berikut untuk mengunduh bukti lapor diri anda, yang nantinya akan digunakan untuk melakukan lapor diri secara offline di sekolah jika anda dinyatakan lulus seleksi.
                     <br>
-                    <a href="#" class="btn btn-md btn-outline-danger mt-3">Unduh Bukti Lapor Diri</a>
+                    <a href="{{ route('unduh_pengumuman_seleksi') }}" target="_blank" class="btn btn-md btn-outline-danger mt-3">Unduh Bukti Lapor Diri</a>
 
                 </div>
             </div>

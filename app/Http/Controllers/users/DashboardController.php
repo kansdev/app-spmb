@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\FixRegistrasi;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -59,5 +61,17 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('failed', 'Gagal perbarui nomor telepon, '. $e->getMessage());
         }
+    }
+
+    public function unduh_pengumuman_seleksi()
+    {
+        $user = auth()->user();
+        $nama_pendaftar = $user->registrasi->nama_siswa;
+        $status = $user->registrasi->kelulusan->status;
+        $pdf = Pdf::loadView('pdf.lapordiri', [
+            'nama_siswa' => $nama_pendaftar,
+            'status' => $status,
+        ]);
+        return $pdf->stream('pengumuman-seleksi.pdf');
     }
 }
