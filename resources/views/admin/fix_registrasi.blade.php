@@ -43,7 +43,7 @@
                         </tbody>
                     </table>
                     <div class="mt-4">
-                        {{ $pendaftar->links() }}
+                        {{ $pendaftar->links('pagination::bootstrap-5') }}
                     </div>
                 </div>                
 
