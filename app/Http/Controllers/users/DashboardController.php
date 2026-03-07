@@ -67,7 +67,7 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $nama_pendaftar = $user->registrasi->nama_siswa;
-        $status = $user->registrasi->kelulusan->status;
+        $status = $user->optional($user->registrasi->kelulusan)->status;
         $pdf = Pdf::loadView('pdf.lapordiri', [
             'nama_siswa' => $nama_pendaftar,
             'status' => $status,

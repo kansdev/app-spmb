@@ -12,10 +12,12 @@ use Maatwebsite\Excel\Concerns\{
     SkipsOnError,
     SkipsErrors,
     SkipsEmptyRows,  
-    WithValidation
+    WithValidation,
+    WithUpserts,
+    WithBatchInserts
 };
 
-class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, /**ShouldQueue,**/ SkipsOnError,  SkipsEmptyRows, WithValidation
+class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, /**ShouldQueue,**/ SkipsOnError,  SkipsEmptyRows, WithValidation, WithUpserts, WithBatchInserts
 {
     /**
     * @param array $row
@@ -41,6 +43,16 @@ class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, 
         ]);
     }
 
+    public function uniqueBy()
+    {
+        return 'nomor_pendaftaran';
+    }
+
+    public function batchSize(): int
+    {
+        return 500;
+    }
+    
     public function rules(): array
     {
         return [
