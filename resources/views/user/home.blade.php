@@ -26,19 +26,33 @@
         </div>
     @endif
 
-    <div class="card mb-4 bg-light shadow">
-        <div class="d-flex align-items-end row">
-            <div class="col-sm-10">
-                <div class="card-body">
-                    <h5 class="card-title text-danger">Unduh Bukti Lapor Diri</h5>                    
-                    Silahkan klik link berikut untuk mengunduh bukti lapor diri anda, yang nantinya akan digunakan untuk melakukan lapor diri secara offline di sekolah jika anda dinyatakan lulus seleksi.
-                    <br>
-                    <a href="{{ route('unduh_pengumuman_seleksi') }}" target="_blank" class="btn btn-md btn-outline-danger mt-3">Unduh Bukti Lapor Diri</a>
+    @if ($kelulusan && $kelulusan->status == 'LULUS')
+        <div class="card mb-4 bg-light shadow">
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-10">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Unduh Bukti Lapor Diri</h5>                    
+                        Silahkan klik link berikut untuk mengunduh bukti lapor diri anda, yang nantinya akan digunakan untuk melakukan lapor diri secara offline di sekolah jika anda dinyatakan lulus seleksi.
+                        <br>
+                        <a href="{{ route('unduh_pengumuman_seleksi') }}" target="_blank" class="btn btn-md btn-outline-danger mt-3">Unduh Bukti Lapor Diri</a>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @elseif($kelulusan && $kelulusan->status == 'TIDAK LULUS')
+        <div class="card mb-4 bg-light shadow">
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-10">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Mohon Maaf</h5>                    
+                        Anda belum lulus seleksi. Tetap semangat dan jangan menyerah, terus tingkatkan kemampuan dan persiapkan diri untuk kesempatan berikutnya. Terima kasih atas partisipasi Anda dalam proses seleksi ini, dan kami berharap dapat melihat Anda kembali di masa depan dengan persiapan yang lebih baik. Tetap semangat dan terus berusaha!  
+                    </div>
+                </div>
+            </div>
+        </div>        
+    @endif
+    
 
     <div class="card shadow">
         <div class="d-flex align-items-end row">
