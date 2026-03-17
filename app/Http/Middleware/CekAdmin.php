@@ -17,7 +17,7 @@ class CekAdmin
     {
         if (!session()->has('id') || !session()->has('level')) {
 
-            if (!$request->expectsJson()) {
+            if ($request->expectsJson()) {
                 return response()->json(['message' => 'session habis'], 401);
             }
             
