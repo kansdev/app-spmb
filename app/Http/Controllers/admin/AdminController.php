@@ -214,7 +214,7 @@ class AdminController extends Controller
     public function fix_registrasi_siswa() {
         $admin = session()->only(['id', 'name', 'level']);
         $pendaftar = $this->app->getRegistrasiFix();
-        return view('admin.fix_registrasi', compact('admin', 'pendaftar'));        
+        return view('admin.fix_registrasi', compact('admin', 'pendaftar'));
     }
 
     // public function add_fix_registrasi_siswa(Request $request) {
@@ -234,12 +234,12 @@ class AdminController extends Controller
         $import = new FixRegistrasiImport;
 
         try {
-            
+
             Excel::import($import, $file['file']);
             return response()->json([
                 'status' => 'success',
                 'message' => 'Status siswa sudah berhasil ditambahkan'
-            ]); 
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',

@@ -244,7 +244,7 @@ class AppServices
         return Registrasi::with(['user.nilai_raport', 'user.siswa'])
             ->where('nomor_pendaftaran', $nomor_pendaftaran)
             ->first();
-    }   
+    }
 
     public function unduhBuktiPendaftaran($id) {
         $registrasi = Registrasi::with([
@@ -255,7 +255,7 @@ class AppServices
         $pdf = PDF::loadView('pdf.pendaftaran', compact('registrasi'));
 
         return $pdf->download('bukti_pendaftaran_' . $registrasi->nomor_pendaftaran . '.pdf');
-    }   
+    }
 
     public function sendEmail($id): void {
         $registrasi = Registrasi::with('user')
