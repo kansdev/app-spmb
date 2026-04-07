@@ -269,5 +269,9 @@ class AppServices
                 $registrasi->waktu_sesi
             ));
     }
+
+    public function getSoalTest() {
+        return DB::table('soal')->get();
+    } 
 }
 
