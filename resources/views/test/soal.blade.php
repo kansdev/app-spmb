@@ -76,24 +76,19 @@
 
         <!-- TIMER 60 MENIT -->
         <script>
-            let totalDetik = 60 * 60;
-
-            function startTimer() {
-                let menit = Math.floor(totalDetik / 60);
-                let detik = totalDetik % 60;
-
-                document.getElementById('timer').innerText =
-                    `${menit}:${detik < 10 ? '0'+detik : detik}`;
-
-                totalDetik--;
-
-                if (totalDetik < 0) {
+            let sisa = {{ $sisa_waktu }};
+            function updateTimer() {
+                let menit = Math.floor(sisa / 60);
+                let detik = sisa % 60;
+                document.getElementById('timer').textContent = `${String(menit).padStart(2, '0')}:${String(detik).padStart(2, '0')}`;
+                if (sisa > 0) {
+                    sisa--;
+                    setTimeout(updateTimer, 1000);
+                } else {
                     alert('Waktu habis!');
-                    location.reload();
+                    window.location.href = '/ujian/selesai';
                 }
             }
-
-            setInterval(startTimer, 1000);
         </script>
 
     </body>
