@@ -18,6 +18,8 @@ use App\Http\Controllers\users\FormulirSiswaController;
 use App\Http\Controllers\users\FormulirPeriodik;
 use App\Http\Controllers\users\FormulirRegistrasi;
 use App\Http\Controllers\users\FormulirNilaiRaport;
+
+use App\Http\Controllers\test\UjianController;
 // use Illuminate\Container\Attributes\Storage;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -69,6 +71,10 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/fix_registrasi', [AdminController::class, 'fix_registrasi_siswa'])->name('admin.fix_registrasi');
     Route::post('/fix-registrasi/upload', [AdminController::class, 'add_fix_registrasi_siswa'])
     ->name('fix-registrasi.upload');
+
+    // Route untuk ujian
+    Route::get('/admin/soal_test', [AdminController::class, 'soal_test'])->name('admin.soal_test');
+    Route::post('/admin/soal_test/save', [AdminController::class, 'add_soal_test'])->name('admin.add_soal_test');
 });
 
 // Middleware untuk akun
@@ -210,6 +216,18 @@ Route::get('/admin/export/check/{filename}', function ($filename) {
     // return 'Gagal';
 
 })->middleware('cekAdmin');
+
+// Route untuk ujian
+Route::prefix('ujian')->group(function() {
+    Route::get('/', function() {
+        return view('test/ujian');
+    })->name('ujian.index');
+
+    Route::post('/cek_registrasi', [UjianController::class, 'cek_registrasi'])->name('ujian.cek_registrasi');
+    Route::get('/mulai/{id}', [UjianController::class, 'mulai_ujian'])->name('ujian.mulai');
+    Route::get('/soal/{id}', [UjianController::class, 'halaman_soal'])->name('ujian.soal');
+    Route::post('/simpan_jawaban', [UjianController::class, 'simpan_jawaban'])->name('ujian.simpan_jawaban'); 
+});
 
 
 

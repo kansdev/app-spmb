@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\Registrasi;
 use App\Models\DocumentUpload;
 
+use App\Models\Soal;
+
 use App\Imports\FixRegistrasiImport;
 
 use Illuminate\View\View;
@@ -280,4 +282,45 @@ class AdminController extends Controller
         $this->app->sendEmail($id);
         return redirect()->back()->with('success', 'Bukti pendaftaran berhasil dikirim.');
     }
+
+    public function soal_test() {
+        $admin = session()->only(['id', 'name', 'level']);
+        $soal_test = $this->app->getSoalTest();
+        return view('admin.soal_test', compact('admin', 'soal_test'));
+    }   
+
+    public function add_soal_test(Request $request) {
+        // echo 'ok';
+        $validated = $request->validate([
+            'kategori' => 'required|string',
+            'soal' => 'required|string',
+            'jawaban_a' => 'required|string',
+            'jawaban_b' => 'required|string',
+            'jawaban_c' => 'required|string',
+            'jawaban_d' => 'required|string',
+            'jawaban_e' => 'required|string',
+            'kunci_jawaban' => 'required|string|in:A,B,C,D,E'
+        ]);    
+        try {
+            Soal::create([
+                'kategori' => $request->kategori,
+                'pertanyaan' => $request->soal,
+                'jawaban_a' => $request->jawaban_a,
+                'jawaban_b' => $request->jawaban_b,
+                'jawaban_c' => $request->jawaban_c,
+                'jawaban_d' => $request->jawaban_d,
+                'jawaban_e' => $request->jawaban_e,
+                'kunci_jawaban' => $request->kunci_jawaban
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Soal test berhasil ditambahkan'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Gagal menambahkan soal test : ' . $e->getMessage()
+            ], 500);
+        }
+    }   
 }

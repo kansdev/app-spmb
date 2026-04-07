@@ -36,5 +36,19 @@ class Registrasi extends Model
         return $this->hasOne(FixRegistrasi::class, 'nomor_pendaftaran', 'nomor_pendaftaran');
     }
 
+    public function ujian()
+    {
+        return $this->hasOne(Ujian::class, 'id_siswa', 'id');
+    }
+
+    public function soalAcak()
+    {
+        return $this->hasMany(SoalAcak::class, 'id_siswa', 'id');
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class, 'id_siswa', 'id');
+    }
 
 }
