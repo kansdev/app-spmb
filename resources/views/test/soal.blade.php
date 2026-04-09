@@ -76,19 +76,23 @@
 
         <!-- TIMER 60 MENIT -->
         <script>
-            let sisa = {{ $sisa_waktu }};
+            let sisa = parseInt({{ $sisa_waktu }}); // convert ms to seconds
             function updateTimer() {
                 let menit = Math.floor(sisa / 60);
                 let detik = sisa % 60;
-                document.getElementById('timer').textContent = `${String(menit).padStart(2, '0')}:${String(detik).padStart(2, '0')}`;
-                if (sisa > 0) {
-                    sisa--;
-                    setTimeout(updateTimer, 1000);
-                } else {
+                // document.getElementById('timer').textContent = `${String(menit).padStart(2, '0')}:${String(detik).padStart(2, '0')}`;
+                document.getElementById('timer').innerHTML = menit + ':' + (detik < 10 ? '0' : '') + detik;
+                if(sisa <= 0) {
                     alert('Waktu habis!');
-                    window.location.href = '/ujian/selesai';
-                }
+                    // simpan jawaban kosong
+                    window.location.href = "/ujian/selesai";
+                } 
+
+                sisa--;
+                console.log(sisa);
             }
+            setInterval(updateTimer, 1000);
+            updateTimer();
         </script>
 
     </body>

@@ -17,6 +17,12 @@ class Ujian extends Model
         'selesai_at'
     ];
 
+    protected $casts = [
+        'mulai_at' => 'datetime',
+        'waktu_selesai_umum' => 'datetime',
+        'selesai_at' => 'datetime',
+    ];
+
     public function registrasi()
     {
         return $this->belongsTo(Registrasi::class, 'id_siswa', 'id');

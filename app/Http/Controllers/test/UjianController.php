@@ -35,9 +35,16 @@ class UjianController extends Controller
 
     public function mulai_ujian($id_siswa)
     {
+        // cek kalau sudah pernah ujian dan statusnya selesai → langsung ke halaman selesai
+        $cek_ujian = Ujian::where('id_siswa', $id_siswa)->first();
+        if ($cek_ujian && $cek_ujian->status == 'selesai') {
+            return view('test.selesai');
+        }
+
         $siswa = Registrasi::findOrFail($id_siswa);
 
-        $ujian = Ujian::updateOrCreate(
+        // buat record ujian baru
+        $ujian = Ujian::firstOrCreate(
             ['id_siswa' => $id_siswa],
             [
                 'status' => 'mulai',
@@ -45,6 +52,11 @@ class UjianController extends Controller
                 'mulai_at' => now()
             ]
         );
+
+        // kalau sudah ada tapi belum mulai, update waktu mulai
+        if (!$ujian->mulai_at) {
+            $ujian->update(['mulai_at' => now()]);
+        }
 
         $soal = SoalAcak::where('id_siswa', $id_siswa)->count();
 
@@ -59,11 +71,18 @@ class UjianController extends Controller
     public function halaman_soal($id_siswa)
     {
         $siswa = Registrasi::findOrFail($id_siswa);
-        $ujian = Ujian::where('id_siswa', $id_siswa)->first();
+        $ujian = Ujian::firstOrCreate(
+            ['id_siswa' => $id_siswa],
+            [
+                'status' => 'mulai',
+                'tahap' => 'umum',
+                'mulai_at' => now()
+            ]
+        );
         $waktu_mulai = $ujian->mulai_at;
         $durasi = 60 * 60; // 60 menit
 
-        $sisa_waktu = max(0, $durasi - now()->diffInSeconds($waktu_mulai));
+        $sisa_waktu = (int) max(0, $durasi - now()->diffInSeconds($waktu_mulai));
 
         // Jika waktu habis, update status ujian dan tampilkan halaman selesai
         if ($sisa_waktu <= 0) {
@@ -125,8 +144,8 @@ class UjianController extends Controller
 
             // selesai tahap umum → ke jeda
             if ($ujian->tahap == 'umum') {
-                return "Jeda 60 detik sebelum lanjut ke kejuruan";
-                // return view('test.jeda');
+                // return "Jeda 60 detik sebelum lanjut ke kejuruan";
+                return view('test.jeda');
             }
 
             // selesai tahap kejuruan → selesai ujian
@@ -167,7 +186,7 @@ class UjianController extends Controller
                     'waktu_selesai_umum' => now()
                 ]);
 
-                return; // ❗ STOP di sini
+                return; 
             }
         }
 
@@ -241,11 +260,16 @@ class UjianController extends Controller
 
     public function simpan_jawaban(Request $request)
     {
-
         $ujian = Ujian::where('id_siswa', $request->id_siswa)->first();
-        $waktu_mulai = $ujian->mulai_at;
+        if (!$ujian || !$ujian->mulai_at) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Ujian tidak valid'
+            ], 400);
+        }
+        
         $durasi = 60 * 60; // 60 menit
-        $sisa_waktu = max(0, $durasi - now()->diffInSeconds($waktu_mulai));
+        $sisa_waktu = (int) max(0, $durasi - now()->diffInSeconds($ujian->mulai_at));
 
         if ($sisa_waktu <= 0) {
             return response()->json([
@@ -269,6 +293,21 @@ class UjianController extends Controller
         return response()->json([
             'status' => true
         ]);
-        // return view('ujian.simpan');
+    }
+
+    public function timer_soal() {
+        $ujian = Ujian::where('id_siswa', request()->id_siswa)->first();
+        if (!$ujian || !$ujian->mulai_at) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Ujian tidak valid'
+            ], 400);
+        }
+        $durasi = 60 * 60; // 60 menit
+        $sisa_waktu = (int) max(0, $durasi - now()->diffInSeconds($ujian->mulai_at));
+        return response()->json([
+            'status' => true,
+            'sisa_waktu' => $sisa_waktu
+        ]);
     }
 }
