@@ -24,6 +24,9 @@
                                 <th>{{ $jurusan }} : {{ $total }} Calon</th>
                             @endforeach
                         </tr>
+                        <tr>
+                            <th>Total Pendaftar Diterima : {{ $total_fix_registrasi }} Calon</th>
+                        </tr>
                     </table>
                 </div>
             </div>

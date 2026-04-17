@@ -224,7 +224,9 @@ class AdminController extends Controller
             ->select('jurusan', DB::raw('COUNT(*) as total'))
             ->groupBy('jurusan')
             ->pluck('total', 'jurusan');
-        return view('admin.fix_registrasi', compact('admin', 'pendaftar', 'pendaftar_terverifikasi'));
+
+        $total_fix_registrasi = FixRegistrasi::count();
+        return view('admin.fix_registrasi', compact('admin', 'pendaftar', 'pendaftar_terverifikasi', 'total_fix_registrasi'));
     }
 
     // public function add_fix_registrasi_siswa(Request $request) {
@@ -272,7 +274,7 @@ class AdminController extends Controller
         
         catch (\Exception $e) {
             \Log::error($e);
-            
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal menambahkan siswa : ' . $e->getMessage()
