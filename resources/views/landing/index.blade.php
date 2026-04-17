@@ -156,7 +156,6 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="#info">Info SPMB</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('ujian.index') }}">Tes Masuk</a></li>
         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
         <li class="nav-item"><a class="btn btn-light ms-lg-3" href="{{ route('login') }}">Login/Daftar</a></li>
       </ul>

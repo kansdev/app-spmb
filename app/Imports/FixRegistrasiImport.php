@@ -28,19 +28,23 @@ class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, 
 
     public function model(array $row)
     {
-        return new FixRegistrasi([
-            // 'user_id' => $row['user_id'],
-            'nomor_pendaftaran' => $row['nomor_pendaftaran'],
-            'nama_siswa' => $row['nama_siswa'],
-            'tempat_lahir' => $row['tempat_lahir'],
-            'tanggal_lahir' => $row['tanggal_lahir'],
-            'nisn' => $row['nisn'],
-            'nik' => $row['nik'] == '-' ? null : $row['nik'],
-            'asal_sekolah' => $row['asal_sekolah'],
-            'jurusan' => $row['jurusan'],
-            'skor_tes' => $row['skor_tes'],
-            'status' => $row['status'],
-        ]);
+        // return new FixRegistrasi(
+        //     [
+        //         // 'user_id' => $row['user_id'],
+        //         'nomor_pendaftaran' => $row['nomor_pendaftaran'],
+        //         'nama_siswa' => $row['nama_siswa'],
+        //         'tempat_lahir' => $row['tempat_lahir'],
+        //         'tanggal_lahir' => $row['tanggal_lahir'],
+        //         'nisn' => $row['nisn'],
+        //         'nik' => $row['nik'] == '-' ? null : $row['nik'],
+        //         'asal_sekolah' => $row['asal_sekolah'],
+        //         'jurusan' => $row['jurusan'],
+        //         'skor_tes' => $row['skor_tes'],
+        //         'status' => $row['status'],
+        //     ]
+        // );
+
+        dd($row);
     }
 
     public function uniqueBy()
