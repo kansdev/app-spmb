@@ -24,10 +24,10 @@
                                 <th>{{ $jurusan }} : {{ $total }} Calon</th>
                             @endforeach
                         </tr>
-                        <tr>
-                            <th>Total Pendaftar Diterima : {{ $total_fix_registrasi }} Calon</th>
-                        </tr>
                     </table>
+                </div>
+                <div class="card-foter">
+                    <p>Total Pendaftar Diterima : {{ $total_fix_registrasi }} Calon</p>
                 </div>
             </div>
         </div>
