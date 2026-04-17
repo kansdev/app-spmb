@@ -13,6 +13,7 @@ use App\Models\DataSiswa;
 use App\Models\User;
 use App\Models\Registrasi;
 use App\Models\DocumentUpload;
+use App\Models\FixRegistrasi;
 
 use App\Models\Soal;
 
@@ -216,7 +217,13 @@ class AdminController extends Controller
     public function fix_registrasi_siswa() {
         $admin = session()->only(['id', 'name', 'level']);
         $pendaftar = $this->app->getRegistrasiFix();
-        return view('admin.fix_registrasi', compact('admin', 'pendaftar'));
+        // Hitung pendaftar yang sudah di verifikasi lulus berdasarkan jurusan 
+        // Misalkan AK : 10, TKJ : 5, RPL : 8
+        $pendaftar_terverifikasi = FixRegistrasi::where('status', 'Lulus')
+            ->select('jurusan', DB::raw('COUNT(*) as total'))
+            ->groupBy('jurusan')
+            ->pluck('total', 'jurusan');
+        return view('admin.fix_registrasi', compact('admin', 'pendaftar', 'pendaftar_terverifikasi'));
     }
 
     // public function add_fix_registrasi_siswa(Request $request) {

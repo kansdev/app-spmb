@@ -181,8 +181,8 @@
                         <label for="gelombang-sesi" class="form-label">Pilih Tanggal Tes</label>
                         <select class="form-control" name="gelombang_sesi" id="gelombang-sesi">
                             <option value="">--- Pilih ---</option>
-                            <option value="2 Mei 2026" {{ old('gelombang_sesi') == '2 Mei 2026' ? 'selected' : '' }}>Sabtu, 2 Mei 2026</option>
-                            <option value="3 Mei 2026" {{ old('gelombang_sesi') == '3 Mei 2026' ? 'selected' : '' }}>Minggu, 3 Mei 2026</option>
+                            <option value="9 Mei 2026" {{ old('gelombang_sesi') == '9 Mei 2026' ? 'selected' : '' }}>Sabtu, 9 Mei 2026</option>
+                            <option value="10 Mei 2026" {{ old('gelombang_sesi') == '10 Mei 2026' ? 'selected' : '' }}>Minggu, 10 Mei 2026</option>
                         </select>
                     </div>
 
@@ -192,7 +192,7 @@
                             <option value="">--- Pilih ---</option>
                             <option value="Sesi I (09:00 s/d 11:00)" {{ old('waktu_sesi') == 'Sesi I (09:00 s/d 11:00)' ? 'selected' : '' }}>Sesi I (09:00 s/d 11:00)</option>
                             <option value="Sesi II (11:00 s/d 13:00)" {{ old('waktu_sesi') == 'Sesi II (11:00 s/d 13:00)' ? 'selected' : '' }}>Sesi II (11:00 s/d 13:00)</option>
-                            <option value="Sesi III (13:00 s/d 15:00)" {{ old('waktu_sesi') == 'Sesi II (13:00 s/d 15:00)' ? 'selected' : '' }}>Sesi III (13:00 s/d 15:00)</option>
+                            <option value="Sesi III (13:00 s/d 15:00)" {{ old('waktu_sesi') == 'Sesi III (13:00 s/d 15:00)' ? 'selected' : '' }}>Sesi III (13:00 s/d 15:00)</option>
                         </select>
                     </div>
 

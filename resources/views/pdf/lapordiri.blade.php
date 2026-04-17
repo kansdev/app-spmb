@@ -42,14 +42,14 @@
     <ol type="1">
         <li>Melakukan lapor diri ke sekolah dengan membawa surat pengumuman hasil seleksi yang telah di cetak</li>
         <li>Melakukan pembukaan rekening tabungan di BMT sebesar Rp. 500.000</li>
-        <li>Lapor diri dan pembukaan rekening paling lambat pada tanggal 15 April 2026</li>
+        <li>Lapor diri dan pembukaan rekening paling lambat pada tanggal 15 Mei 2026</li>
         <li>Waktu Operasional Sekolah : Senin - Jum'at, Pukul 08.00 - 15.00.</li>
-        <li>Bagi Peserta Reguler (Non PSG) yang mendaftar di Gelombang 1, mendapatkan diskon 25% untuk Biaya Akademik</li>
+        <li>Bagi Peserta Reguler (Non PSG) yang mendaftar di Gelombang 2, mendapatkan diskon 20% untuk Biaya Akademik</li>
     </ol>
 
     <p>Untuk informasi lebih lanjut, silakan hubungi kami melalui kontak yang tersedia. Terima kasih atas kepercayaan Anda memilih SMK Nusantara 1 Kota Tangerang. Kami tunggu kehadiran Anda!</p>
 
-    <p align="right">Tangerang, 5 Februari 2026 <br> Panitia SPMB </p>
+    <p align="right">Tangerang, 15 April 2026 <br> Panitia SPMB </p>
     {{-- <div style="clear: both">
         <img style="float: right" src="data:image/png;base64,{{ $qrPng }}" width="150" alt="QR Code">
     </div> --}}

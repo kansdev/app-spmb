@@ -237,7 +237,7 @@ class AppServices
     }
 
     public function getRegistrasiFix() {
-        return FixRegistrasi::orderBy('created_at', 'desc')->paginate(5);
+        return FixRegistrasi::orderBy('created_at', 'desc')->paginate(10);
     }
 
     public function cariByNomor($nomor_pendaftaran) {

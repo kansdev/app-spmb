@@ -160,13 +160,6 @@
                     <div data-i18n="Account Settings">Data Fix Registrasi</div>
                 </a>
             </li>
-
-            <li class="menu-item {{ request()->routeIs('admin.soal_test') ? 'active' : '' }}">
-                <a href="{{ route('admin.soal_test') }}" onclick="loadHalaman()" class="menu-link">
-                    <i class="menu-icon tf-icons fa-solid fa-question"></i>
-                    <div data-i18n="Account Settings">Soal Tes Masuk</div>
-                </a>
-            </li>
         </ul>
     </aside>
     <!-- / Menu -->

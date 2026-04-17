@@ -11,6 +11,25 @@
         </div>
     @endif
 
+    {{-- Data jumlah lulusan yang sudah diverifikasi lulus --}}
+    <div class="card mb-4 bg-light shadow">
+        <div class="d-flex align-items-end row">
+            <div class="col-sm-12">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Jumlah Pendaftar yang Sudah Diverifikasi Lulus</h5>
+                    <p class="card-text">Berikut adalah jumlah pendaftar yang sudah diverifikasi lulus berdasarkan jurusan pilihan pertama:</p>
+                    <table class="table table-striped">
+                        <tr>
+                            @foreach ($pendaftar_terverifikasi as $jurusan => $total)
+                                <th>{{ $jurusan }} : {{ $total }} Calon</th>
+                            @endforeach
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload data</a>
     <a href="#" class="btn btn-primary btn-sm mb-3">Lihat Data Siswa</a>
 

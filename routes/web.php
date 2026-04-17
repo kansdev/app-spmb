@@ -217,17 +217,3 @@ Route::get('/admin/export/check/{filename}', function ($filename) {
 
 })->middleware('cekAdmin');
 
-// Route untuk ujian
-Route::prefix('ujian')->group(function() {
-    Route::get('/', function() {
-        return view('test/ujian');
-    })->name('ujian.index');
-
-    Route::post('/cek_registrasi', [UjianController::class, 'cek_registrasi'])->name('ujian.cek_registrasi');
-    Route::get('/mulai/{id}', [UjianController::class, 'mulai_ujian'])->name('ujian.mulai');
-    Route::get('/soal/{id}', [UjianController::class, 'halaman_soal'])->name('ujian.soal');
-    Route::post('/simpan_jawaban', [UjianController::class, 'simpan_jawaban'])->name('ujian.simpan_jawaban'); 
-});
-
-
-
