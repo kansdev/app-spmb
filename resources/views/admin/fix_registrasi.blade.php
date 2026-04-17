@@ -26,7 +26,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="card-foter">
+                <div class="card-footer">
                     <p>Total Pendaftar Diterima : {{ $total_fix_registrasi }} Calon</p>
                 </div>
             </div>
