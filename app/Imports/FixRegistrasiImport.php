@@ -17,14 +17,13 @@ use Maatwebsite\Excel\Concerns\{
     WithBatchInserts
 };
 
-class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, /**ShouldQueue,**/ SkipsOnError,  SkipsEmptyRows, WithValidation, WithUpserts, WithBatchInserts
+class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, /**ShouldQueue,**/ SkipsEmptyRows, WithValidation, WithUpserts, WithBatchInserts
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    use SkipsErrors;
 
     public function model(array $row)
     {

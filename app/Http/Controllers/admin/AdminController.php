@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators;
 
 class AdminController extends Controller
 {
@@ -249,7 +250,29 @@ class AdminController extends Controller
                 'status' => 'success',
                 'message' => 'Status siswa sudah berhasil ditambahkan'
             ]);
-        } catch (\Exception $e) {
+        } catch(\ValidationException $e) {
+            $failures = $e->failures();
+
+            $errorMessages = [];
+            foreach ($failures as $failure) {
+                $errorMessages[] = [
+                    'baris' => $failure->row(),
+                    'kolom' => $failure->attribute(),
+                    'error' => $failure->errors(),
+                    'nilai' => $failure->values(),
+                ];
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal menambahkan siswa',
+                'errors' => $errorMessages
+            ], 422);
+        }
+        
+        catch (\Exception $e) {
+            \Log::error($e);
+            
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal menambahkan siswa : ' . $e->getMessage()
