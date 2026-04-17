@@ -17,7 +17,7 @@
             <div class="col-sm-12">
                 <div class="card-body">
                     <h5 class="card-title text-danger">Jumlah Pendaftar yang Sudah Diverifikasi Lulus</h5>
-                    <p class="card-text">Berikut adalah jumlah pendaftar yang sudah diverifikasi lulus berdasarkan jurusan pilihan pertama:</p>
+                    <p class="card-text">Berikut adalah jumlah pendaftar yang sudah diverifikasi lulus berdasarkan jurusan pilihan pertama, dengan total {{ $total_fix_registrasi }} Pendaftar:</p>
                     <table class="table table-striped">
                         <tr>
                             @foreach ($pendaftar_terverifikasi as $jurusan => $total)
@@ -25,9 +25,6 @@
                             @endforeach
                         </tr>
                     </table>
-                </div>
-                <div class="card-footer">
-                    <p>Total Pendaftar Diterima : {{ $total_fix_registrasi }} Calon</p>
                 </div>
             </div>
         </div>
