@@ -193,6 +193,18 @@ class AppServices
         ]);
     }
 
+    public function ubah_jurusan($request, $id): void {
+        $validated = $request->validate([
+            'jurusan' => 'required|string'
+        ]);
+        
+        $registrasi = FixRegistrasi::findOrFail($id);
+        $registrasi->update([
+            'jurusan' => $request->jurusan
+        ]);
+        // dd($registrasi);
+    }
+
     public static function toNominal($kode): int
     {
         return match ((int) $kode) {

@@ -90,6 +90,19 @@ class AdminController extends Controller
         return back()->with('success', 'Pendaftar berhasil diverifikasi');
     }
 
+    public function ubah_jurusan_registrasi(Request $request, $id) {
+        try {
+            $this->app->ubah_jurusan($request, $id);
+            return back()->with('success', 'Jurusan berhasil diubah');
+        } catch (\Exception $e) {
+            Log::error('Gagal ubah jurusan', [
+                'registrasi_id' => $id,
+                'error' => $e->getMessage()
+            ]);
+            return back()->with('error', 'Gagal mengubah jurusan : ' . $e->getMessage());
+        }
+    }
+
     public function tolak_verifikasi(Request $request, $id) {
         // Cek validasi input alasan
         $request->validate([

@@ -55,7 +55,10 @@
                                     <td>{{ $siswa->nomor_pendaftaran ?? "-" }}</td>
                                     <td>{{ $siswa->nama_siswa ?? "-" }}</td>
                                     <td>{{ $siswa->asal_sekolah ?? "-" }}</td>
-                                    <td>{{ $siswa->jurusan ?? "-" }}</td>
+                                    <td>
+                                        
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#jurusanModal{{ $siswa->id }}" data-id="{{ $siswa->id }}">{{ $siswa->jurusan ?? "-" }}</a>
+                                    </td>
                                     <td>{{ $siswa->status ?? "-" }}</td>
                                 </tr>
                             @endforeach
@@ -109,6 +112,42 @@
                 </div>
             </div>
         </div>
+
+        @foreach ($pendaftar as $siswa)
+            <div class="modal fade" id="jurusanModal{{$siswa->id}}" tabindex="-1" aria-labelledby="jurusanModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ubah Jurusan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('fix-registrasi.update_jurusan', $siswa->id) }}" method="post" id="jurusanForm">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label class="form-label">Jurusan</label>
+                                <select name="jurusan" class="form-control" required>
+                                    <option value="">Pilih Jurusan</option>
+                                    <option value="MP">MP</option>
+                                    <option value="AK">AK</option>
+                                    <option value="AN">AN</option>
+                                    <option value="TJKT">TJKT</option>
+                                    <option value="DKV">DKV</option>
+                                    <option value="BP">BP</option>
+                                    <option value="PPLG">PPLG</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Simpan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        
 
     {{-- <script>
         document.querySelector('form').addEventListener('submit', function () {

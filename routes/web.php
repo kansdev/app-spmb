@@ -72,9 +72,11 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::post('/fix-registrasi/upload', [AdminController::class, 'add_fix_registrasi_siswa'])
     ->name('fix-registrasi.upload');
 
-    // Route untuk ujian
-    Route::get('/admin/soal_test', [AdminController::class, 'soal_test'])->name('admin.soal_test');
-    Route::post('/admin/soal_test/save', [AdminController::class, 'add_soal_test'])->name('admin.add_soal_test');
+    // Route::get('/fix-registrasi/download-template', function() {
+    //     $filePath = public_path('template_fix_registrasi.xlsx');
+    //     return response()->download($filePath);
+    // })->name('fix-registrasi.download_template');
+    Route::put('/admin/fix-registrasi/update-jurusan/{id}', [AdminController::class, 'ubah_jurusan_registrasi'])->name('fix-registrasi.update_jurusan');
 });
 
 // Middleware untuk akun
