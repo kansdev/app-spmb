@@ -232,7 +232,7 @@
                           <td>Gelombang 3</td>
                           <td>1 - 30 April 2026</td>
                           <td>9 - 10 Mei 2026</td>
-                          <td>6 Mei 2026</td>
+                          <td>15 Mei 2026</td>
                         </tr>
                         <tr>
                           <th scope="row">4</th>
