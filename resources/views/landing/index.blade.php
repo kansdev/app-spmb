@@ -237,9 +237,9 @@
                         <tr>
                           <th scope="row">4</th>
                           <td>Gelombang 4</td>
-                          <td>1 Mei - 30 Juni 2026</td>
-                          <td>1 - 6 Juli 2026</td>
-                          <td>11 Juli 2026</td>
+                          <td>1 Mei - 3 Juni 2026</td>
+                          <td>8 - 10 Juni 2026</td>
+                          <td>15 Juni 2026</td>
                         </tr>
                       </tbody>
                     </table>
