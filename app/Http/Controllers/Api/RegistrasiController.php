@@ -29,4 +29,19 @@ class RegistrasiController extends Controller
             ], 500);
         }
     }
+
+    public function data_full_registrasi() {
+        try {
+            $data = Registrasi::all();
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }   
 }

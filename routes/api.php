@@ -9,4 +9,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/data-registrasi', [RegistrasiController::class, 'data_full_registrasi']);
 Route::get('/data-registrasi/{nomor_pendaftaran}', [RegistrasiController::class, 'data_registrasi']);
