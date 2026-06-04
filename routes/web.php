@@ -52,7 +52,7 @@ Route::middleware(['cekAdmin'])->group(function() {
     Route::get('/admin/pendaftar/cari_pendaftar', [AdminController::class, 'cari_pendaftar'])->name('admin.cari_pendaftar');
     Route::get('/admin/pendaftar/{id}/unduhBuktiPendaftaran', [AdminController::class, 'unduhBuktiPendaftaran'])->name('admin.unduh_bukti_pendaftaran');
     Route::get('/admin/pendaftar/{id}/kirim_email', [AdminController::class, 'send_email'])->name('admin.kirim_email');
-    Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/admin/user', [AdminController::class, 'index'])->name('user.index');
     Route::delete('/admin/delete/akun/{id}', [AdminController::class, 'delete_akun'])->name('admin.delete_akun');
     Route::delete('admin/hapus_berkas/{id}', [AdminController::class, 'hapus_berkas'])->name('admin.hapus_berkas');
 
