@@ -30,9 +30,9 @@ class RegistrasiController extends Controller
         }
     }
 
-    public function data_full_registrasi() {
+    public function data_wawancara($nomor_pendaftaran) {
         try {
-            $data = Registrasi::all();
+            $data = Registrasi::where('nomor_pendaftaran', $nomor_pendaftaran)->first();
             return response()->json([
                 'status' => 'success',
                 'data' => $data
