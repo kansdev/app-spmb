@@ -21,7 +21,7 @@ class RegistrasiController extends Controller
             return response()->json([
                 'status' => 'success',
                 'data' => $data
-            ]);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -36,7 +36,7 @@ class RegistrasiController extends Controller
             return response()->json([
                 'status' => 'success',
                 'data' => $data
-            ]);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
