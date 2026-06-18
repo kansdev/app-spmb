@@ -241,6 +241,13 @@
                           <td>8 - 10 Juni 2026</td>
                           <td>15 Juni 2026</td>
                         </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Gelombang 5</td>
+                            <td>10 - 26 Juni 2026</td>
+                            <td>22 - 26 Juni 2026</td>
+                            <td>-</td>
+                          </tr>
                       </tbody>
                     </table>
                 </div>

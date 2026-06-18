@@ -222,17 +222,11 @@ class AdminController extends Controller
 
     public function data_teregistrasi(Request $request) {
         return response()->json($this->app->getPendaftarTeregistrasi());
-        // return dd($this->app->getPendaftarTeregistrasi());
-        // return dd(User::with('registrasi')
-        //         ->whereHas('registrasi')
-        //         ->paginate(20));
     }
 
     public function fix_registrasi_siswa() {
         $admin = session()->only(['id', 'name', 'level']);
         $pendaftar = $this->app->getRegistrasiFix();
-        // Hitung pendaftar yang sudah di verifikasi lulus berdasarkan jurusan 
-        // Misalkan AK : 10, TKJ : 5, RPL : 8
         $pendaftar_terverifikasi = FixRegistrasi::where('status', 'Lulus')
             ->select('jurusan', DB::raw('COUNT(*) as total'))
             ->groupBy('jurusan')
@@ -241,15 +235,6 @@ class AdminController extends Controller
         $total_fix_registrasi = FixRegistrasi::count();
         return view('admin.fix_registrasi', compact('admin', 'pendaftar', 'pendaftar_terverifikasi', 'total_fix_registrasi'));
     }
-
-    // public function add_fix_registrasi_siswa(Request $request) {
-    //     try {
-    //         $this->app->fix_registrasi($request);
-    //         return back()->with('success', 'Status siswa sudah berhasil ditambahkan');
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', 'Gagal menambahkan siswa : ' . $e->getMessage());
-    //     }
-    // }
 
     public function add_fix_registrasi_siswa(Request $request) {
         $file = $request->validate([
@@ -284,7 +269,7 @@ class AdminController extends Controller
                 'errors' => $errorMessages
             ], 422);
         }
-        
+
         catch (\Exception $e) {
             \Log::error($e);
 
@@ -332,7 +317,7 @@ class AdminController extends Controller
         $admin = session()->only(['id', 'name', 'level']);
         $soal_test = $this->app->getSoalTest();
         return view('admin.soal_test', compact('admin', 'soal_test'));
-    }   
+    }
 
     public function add_soal_test(Request $request) {
         // echo 'ok';
@@ -345,7 +330,7 @@ class AdminController extends Controller
             'jawaban_d' => 'required|string',
             'jawaban_e' => 'required|string',
             'kunci_jawaban' => 'required|string|in:A,B,C,D,E'
-        ]);    
+        ]);
         try {
             Soal::create([
                 'kategori' => $request->kategori,
@@ -367,5 +352,5 @@ class AdminController extends Controller
                 'message' => 'Gagal menambahkan soal test : ' . $e->getMessage()
             ], 500);
         }
-    }   
+    }
 }
