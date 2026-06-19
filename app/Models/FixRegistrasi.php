@@ -11,7 +11,6 @@ class FixRegistrasi extends Model
     protected $fillable = [
         'nomor_pendaftaran',
         'nama_siswa',
-        'nomor_pendaftar',
         'tempat_lahir',
         'tanggal_lahir',
         'nisn',

@@ -29,10 +29,10 @@
     <br>
 
     <h3 align="center">PENGUMUMAN HASIL SELEKSI <br> SPMB SMK NUSANTARA 1 KOTA TANGERANG 2026-2027</h3>
-    
+
     <br>
 
-    <p>Berdasarkan hasil tes dan penilaian wawancara gelombang 1 yang dilakukan oleh panitia SPMB dan rapat verifikasi hasil seleksi dengan kepala sekolah SMK Nusantara 1 Kota Tangerang</p>
+    <p>Berdasarkan hasil tes dan penilaian wawancara yang dilakukan oleh panitia SPMB dan rapat verifikasi hasil seleksi dengan kepala sekolah SMK Nusantara 1 Kota Tangerang</p>
 
     <h3 align="center">MEMUTUSKAN</h3>
 
@@ -42,16 +42,13 @@
     <ol type="1">
         <li>Melakukan lapor diri ke sekolah dengan membawa surat pengumuman hasil seleksi yang telah di cetak</li>
         <li>Melakukan pembukaan rekening tabungan di BMT sebesar Rp. 500.000</li>
-        <li>Lapor diri dan pembukaan rekening paling lambat pada tanggal 15 Mei 2026</li>
+        <li>Lapor diri dan pembukaan rekening paling lambat pada tanggal 24 Juni 2026</li>
         <li>Waktu Operasional Sekolah : Senin - Jum'at, Pukul 08.00 - 15.00.</li>
         <li>Bagi Peserta Reguler (Non PSG) yang mendaftar di Gelombang 2, mendapatkan diskon 20% untuk Biaya Akademik</li>
     </ol>
 
     <p>Untuk informasi lebih lanjut, silakan hubungi kami melalui kontak yang tersedia. Terima kasih atas kepercayaan Anda memilih SMK Nusantara 1 Kota Tangerang. Kami tunggu kehadiran Anda!</p>
 
-    <p align="right">Tangerang, 15 April 2026 <br> Panitia SPMB </p>
-    {{-- <div style="clear: both">
-        <img style="float: right" src="data:image/png;base64,{{ $qrPng }}" width="150" alt="QR Code">
-    </div> --}}
+    <p align="right">Tangerang, {{ date('d F Y') }} <br> Panitia SPMB </p>
 </body>
 </html>
