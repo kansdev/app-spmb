@@ -153,10 +153,10 @@
                         <label for="pilihan-jurusan-pertama" class="form-label">Pilihan Jurusan Pertama</label>
                         <select class="form-control" name="jurusan_pertama" id="pilih-jurusan-pertama">
                             <option value="">--- Pilih ---</option>
-                            <option value="MP" {{ old('jurusan_pertama') == 'MP' ? 'selected' : '' }}>Manajemen Perkantoran</option>
+                            {{-- <option value="MP" {{ old('jurusan_pertama') == 'MP' ? 'selected' : '' }}>Manajemen Perkantoran</option> --}}
                             <option value="AK" {{ old('jurusan_pertama') == 'AK' ? 'selected' : '' }}>Akuntansi</option>
                             <option value="AN" {{ old('jurusan_pertama') == 'AN' ? 'selected' : '' }}>Animasi</option>
-                            <option value="TJKT" {{ old('jurusan_pertama') == 'TJKT' ? 'selected' : '' }}>Teknik Jaringan Komputer dan Telekomnuikasi</option>
+                            {{-- <option value="TJKT" {{ old('jurusan_pertama') == 'TJKT' ? 'selected' : '' }}>Teknik Jaringan Komputer dan Telekomnuikasi</option> --}}
                             <option value="DKV" {{ old('jurusan_pertama') == 'DKV' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
                             <option value="PPLG" {{ old('jurusan_pertama') == 'PPLG' ? 'selected' : '' }}>Pengembangan Perangkat Lunak dan Gim</option>
                             <option value="BP" {{ old('jurusan_pertama') == 'BP' ? 'selected' : '' }}>Broadcasting dan Perfilman</option>

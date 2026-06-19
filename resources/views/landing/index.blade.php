@@ -189,13 +189,13 @@
                   <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="persyaratan-tab" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
+                  <a class="nav-link" href="#" id="persyaratan-tab-pane" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="tata-cara-tab" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
+                  <a class="nav-link" href="#" id="tata-cara-tab-pane" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="pendaftaran-reguler-tab" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
+                  <a class="nav-link" href="#" id="pendaftaran-reguler-tab-pane" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
                 </li>
               </ul>
           </div>
