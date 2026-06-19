@@ -186,21 +186,21 @@
           <div class="tab-scroll-wrapper">
               <ul class="nav nav-underline nav-scroll" id="informasiTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
+                  <a class="nav-link active" aria-current="page" href="javascript:void(0)" id="jadwal-tab" data-bs-toggle="tab" data-bs-target="#jadwal-tab-pane" type="button" role="tab" aria-controls="jadwal-tab-pane" aria-selected="true">Jadwal</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="persyaratan-tab-pane" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
+                  <a class="nav-link" href="javascript:void(0)" id="persyaratan-tab-pane" data-bs-toggle="tab" data-bs-target="#persyaratan-tab-pane" type="button" role="tab" aria-controls="persyaratan-tab-pane" aria-selected="true">Persyaratan</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="tata-cara-tab-pane" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
+                  <a class="nav-link" href="javascript:void(0)" id="tata-cara-tab-pane" data-bs-toggle="tab" data-bs-target="#tata-cara-tab-pane" type="button" role="tab" aria-controls="tata-cara-tab-pane" aria-selected="true">Tata Cara</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" id="pendaftaran-reguler-tab-pane" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
+                  <a class="nav-link" href="javascript:void(0)" id="pendaftaran-reguler-tab-pane" data-bs-toggle="tab" data-bs-target="#pendaftaran-reguler-tab-pane" type="button" role="tab" aria-controls="pendaftaran-reguler-tab-pane" aria-selected="true">Pendaftaran Reguler</a>
                 </li>
               </ul>
           </div>
           <div class="tab-content mt-4" id="informasiTabContent">
-            <div class="tab-pane fade show active" id="jadwal-tab-pane" role="tabpanel" aria-labelledby="jadwal-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="jadwal-tab-pane" role="tabpanel" aria-labelledby="jadwal-tab-pane" tabindex="0">
                 <div class="table-responsive">
                     <table class="table table-striped align-middle">
                       <thead>
@@ -252,7 +252,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade" id="persyaratan-tab-pane" role="tabpanel" aria-labelledby="persyaratan-tab" tabindex="0">
+            <div class="tab-pane fade" id="persyaratan-tab-pane" role="tabpanel" aria-labelledby="persyaratan-tab-pane" tabindex="0">
               <div class="row">
                 <div class="col-12 col-md-4 mb-3 mb-md-0 text-center">
                   <img src="/assets/img/landing/image.webp" class="img-fluid rounded" alt="image">
@@ -273,10 +273,10 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="tata-cara-tab-pane" role="tabpanel" aria-labelledby="tata-cara-tab" tabindex="0">
+            <div class="tab-pane fade" id="tata-cara-tab-pane" role="tabpanel" aria-labelledby="tata-cara-tab-pane" tabindex="0">
               <img class="img-fluid rounded mx-auto d-block" style="max-height:400px; object-fit:contain;" src="/assets/img/landing/alur-pendaftaran.jpg" alt="Alur Pendaftaran">
             </div>
-            <div class="tab-pane fade text-center" id="pendaftaran-reguler-tab-pane" role="tabpanel" aria-labelledby="pendaftaran-reguler-tab" tabindex="0">
+            <div class="tab-pane fade text-center" id="pendaftaran-reguler-tab-pane" role="tabpanel" aria-labelledby="pendaftaran-reguler-tab-pane" tabindex="0">
               Informasi lebih lanjut hubungi : 085117289700
             </div>
           </div>
