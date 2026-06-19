@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\{
     WithChunkReading,
     SkipsOnError,
     SkipsErrors,
-    SkipsEmptyRows,  
+    SkipsEmptyRows,
     WithValidation,
     WithUpserts,
     WithBatchInserts
@@ -29,7 +29,6 @@ class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, 
     {
         return new FixRegistrasi(
             [
-                // 'user_id' => $row['user_id'],
                 'nomor_pendaftaran' => $row['nomor_pendaftaran'],
                 'nama_siswa' => $row['nama_siswa'],
                 'tempat_lahir' => $row['tempat_lahir'],
@@ -55,12 +54,12 @@ class FixRegistrasiImport implements ToModel, WithHeadingRow, WithChunkReading, 
     {
         return 500;
     }
-    
+
     public function rules(): array
     {
         return [
             '*.nomor_pendaftaran' => 'required',
-            '*.nama_siswa' => 'required'           
+            '*.nama_siswa' => 'required'
         ];
     }
 
