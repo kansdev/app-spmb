@@ -115,7 +115,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
                 ]);
 
                 // ===== STYLE HEADING (BARIS 4) =====
-                $sheet->getStyle('A4:M4')->applyFromArray([
+                $sheet->getStyle('A4:O4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                     ],
