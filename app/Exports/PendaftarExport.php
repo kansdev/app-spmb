@@ -61,6 +61,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
         return [
             optional($user->registrasi)->nomor_pendaftaran,
             optional($user->registrasi)->nama_siswa,
+            optional($user)->phone,
             optional($user->siswa)->agama,
             optional($user->siswa)->tempat_lahir,
             optional($user->siswa)->tanggal_lahir,
