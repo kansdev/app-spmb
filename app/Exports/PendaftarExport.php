@@ -42,6 +42,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
         return [
             'Nomor Registrasi',
             'Nama',
+            'Nomor Telepon',
             'Agama',
             'Tempat Lahir',
             'Tanggal Lahir',
