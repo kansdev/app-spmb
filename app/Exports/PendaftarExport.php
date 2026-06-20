@@ -39,7 +39,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
     }
 
     public function headings(): array {
-        return [
+        $headings = [
             'Nomor Registrasi',
             'Nama',
             'Nomor Telepon',
@@ -56,6 +56,10 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
             'Waktu Sesi',
             'Status Registrasi'
         ];
+
+        \Log::info($headings);
+
+        return $headings;
     }
 
     public function map($user): array {
