@@ -41,6 +41,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
     public function headings(): array {
         $headings = [
             'Nomor Registrasi',
+            'NISN',
             'Nama',
             'Nomor Telepon',
             'Agama',
@@ -65,6 +66,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
     public function map($user): array {
         return [
             optional($user->registrasi)->nomor_pendaftaran,
+            optional($user->siswa)->nisn,
             optional($user->registrasi)->nama_siswa,
             optional($user)->phone,
             optional($user->siswa)->agama,
@@ -93,14 +95,14 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
                 $sheet->insertNewRowBefore(1, 3);
 
                 // ===== JUDUL =====
-                $sheet->mergeCells('A1:M1');
+                $sheet->mergeCells('A1:P1');
                 $sheet->setCellValue(
                     'A1',
                     'DATA PENDAFTAR PESERTA DIDIK SMK NUSANTARA 1 KOTA TANGERANG'
                 );
 
                 // ===== TANGGAL =====
-                $sheet->mergeCells('A2:M2');
+                $sheet->mergeCells('A2:P2');
                 $sheet->setCellValue(
                     'A2',
                     'Tanggal Unduh : ' . Carbon::now()->translatedFormat('d F Y')
@@ -119,7 +121,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
                 ]);
 
                 // ===== STYLE HEADING (BARIS 4) =====
-                $sheet->getStyle('A4:O4')->applyFromArray([
+                $sheet->getStyle('A4:P4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                     ],

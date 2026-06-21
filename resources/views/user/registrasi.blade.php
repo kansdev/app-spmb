@@ -204,9 +204,7 @@
                         <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     </button>
                 </form>
-
             </div>
-
         </div>
 
         <div id="loadingOverlay"
