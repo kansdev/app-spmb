@@ -57,7 +57,7 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
             'Status Registrasi'
         ];
 
-        \Log::info($headings);
+        Log::info($headings);
 
         return $headings;
     }
