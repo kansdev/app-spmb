@@ -41,7 +41,6 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
     public function headings(): array {
         $headings = [
             'Nomor Registrasi',
-            'NISN',
             'Nama',
             'Nomor Telepon',
             'Agama',
@@ -66,7 +65,6 @@ class PendaftarExport implements FromQuery, WithHeadings, WithMapping,  ShouldAu
     public function map($user): array {
         return [
             optional($user->registrasi)->nomor_pendaftaran,
-            optional($user->siswa)->nisn,
             optional($user->registrasi)->nama_siswa,
             optional($user)->phone,
             optional($user->siswa)->agama,
