@@ -45,6 +45,8 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         @media print {
             * {
@@ -289,7 +291,7 @@
         function openPrintWindow(url) {
             const printWindow = window.open(url, '_blank');
         }
-    </script>   
+    </script>
 
     <script>
         let timeoutHandle;
@@ -329,7 +331,16 @@
         }
         </script>
 
-
+        <script>
+            function notif() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Pendaftaran Tutup Sementara",
+                    text: "Mohon maaf saat ini pendaftaran telah ditutup untuk sementara waktu. Jika anda sudah melengkapi seluruh data mohon menunggu informasi selanjutnya mengenai jadwal test dan wawancara. Jika anda sudah melakukan tes dan wawancara harap menunggu pengumuman di akun anda.",
+                    confirmButtonText: "Tutup Notifikasi"
+                });
+            }
+        </script>
 </body>
 
 </html>

@@ -105,7 +105,7 @@
                 <div class="status-line"></div>
 
                 <div class="status-step">
-                    <a href="{{ route('formulir_siswa') }}">
+                    <a href="javascript::void(0)" onclick="notif()">
                         <div class="circle {{ $user->siswa ? 'success' : 'danger' }}"><i class="fas fa-child"></i></div>
                         <span>Siswa</span>
                     </a>
@@ -114,7 +114,7 @@
                 <div class="status-line"></div>
 
                 <div class="status-step">
-                    <a href="{{ route('formulir_orang_tua') }}">
+                    <a href="javascript:void(0)" onclick="notif()">
                         <div class="circle {{ $user->orang_tua ? 'success' : 'danger' }}"><i class="fas fa-users"></i></div>
                         <span>Orang Tua</span>
                     </a>
@@ -123,7 +123,7 @@
                 <div class="status-line"></div>
 
                 <div class="status-step">
-                    <a href="{{ route('formulir_periodik') }}">
+                    <a href="javascript:void(0)" onclick="notif()">
                         <div class="circle {{ $user->periodik ? 'success' : 'danger' }}"><i class="fas fa-list"></i></div>
                         <span>Periodik</span>
                     </a>
@@ -132,7 +132,7 @@
                 <div class="status-line"></div>
 
                 <div class="status-step">
-                    <a href="{{ route('formulir_nilai_raport') }}">
+                    <a href="javascript:void(0)" onclick="notif()">
                         <div class="circle {{ $user->nilai_raport ? 'success' : 'danger' }}"><i class="fas fa-file-alt"></i></div>
                         <span>Raport</span>
                     </a>
@@ -141,7 +141,7 @@
                 <div class="status-line"></div>
 
                 <div class="status-step">
-                    <a href="{{ route('upload_berkas') }}">
+                    <a href="javascript:void(0)" onclick="notif()">
                         <div class="circle {{ $allUploaded ? 'success' : 'danger' }}"><i class="fas fa-upload"></i></div>
                         <span>Berkas</span>
                     </a>

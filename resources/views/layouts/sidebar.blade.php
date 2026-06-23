@@ -35,7 +35,7 @@
                     'formulir_nilai_raport'
                 );
             @endphp
-            <li class="menu-item {{ $formulirActive ? 'active open' : '' }}">
+            {{-- <li class="menu-item {{ $formulirActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons fa-solid fa-table-columns"></i>
                     <div data-i18n="Layouts">Formulir</div>
@@ -64,6 +64,7 @@
                     </li>
                 </ul>
             </li>
+
             <li class="menu-item {{ request()->routeIs('upload_berkas') ? 'active' : '' }}">
                 <a href="{{ route('upload_berkas') }}" class="menu-link">
                     <i class="menu-icon tf-icons fa-solid fa-upload"></i>
@@ -78,15 +79,59 @@
                 </a>
             </li>
 
-            {{-- <li class="menu-item">
-                <a href="{{ route('id_card') }}" class="menu-link">
-                    <i class="menu-icon tf-icons fa-solid fa-id-card"></i>
-                    <div data-i18n="Account Settings">ID Card</div>
+            <li class="menu-item {{ request()->routeIs('akun') ? 'active' : '' }}">
+                <a href="{{ route('akun') }}" class="menu-link">
+                    <i class="menu-icon tf-icons fa-solid fa-user"></i>
+                    <div data-i18n="Analytics">Profile</div>
                 </a>
             </li> --}}
 
+            <li class="menu-item {{ $formulirActive ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons fa-solid fa-table-columns"></i>
+                    <div data-i18n="Layouts">Formulir</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('formulir_siswa') ? 'active' : '' }}">
+                        <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                            <div data-i18n="Without menu">Data Siswa</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('formulir_orang_tua') ? 'active' : '' }}">
+                        <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                            <div data-i18n="Without navbar">Data Orang Tua</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('formulir_periodik') ? 'active' : '' }}">
+                        <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                            <div data-i18n="Without navbar">Data Periodik</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('formulir_nilai_raport') ? 'active' : '' }}">
+                        <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                            <div data-i18n="Without navbar">Data Raport</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item {{ request()->routeIs('upload_berkas') ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                    <i class="menu-icon tf-icons fa-solid fa-upload"></i>
+                    <div data-i18n="Account Settings">Upload Berkas</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ request()->routeIs('formulir_registrasi') ? 'active' : '' }}">
+                <a href="javascript:void(0)" class="menu-link" onclick="notif()">
+                    <i class="menu-icon tf-icons fa-solid fa-file"></i>
+                    <div data-i18n="Account Settings">Registrasi</div>
+                </a>
+            </li>
+
             <li class="menu-item {{ request()->routeIs('akun') ? 'active' : '' }}">
-                <a href="{{ route('akun') }}" class="menu-link">
+                <a href="javascript:void(0)" class="menu-link" onclick="notif()">
                     <i class="menu-icon tf-icons fa-solid fa-user"></i>
                     <div data-i18n="Analytics">Profile</div>
                 </a>
