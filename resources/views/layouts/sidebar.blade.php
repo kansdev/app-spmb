@@ -123,15 +123,8 @@
                 </a>
             </li>
 
-            {{-- <li class="menu-item {{ request()->routeIs('formulir_registrasi') ? 'active' : '' }}">
-                <a href="javascript:void(0)" class="menu-link" onclick="notif()">
-                    <i class="menu-icon tf-icons fa-solid fa-file"></i>
-                    <div data-i18n="Account Settings">Registrasi</div>
-                </a>
-            </li> --}}
-
             <li class="menu-item {{ request()->routeIs('formulir_registrasi') ? 'active' : '' }}">
-                <a href="{{ route('formulir_registrasi') }}" class="menu-link">
+                <a href="javascript:void(0)" class="menu-link" onclick="notif()">
                     <i class="menu-icon tf-icons fa-solid fa-file"></i>
                     <div data-i18n="Account Settings">Registrasi</div>
                 </a>
